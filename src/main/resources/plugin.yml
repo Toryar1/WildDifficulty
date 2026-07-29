@@ -1,0 +1,24 @@
+name: WildDifficulty
+version: '${project.version}'
+main: fr.wilddifficulty.WildDifficultyPlugin
+api-version: '1.21'
+description: Plugin de scaling de difficulté pour mobs vanilla selon biome, distance et zones.
+authors: [WildDifficulty]
+website: ''
+
+commands:
+  wd:
+    description: Ouvre le panel GUI de WildDifficulty et gère toutes les commandes
+    usage: /wd [gui|reload|zone|killall|spawn|spawnsquad|biome_tool]
+    permission: wilddifficulty.admin
+
+permissions:
+  wilddifficulty.admin:
+    description: Accès complet aux commandes d'administration WildDifficulty.
+    default: op
+  wilddifficulty.player.settings:
+    description: Permet d'accéder à la commande /wd settings pour ajuster sa propre difficulté.
+    default: true
+  wilddifficulty.zone.manage:
+    description: Permet de gérer la zone à laquelle le joueur est désigné gestionnaire (Niv. 3).
+    default: true

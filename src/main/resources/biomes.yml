@@ -1,0 +1,172 @@
+# ============================================================
+#  WildDifficulty — biomes.yml
+#  Règles de difficulté par biome
+# ============================================================
+#
+#  Format général d'un biome :
+#
+#  NOM_DU_BIOME:                        # Clé = nom enum Bukkit du biome (ex: DESERT, JUNGLE...)
+#    mobs-autorises:                    # (optionnel) Seuls ces mobs peuvent spawner dans ce biome
+#      - ZOMBIE
+#    mobs-interdits:                    # (optionnel) Ces mobs ne peuvent PAS spawner dans ce biome
+#      - SPIDER
+#    modificateurs:                     # (optionnel) Multiplicateurs appliqués aux mobs spawnant ici
+#      multiplicateur-pv: 1.0
+#      multiplicateur-degats: 1.0
+#      multiplicateur-vitesse: 1.0
+#      multiplicateur-portee-detection: 1.0
+#      multiplicateur-resistance-knockback: 1.0
+#      resistance-feu: false            # true = immunité au feu (effet potion permanent)
+#      tier-equipement: "none"          # none | leather | iron | diamond | netherite
+#      chance-equipement: 0.0           # 0.0 à 1.0
+#    mobs:                              # (optionnel) Surcharges spécifiques par type de mob dans ce biome
+#      ZOMBIE:
+#        multiplicateur-pv: 1.5
+#        multiplicateur-degats: 1.2
+#
+#  Biomes disponibles (non-exhaustif) :
+#  PLAINS, FOREST, DARK_FOREST, JUNGLE, DESERT, BADLANDS, SAVANNA,
+#  SWAMP, TAIGA, SNOWY_TAIGA, SNOWY_PLAINS, BEACH, OCEAN, DEEP_OCEAN,
+#  MUSHROOM_FIELDS, NETHER_WASTES, CRIMSON_FOREST, WARPED_FOREST,
+#  SOUL_SAND_VALLEY, BASALT_DELTAS, THE_END, SMALL_END_ISLANDS, etc.
+# ============================================================
+
+# ─── Biome : Désert ─────────────────────────────────────────
+DESERT:
+  # Seuls ces mobs peuvent spawner dans le désert
+  mobs-autorises:
+    - ZOMBIE
+    - HUSK
+    - SKELETON
+  # Ces mobs ne peuvent PAS spawner dans le désert
+  mobs-interdits:
+    - SPIDER
+  modificateurs:
+    multiplicateur-pv: 1.25
+    multiplicateur-degats: 1.15
+    multiplicateur-vitesse: 1.05
+    # Les mobs du désert sont résistants au feu
+    resistance-feu: true
+    tier-equipement: "iron"
+    chance-equipement: 0.3
+
+# ─── Biome : Forêt sombre ───────────────────────────────────
+DARK_FOREST:
+  mobs-autorises:
+    - ZOMBIE
+    - SKELETON
+    - CREEPER
+    - SPIDER
+    - WITCH
+  modificateurs:
+    multiplicateur-pv: 1.35
+    multiplicateur-degats: 1.20
+    multiplicateur-resistance-knockback: 1.15
+    multiplicateur-portee-detection: 1.10
+    tier-equipement: "leather"
+    chance-equipement: 0.4
+
+# ─── Biome : Jungle ─────────────────────────────────────────
+JUNGLE:
+  mobs-autorises:
+    - ZOMBIE
+    - SPIDER
+    - CREEPER
+    - SKELETON
+    - WITCH
+  modificateurs:
+    multiplicateur-pv: 1.20
+    multiplicateur-degats: 1.10
+    multiplicateur-vitesse: 1.15
+    multiplicateur-portee-detection: 1.05
+
+# ─── Biome : Plaines (comportement vanilla par défaut) ──────
+# PLAINS n'est pas défini : les règles vanilla s'appliquent
+
+# ─── Biome : Marais ─────────────────────────────────────────
+SWAMP:
+  mobs-autorises:
+    - ZOMBIE
+    - WITCH
+    - SLIME
+    - SPIDER
+  modificateurs:
+    multiplicateur-pv: 1.15
+    multiplicateur-degats: 1.10
+    multiplicateur-portee-detection: 1.20
+  # Surcharge par mob dans ce biome
+  mobs:
+    WITCH:
+      multiplicateur-pv: 1.50
+      multiplicateur-degats: 1.30
+
+# ─── Biome : Taïga (enneigée) ───────────────────────────────
+SNOWY_TAIGA:
+  modificateurs:
+    multiplicateur-pv: 1.30
+    multiplicateur-degats: 1.20
+    multiplicateur-vitesse: 1.10
+    tier-equipement: "leather"
+    chance-equipement: 0.35
+
+# ─── Biome : Nether (Wastes) ────────────────────────────────
+NETHER_WASTES:
+  modificateurs:
+    multiplicateur-pv: 1.50
+    multiplicateur-degats: 1.35
+    multiplicateur-vitesse: 1.10
+    resistance-feu: true
+    tier-equipement: "iron"
+    chance-equipement: 0.5
+
+# ─── Biome : Forêt cramoisie (Nether) ───────────────────────
+CRIMSON_FOREST:
+  modificateurs:
+    multiplicateur-pv: 1.60
+    multiplicateur-degats: 1.40
+    multiplicateur-vitesse: 1.15
+    resistance-feu: true
+    multiplicateur-portee-detection: 1.20
+    tier-equipement: "iron"
+    chance-equipement: 0.6
+
+# ─── Biome : Vallée des âmes (Nether) ───────────────────────
+SOUL_SAND_VALLEY:
+  modificateurs:
+    multiplicateur-pv: 1.45
+    multiplicateur-degats: 1.30
+    resistance-feu: true
+    multiplicateur-portee-detection: 1.30
+
+# ─── Biome : The End ────────────────────────────────────────
+THE_END:
+  modificateurs:
+    multiplicateur-pv: 2.0
+    multiplicateur-degats: 1.75
+    multiplicateur-vitesse: 1.20
+    multiplicateur-portee-detection: 1.50
+    tier-equipement: "diamond"
+    chance-equipement: 0.7
+
+# ─── Biome : Badlands ───────────────────────────────────────
+BADLANDS:
+  mobs-autorises:
+    - ZOMBIE
+    - HUSK
+    - SKELETON
+  modificateurs:
+    multiplicateur-pv: 1.30
+    multiplicateur-degats: 1.20
+    resistance-feu: true
+    tier-equipement: "iron"
+    chance-equipement: 0.4
+
+# ─── Biome : Océan profond ──────────────────────────────────
+DEEP_OCEAN:
+  mobs-autorises:
+    - DROWNED
+    - GUARDIAN
+  modificateurs:
+    multiplicateur-pv: 1.40
+    multiplicateur-degats: 1.25
+    multiplicateur-vitesse: 1.10
