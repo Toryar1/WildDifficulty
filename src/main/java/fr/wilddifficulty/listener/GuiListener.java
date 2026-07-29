@@ -175,13 +175,13 @@ public class GuiListener implements Listener {
                     }
                     if (slot == 11) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Distance de spawn max par rapport au joueur (-1 pour désactiver) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.distance_de_spawn_max_par"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     mainCfg.setMaxSpawnDistance(val);
                                     mainCfg.save();
-                                    player.sendMessage("§aDistance de spawn maximale définie.");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.distance_de_spawn_maximale_définie"));
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openGeneralConfig(player));
                             });
                             return;
@@ -198,13 +198,13 @@ public class GuiListener implements Listener {
                     }
                     if (slot == 12) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Cap maximum de variantes par joueur (ex: 50) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.cap_maximum_de_variantes_par"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     mainCfg.setCapVariantesParJoueur(val);
                                     mainCfg.save();
-                                    player.sendMessage("§aCap maximum de variantes défini.");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.cap_maximum_de_variantes_défini"));
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openGeneralConfig(player));
                             });
                             return;
@@ -234,10 +234,10 @@ public class GuiListener implements Listener {
                         return;
                     }
                     if (slot == 29) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez le format des nametags (placeholders: {nom}, {pv}, {pv_max}) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_format_des_nametags"), input -> {
                             mainCfg.setNametagFormat(input);
                             mainCfg.save();
-                            player.sendMessage("§aFormat des nametags mis à jour.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.format_des_nametags_mis_à"));
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openGeneralConfig(player));
                         });
                         return;
@@ -315,7 +315,7 @@ public class GuiListener implements Listener {
 
                     if (slot == 31) {
                         plugin.getSpawnerManager().removeSpawner(loc);
-                        player.sendMessage("§cSpawner supprimé.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.spawner_supprimé"));
                         player.closeInventory();
                         return;
                     }
@@ -325,13 +325,13 @@ public class GuiListener implements Listener {
                         plugin.getSpawnerManager().save();
                     } else if (slot == 11) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez l'intervalle de spawn (en secondes, ex: 15) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_lintervalle_de_spawn_en"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     spawner.setInterval(val);
                                     plugin.getSpawnerManager().save();
                                     player.sendMessage("§aIntervalle défini à " + val + " secondes.");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openSpawnerEditor(player, loc));
                             });
                             return;
@@ -341,13 +341,13 @@ public class GuiListener implements Listener {
                         plugin.getSpawnerManager().save();
                     } else if (slot == 12) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez le rayon de détection (en blocs, ex: 16) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_rayon_de_détection"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     spawner.setRadius(val);
                                     plugin.getSpawnerManager().save();
                                     player.sendMessage("§aRayon défini à " + val + " blocs.");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openSpawnerEditor(player, loc));
                             });
                             return;
@@ -357,13 +357,13 @@ public class GuiListener implements Listener {
                         plugin.getSpawnerManager().save();
                     } else if (slot == 13) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez la limite maximale de monstres proches (ex: 6) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_la_limite_maximale_de"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     spawner.setMaxNearby(val);
                                     plugin.getSpawnerManager().save();
                                     player.sendMessage("§aLimite définie à " + val + " monstres.");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openSpawnerEditor(player, loc));
                             });
                             return;
@@ -376,13 +376,13 @@ public class GuiListener implements Listener {
                         return;
                     } else if (slot == 20) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez la variation d'intervalle (en secondes, ex: 5) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_la_variation_dintervalle_en"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     spawner.setIntervalRange(Math.max(0, val));
                                     plugin.getSpawnerManager().save();
                                     player.sendMessage("§aVariation d'intervalle définie à " + val + " secondes.");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openSpawnerEditor(player, loc));
                             });
                             return;
@@ -392,13 +392,13 @@ public class GuiListener implements Listener {
                         plugin.getSpawnerManager().save();
                     } else if (slot == 21) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez le rayon de dispersion (en blocs, ex: 4) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_rayon_de_dispersion"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     spawner.setSpawnRange(Math.max(0, val));
                                     plugin.getSpawnerManager().save();
                                     player.sendMessage("§aRayon de dispersion défini à " + val + " blocs.");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openSpawnerEditor(player, loc));
                             });
                             return;
@@ -408,7 +408,7 @@ public class GuiListener implements Listener {
                         plugin.getSpawnerManager().save();
                     } else if (slot == 22) {
                         plugin.getSpawnerManager().getSpawnerClipboards().put(player.getUniqueId(), spawner.clone());
-                        player.sendMessage("§aConfiguration du spawner copiée !");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.configuration_du_spawner_copiée"));
                     } else if (slot == 23) {
                         fr.wilddifficulty.spawner.CustomSpawner clipboard = plugin.getSpawnerManager().getSpawnerClipboards().get(player.getUniqueId());
                         if (clipboard != null) {
@@ -422,7 +422,7 @@ public class GuiListener implements Listener {
                             spawner.setSoundType(clipboard.getSoundType());
                             spawner.setVariantWeights(new java.util.HashMap<>(clipboard.getVariantWeights()));
                             plugin.getSpawnerManager().save();
-                            player.sendMessage("§aConfiguration du spawner collée !");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.configuration_du_spawner_collée"));
                         }
                     } else if (slot == 24) {
                         String current = spawner.getParticleType();
@@ -467,13 +467,13 @@ public class GuiListener implements Listener {
                         boolean active = spawner.getVariantWeights().containsKey(var.getId());
 
                         if (event.getClick() == ClickType.MIDDLE && active) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez le poids précis de spawn pour " + var.getId() + " (ex: 5) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_poids_précis_de") + var.getId() + " (ex: 5) :", input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     spawner.getVariantWeights().put(var.getId(), Math.max(1, val));
                                     plugin.getSpawnerManager().save();
-                                    player.sendMessage("§aPoids défini.");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.poids_défini"));
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openSpawnerVariantsEditor(player, loc));
                             });
                             return;
@@ -514,13 +514,13 @@ public class GuiListener implements Listener {
                     }
                     if (slot == 11) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Chance Lune de Sang (0.0 à 1.0, ex: 0.15 pour 15%) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.chance_lune_de_sang_00"), input -> {
                                 try {
                                     double val = Double.parseDouble(input);
                                     mainCfg.setBloodMoonChance(val);
                                     mainCfg.save();
                                     player.sendMessage("§aChance définie à " + String.format("%.0f%%", val * 100));
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                             });
                             return;
@@ -532,13 +532,13 @@ public class GuiListener implements Listener {
                     }
                     else if (slot == 12) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Multiplicateur PV Lune de Sang (ex: 2.0) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.multiplicateur_pv_lune_de_sang"), input -> {
                                 try {
                                     double val = Double.parseDouble(input);
                                     mainCfg.setBloodMoonHpMultiplier(val);
                                     mainCfg.save();
                                     player.sendMessage("§aMultiplicateur PV défini à " + val + "x");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                             });
                             return;
@@ -550,13 +550,13 @@ public class GuiListener implements Listener {
                     }
                     else if (slot == 13) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Multiplicateur Dégâts Lune de Sang (ex: 2.0) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.multiplicateur_dégâts_lune_de_sang"), input -> {
                                 try {
                                     double val = Double.parseDouble(input);
                                     mainCfg.setBloodMoonDamageMultiplier(val);
                                     mainCfg.save();
                                     player.sendMessage("§aMultiplicateur Dégâts défini à " + val + "x");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                             });
                             return;
@@ -568,13 +568,13 @@ public class GuiListener implements Listener {
                     }
                     else if (slot == 14) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Multiplicateur Vitesse Lune de Sang (ex: 1.5) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.multiplicateur_vitesse_lune_de_sang"), input -> {
                                 try {
                                     double val = Double.parseDouble(input);
                                     mainCfg.setBloodMoonSpeedMultiplier(val);
                                     mainCfg.save();
                                     player.sendMessage("§aMultiplicateur Vitesse défini à " + val + "x");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                             });
                             return;
@@ -586,13 +586,13 @@ public class GuiListener implements Listener {
                     }
                     else if (slot == 15) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Multiplicateur Drops Lune de Sang (ex: 3.0) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.multiplicateur_drops_lune_de_sang"), input -> {
                                 try {
                                     double val = Double.parseDouble(input);
                                     mainCfg.setBloodMoonDropsMultiplier(val);
                                     mainCfg.save();
                                     player.sendMessage("§aMultiplicateur Drops défini à " + val + "x");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                             });
                             return;
@@ -604,13 +604,13 @@ public class GuiListener implements Listener {
                     }
                     else if (slot == 16) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Multiplicateur Spawn Lune de Sang (ex: 1.5) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.multiplicateur_spawn_lune_de_sang"), input -> {
                                 try {
                                     double val = Double.parseDouble(input);
                                     mainCfg.setBloodMoonSpawnMultiplier(val);
                                     mainCfg.save();
                                     player.sendMessage("§aMultiplicateur Spawn défini à " + val + "x");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                             });
                             return;
@@ -620,69 +620,69 @@ public class GuiListener implements Listener {
                         mainCfg.save();
                         gui.openBloodMoonEditor(player);
                     } else if (slot == 18) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez le message de début (ex: &cLe cauchemar commence...) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_message_de_début"), input -> {
                             mainCfg.setBloodMoonStartMessage(input);
                             mainCfg.save();
-                            player.sendMessage("§aMessage de début défini.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.message_de_début_défini"));
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                         });
                     } else if (slot == 19) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez le message de fin (ex: &aLe soleil se lève...) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_message_de_fin"), input -> {
                             mainCfg.setBloodMoonEndMessage(input);
                             mainCfg.save();
-                            player.sendMessage("§aMessage de fin défini.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.message_de_fin_défini"));
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                         });
                     } else if (slot == 20) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez le type de son de début (ex: ENTITY_WITHER_SPAWN) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_type_de_son"), input -> {
                             try {
                                 org.bukkit.Sound.valueOf(input.toUpperCase().trim());
                                 mainCfg.setBloodMoonStartSound(input.toUpperCase().trim());
                                 mainCfg.save();
-                                player.sendMessage("§aSon de début défini.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.son_de_début_défini"));
                             } catch (Exception e) {
-                                player.sendMessage("§cType de son invalide. Utilisez un nom de son Minecraft vanilla.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.type_de_son_invalide_utilisez"));
                             }
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                         });
                     } else if (slot == 21) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez le type de son de fin (ex: ENTITY_PLAYER_LEVELUP) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_type_de_son_1"), input -> {
                             try {
                                 org.bukkit.Sound.valueOf(input.toUpperCase().trim());
                                 mainCfg.setBloodMoonEndSound(input.toUpperCase().trim());
                                 mainCfg.save();
-                                player.sendMessage("§aSon de fin défini.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.son_de_fin_défini"));
                             } catch (Exception e) {
-                                player.sendMessage("§cType de son invalide. Utilisez un nom de son Minecraft vanilla.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.type_de_son_invalide_utilisez"));
                             }
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                         });
                     } else if (slot == 22) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez la particule de début (ex: FLASH) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_la_particule_de_début"), input -> {
                             try {
                                 org.bukkit.Particle.valueOf(input.toUpperCase().trim());
                                 mainCfg.setBloodMoonStartParticle(input.toUpperCase().trim());
                                 mainCfg.save();
-                                player.sendMessage("§aParticule de début définie.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.particule_de_début_définie"));
                             } catch (Exception e) {
-                                player.sendMessage("§cType de particule invalide.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.type_de_particule_invalide"));
                             }
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                         });
                     } else if (slot == 23) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez la particule de fin (ex: HAPPY_VILLAGER) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_la_particule_de_fin"), input -> {
                             try {
                                 org.bukkit.Particle.valueOf(input.toUpperCase().trim());
                                 mainCfg.setBloodMoonEndParticle(input.toUpperCase().trim());
                                 mainCfg.save();
-                                player.sendMessage("§aParticule de fin définie.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.particule_de_fin_définie"));
                             } catch (Exception e) {
-                                player.sendMessage("§cType de particule invalide.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.type_de_particule_invalide"));
                             }
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                         });
                     } else if (slot == 24) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez les potions de début (ex: DARKNESS:100:0) séparées par des virgules :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_les_potions_de_début"), input -> {
                             java.util.List<String> list = new java.util.ArrayList<>();
                             for (String part : input.split(",")) {
                                 String clean = part.trim();
@@ -690,11 +690,11 @@ public class GuiListener implements Listener {
                             }
                             mainCfg.setBloodMoonStartPotions(list);
                             mainCfg.save();
-                            player.sendMessage("§aEffets de potion de début définis.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.effets_de_potion_de_début"));
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                         });
                     } else if (slot == 25) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez les potions de fin (ex: SPEED:100:0) séparées par des virgules :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_les_potions_de_fin"), input -> {
                             java.util.List<String> list = new java.util.ArrayList<>();
                             for (String part : input.split(",")) {
                                 String clean = part.trim();
@@ -702,7 +702,7 @@ public class GuiListener implements Listener {
                             }
                             mainCfg.setBloodMoonEndPotions(list);
                             mainCfg.save();
-                            player.sendMessage("§aEffets de potion de fin définis.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.effets_de_potion_de_fin"));
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openBloodMoonEditor(player));
                         });
                     } else if (slot == 31) {
@@ -733,16 +733,16 @@ public class GuiListener implements Listener {
                                         } catch (Exception ignored) {}
                                     }
                                 }
-                                player.sendMessage("§a[WD] Lune de Sang activée immédiatement car il fait nuit !");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.wd_lune_de_sang_activée"));
                             } else {
-                                player.sendMessage("§cLa Lune de Sang est déjà active !");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.la_lune_de_sang_est"));
                             }
                         } else {
                             world.setMetadata("wd_bloodmoon_forced", new org.bukkit.metadata.FixedMetadataValue(plugin, true));
                             if (world.hasMetadata("wd_bloodmoon_rolled")) {
                                 world.removeMetadata("wd_bloodmoon_rolled", plugin);
                             }
-                            player.sendMessage("§a[WD] Lune de Sang planifiée pour la prochaine nuit !");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.wd_lune_de_sang_planifiée"));
                         }
                         gui.openBloodMoonEditor(player);
                     } else if (slot == 49 || slot == 53) {
@@ -816,7 +816,7 @@ public class GuiListener implements Listener {
                             if (baseContext.equals("CREATE_FLOW")) {
                                 // Creation Flow: Ask ID in chat
                                 final String finalBaseContext = baseContext;
-                                ChatPromptUtil.prompt(plugin, player, "Entrez l'identifiant (ID) unique pour cette variante de " + type.name() + " (ex: zombie_geant) :", input -> {
+                                ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_lidentifiant_id_unique_pour") + type.name() + " (ex: zombie_geant) :", input -> {
                                     String id = input.toLowerCase().replace(" ", "_");
                                     if (varManager.getVariant(id) == null) {
                                         MobVariant var = new MobVariant(id, type, null, 10, false, new StatModifiers());
@@ -825,7 +825,7 @@ public class GuiListener implements Listener {
                                         player.sendMessage("§aVariante " + id + " créée !");
                                         plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantEditor(player, id));
                                     } else {
-                                        player.sendMessage("§cCette variante existe déjà.");
+                                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.cette_variante_existe_déjà"));
                                         plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantList(player));
                                     }
                                 });
@@ -840,7 +840,7 @@ public class GuiListener implements Listener {
                                 }
                             }
                         } catch (Exception e) {
-                            player.sendMessage("§cType d'entité invalide.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.type_dentité_invalide"));
                             gui.openVariantList(player);
                         }
                     }
@@ -851,12 +851,12 @@ public class GuiListener implements Listener {
                     if (slot == 31) {
                         varManager.removeVariant(contextId);
                         varManager.save();
-                        player.sendMessage("§cVariante supprimée.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.variante_supprimée"));
                         gui.openVariantList(player);
                         return;
                     }
                     if (slot == 32) {
-                        ChatPromptUtil.prompt(plugin, player, "Entrez le nouvel ID unique de la copie (ex: zombie_copie) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_le_nouvel_id_unique"), input -> {
                             String newId = input.toLowerCase().replace(" ", "_");
                             if (varManager.getVariant(newId) == null) {
                                 MobVariant clone = varManager.cloneVariant(var, newId);
@@ -865,7 +865,7 @@ public class GuiListener implements Listener {
                                 player.sendMessage("§aVariante clonée avec succès sous l'ID " + newId + " !");
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantEditor(player, newId));
                             } else {
-                                player.sendMessage("§cUne variante existe déjà avec cet ID.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.une_variante_existe_déjà_avec"));
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantEditor(player, contextId));
                             }
                         });
@@ -874,12 +874,12 @@ public class GuiListener implements Listener {
                     if (slot == 10) {
                         gui.openEntityTypeSelection(player, contextId);
                     } else if (slot == 11) {
-                        ChatPromptUtil.prompt(plugin, player, "Entrez le nouveau poids (ex: 15) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_le_nouveau_poids_ex"), input -> {
                             try {
                                 var.setWeight(Integer.parseInt(input));
                                 varManager.save();
-                                player.sendMessage("§aPoids modifié.");
-                            } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.poids_modifié"));
+                            } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantEditor(player, contextId));
                         });
                     } else if (slot == 12) {
@@ -889,13 +889,13 @@ public class GuiListener implements Listener {
                         gui.openVariantEditor(player, contextId);
                     } else if (slot == 13) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez la quantité d'XP donnée à la mort (ex: 20, ou -1 pour vanilla) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_la_quantité_dxp_donnée"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     var.setXpOnDeath(val);
                                     varManager.save();
                                     player.sendMessage("§a[WD] XP donnée à la mort définie sur : " + (val < 0 ? "Vanilla" : val + " XP"));
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantEditor(player, contextId));
                             });
                             return;
@@ -955,12 +955,12 @@ public class GuiListener implements Listener {
                         if (mods.getPassiveRegen() > 0) {
                             mods.setPassiveRegen(0.0);
                         } else {
-                            ChatPromptUtil.prompt(plugin, player, "Entrez les HP par seconde à régénérer (ex: 1.0) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_les_hp_par_seconde"), input -> {
                                 try {
                                     mods.setPassiveRegen(Double.parseDouble(input));
                                     varManager.save();
-                                    player.sendMessage("§aRégénération modifiée.");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.régénération_modifiée"));
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantBehaviors(player, contextId));
                             });
                             return;
@@ -985,13 +985,13 @@ public class GuiListener implements Listener {
                     }
                     else if (slot == 19) {
                         if (event.getClick() == org.bukkit.event.inventory.ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez le seuil de PV pour fuir (en %, ex: 25) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_seuil_de_pv"), input -> {
                                 try {
                                     double val = Double.parseDouble(input) / 100.0;
                                     mods.setFleeUnderHealth(Math.max(0.0, Math.min(1.0, val)));
                                     varManager.save();
                                     player.sendMessage("§aSeuil de fuite défini à " + input + "%");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantBehaviors(player, contextId));
                             });
                             return;
@@ -1007,7 +1007,7 @@ public class GuiListener implements Listener {
                             mods.setDeathSpawnVariant("none");
                             mods.setDeathSpawnAmount(0);
                             varManager.save();
-                            player.sendMessage("§aSpawns de renfort à la mort réinitialisés.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.spawns_de_renfort_à_la"));
                             gui.openVariantBehaviors(player, contextId);
                             return;
                         }
@@ -1024,13 +1024,13 @@ public class GuiListener implements Listener {
                     }
                     else if (slot == 23) {
                         if (event.getClick() == org.bukkit.event.inventory.ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez le nombre max d'utilisations de téléportation (-1 pour infini) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_nombre_max_dutilisations"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     mods.setTeleportMaxUses(val);
                                     varManager.save();
                                     player.sendMessage("§aTéléportations max définies à " + val);
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantBehaviors(player, contextId));
                             });
                             return;
@@ -1043,13 +1043,13 @@ public class GuiListener implements Listener {
                     }
                     else if (slot == 24) {
                         if (event.getClick() == org.bukkit.event.inventory.ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez le nombre max d'utilisations de charge/dash (-1 pour infini) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_nombre_max_dutilisations_1"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     mods.setDashMaxUses(val);
                                     varManager.save();
                                     player.sendMessage("§aCharges max définies à " + val);
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantBehaviors(player, contextId));
                             });
                             return;
@@ -1071,7 +1071,7 @@ public class GuiListener implements Listener {
                             mods.setOnHitPotionAmplifier(0);
                             mods.setOnHitPotionDuration(100);
                             varManager.save();
-                            player.sendMessage("§aEffet on-hit réinitialisé.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.effet_onhit_réinitialisé"));
                             gui.openVariantBehaviors(player, contextId);
                             return;
                         }
@@ -1110,11 +1110,11 @@ public class GuiListener implements Listener {
                     StatModifiers mods = var.getModifiers();
 
                     if (slot == 10) {
-                        ChatPromptUtil.prompt(plugin, player, "Entrez le nouveau nom d'affichage coloré (ex: &cZombie Muté) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_le_nouveau_nom_daffichage"), input -> {
                             var.setDisplayName(input.trim());
                             varManager.save();
                             plugin.updateVisualizedMobs(contextId);
-                            player.sendMessage("§aNom d'affichage modifié.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nom_daffichage_modifié"));
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantAesthetics(player, contextId));
                         });
                         return;
@@ -1182,7 +1182,7 @@ public class GuiListener implements Listener {
                         mods.setEntitySubtype("none");
                         varManager.save();
                         plugin.updateVisualizedMobs(contextId);
-                        player.sendMessage("§8[§6WildDifficulty§8] §aSkin/Variante réinitialisé par défaut.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.wilddifficulty_skinvariante_réinitialisé_par_défaut"));
                         gui.openMobSkinSelector(player, contextId);
                         return;
                     }
@@ -1210,11 +1210,11 @@ public class GuiListener implements Listener {
                         mods.setSkullSkin("none");
                         varManager.save();
                         plugin.updateVisualizedMobs(contextId);
-                        player.sendMessage("§aSkin de tête retiré.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.skin_de_tête_retiré"));
                         gui.openVariantAesthetics(player, contextId);
                         return;
                     } else if (slot == 20) {
-                        ChatPromptUtil.prompt(plugin, player, "Entrez le pseudo du joueur pour récupérer son skin de tête (ex: Arthur) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_le_pseudo_du_joueur"), input -> {
                             mods.setSkullSkin(input.trim());
                             varManager.save();
                             plugin.updateVisualizedMobs(contextId);
@@ -1223,11 +1223,11 @@ public class GuiListener implements Listener {
                         });
                         return;
                     } else if (slot == 21) {
-                        ChatPromptUtil.prompt(plugin, player, "Entrez le lien URL minecraft.net ou la valeur Base64 du skin de tête :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_le_lien_url_minecraftnet"), input -> {
                             mods.setSkullSkin(input.trim());
                             varManager.save();
                             plugin.updateVisualizedMobs(contextId);
-                            player.sendMessage("§aSkin défini sur la texture personnalisée.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.skin_défini_sur_la_texture"));
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantAesthetics(player, contextId));
                         });
                         return;
@@ -1261,7 +1261,7 @@ public class GuiListener implements Listener {
                                     player.sendMessage("§a[WD] Tête \"" + nameVal + "\" enregistrée et appliquée avec succès !");
                                     player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                                 } else {
-                                    player.sendMessage("§c[WD] Impossible de lire la texture de cette tête.");
+                                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.wd_impossible_de_lire_la"));
                                 }
                             }
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openSkinHeadBank(player, contextId));
@@ -1473,23 +1473,23 @@ public class GuiListener implements Listener {
                     MobVariant var = varManager.getVariant(contextId);
                     if (var == null) return;
                     if (slot == 49) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez le seuil de vie (en %, ex: 50 pour afficher ce nom si la vie du mob est en dessous de 50%) :", input1 -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_seuil_de_vie"), input1 -> {
                             try {
                                 double percent = Double.parseDouble(input1);
                                 if (percent < 0 || percent > 100) {
-                                    player.sendMessage("§cLe pourcentage doit être entre 0 et 100.");
+                                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.le_pourcentage_doit_être_entre"));
                                     plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantConditionalNames(player, contextId));
                                     return;
                                 }
                                 double threshold = percent / 100.0;
-                                ChatPromptUtil.prompt(plugin, player, "Entrez le nom d'affichage coloré (ex: &cEnragé) :", input2 -> {
+                                ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_le_nom_daffichage_coloré"), input2 -> {
                                     var.getConditionalNames().add(new MobVariant.ConditionalName(threshold, input2));
                                     varManager.save();
-                                    player.sendMessage("§aNom conditionnel ajouté.");
+                                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nom_conditionnel_ajouté"));
                                     plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantConditionalNames(player, contextId));
                                 });
                             } catch (Exception e) {
-                                player.sendMessage("§cPourcentage invalide.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.pourcentage_invalide"));
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantConditionalNames(player, contextId));
                             }
                         });
@@ -1499,7 +1499,7 @@ public class GuiListener implements Listener {
                     if (slot < var.getConditionalNames().size()) {
                         var.getConditionalNames().remove(slot);
                         varManager.save();
-                        player.sendMessage("§cNom conditionnel supprimé.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nom_conditionnel_supprimé"));
                         gui.openVariantConditionalNames(player, contextId);
                     }
                 }
@@ -1547,14 +1547,14 @@ public class GuiListener implements Listener {
                         varManager.save();
                         gui.openVariantSpawnConditions(player, contextId);
                     } else if (slot == 13) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez l'ID numérique du Custom Model Data (0 pour désactiver, ex: 10450) :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_lid_numérique_du_custom"), input -> {
                             try {
                                 int val = Integer.parseInt(input);
                                 var.setCustomModelData(Math.max(0, val));
                                 varManager.save();
                                 plugin.updateVisualizedMobs(contextId);
                                 player.sendMessage("§aCustom Model Data défini à " + val);
-                            } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                            } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantSpawnConditions(player, contextId));
                         });
                         return;
@@ -1629,13 +1629,13 @@ public class GuiListener implements Listener {
                         String curB = gui.getBiomeKeyString(player.getLocation());
                         if (var.getAllowedBiomes().contains(curB)) {
                             var.getAllowedBiomes().remove(curB);
-                            player.sendMessage("§cBiome actuel retiré des biomes autorisés.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.biome_actuel_retiré_des_biomes"));
                         } else if (var.getAllowedBiomes().contains(curB.toUpperCase())) {
                             var.getAllowedBiomes().remove(curB.toUpperCase());
-                            player.sendMessage("§cBiome actuel retiré des biomes autorisés.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.biome_actuel_retiré_des_biomes"));
                         } else {
                             var.getAllowedBiomes().add(curB);
-                            player.sendMessage("§aBiome actuel ajouté aux biomes autorisés.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.biome_actuel_ajouté_aux_biomes"));
                         }
                         varManager.save();
                         gui.openVariantBiomesEditor(player, baseVarId, page, filter);
@@ -1680,7 +1680,7 @@ public class GuiListener implements Listener {
                     if (slot < var.getCustomDrops().size()) {
                         var.getCustomDrops().remove(slot);
                         varManager.save();
-                        player.sendMessage("§cDrop supprimé.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.drop_supprimé"));
                         gui.openVariantDrops(player, contextId);
                     }
                 }
@@ -1689,10 +1689,10 @@ public class GuiListener implements Listener {
                     if (var == null) return;
                     if (event.getCurrentItem().hasItemMeta() && event.getCurrentItem().getItemMeta().hasDisplayName()) {
                         String matName = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
-                        ChatPromptUtil.prompt(plugin, player, "Entrez la chance de loot (0.0 à 1.0, ex: 0.25) :", input1 -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_la_chance_de_loot"), input1 -> {
                             try {
                                 double chance = Double.parseDouble(input1);
-                                ChatPromptUtil.prompt(plugin, player, "Entrez la quantité minimale et maximale (ex: 1 3) :", input2 -> {
+                                ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_la_quantité_minimale_et"), input2 -> {
                                     try {
                                         String[] parts = input2.split(" ");
                                         int min = Integer.parseInt(parts[0]);
@@ -1700,12 +1700,12 @@ public class GuiListener implements Listener {
                                         
                                         var.getCustomDrops().add(new MobVariant.CustomDrop(matName, chance, min, max, 0, "none"));
                                         varManager.save();
-                                        player.sendMessage("§aLoot ajouté.");
-                                    } catch (Exception e) { player.sendMessage("§cQuantité invalide."); }
+                                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.loot_ajouté"));
+                                    } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.quantité_invalide")); }
                                     plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantDrops(player, contextId));
                                 });
                             } catch (Exception e) {
-                                player.sendMessage("§cChance invalide.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.chance_invalide"));
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantDrops(player, contextId));
                             }
                         });
@@ -1717,7 +1717,7 @@ public class GuiListener implements Listener {
                         return;
                     }
                     if (slot == 49) {
-                        ChatPromptUtil.prompt(plugin, player, "Entrez l'ID de la nouvelle escouade :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_lid_de_la_nouvelle"), input -> {
                             String id = input.toLowerCase().replace(" ", "_");
                             if (varManager.getSquad(id) == null) {
                                 MobSquad sq = new MobSquad(id, new ArrayList<>(), 0.1, new ArrayList<>(), new ArrayList<>(), new java.util.HashMap<>());
@@ -1725,7 +1725,7 @@ public class GuiListener implements Listener {
                                 varManager.save();
                                 player.sendMessage("§aEscouade " + id + " créée !");
                             } else {
-                                player.sendMessage("§cCette escouade existe déjà.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.cette_escouade_existe_déjà"));
                             }
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openSquadEditor(player, id));
                         });
@@ -1744,7 +1744,7 @@ public class GuiListener implements Listener {
                     if (slot == 22) {
                         varManager.removeSquad(contextId);
                         varManager.save();
-                        player.sendMessage("§cEscouade supprimée.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.escouade_supprimée"));
                         gui.openSquadList(player);
                         return;
                     }
@@ -1775,7 +1775,7 @@ public class GuiListener implements Listener {
                         if (range != null) {
                             if (event.getClick() == ClickType.MIDDLE) {
                                 sq.getMembers().remove(vId);
-                                player.sendMessage("§cMembre retiré.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.membre_retiré"));
                             } else {
                                 int min = range.getMin();
                                 int max = range.getMax();
@@ -1791,7 +1791,7 @@ public class GuiListener implements Listener {
                         } else {
                             // Ajouter comme membre
                             sq.getMembers().put(vId, new MobSquad.SquadMemberRange(1, 1));
-                            player.sendMessage("§aVariante ajoutée comme membre.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.variante_ajoutée_comme_membre"));
                         }
                         varManager.save();
                         gui.openSquadMembersEditor(player, contextId);
@@ -1813,7 +1813,7 @@ public class GuiListener implements Listener {
                 }
                 case "ZONE_LIST" -> {
                     if (slot == 49) {
-                        ChatPromptUtil.prompt(plugin, player, "Entrez l'ID de la nouvelle zone :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_lid_de_la_nouvelle_1"), input -> {
                             String id = input.toLowerCase().replace(" ", "_");
                             if (zoneManager.getZone(id) == null) {
                                 DifficultyZone zone = new DifficultyZone(id, DifficultyZone.ZoneType.CUBOID, player.getWorld().getName());
@@ -1821,7 +1821,7 @@ public class GuiListener implements Listener {
                                 zoneManager.save();
                                 player.sendMessage("§aZone " + id + " créée !");
                             } else {
-                                player.sendMessage("§cCette zone déjà existante.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.cette_zone_déjà_existante"));
                             }
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openZoneEditor(player, id));
                         });
@@ -1855,7 +1855,7 @@ public class GuiListener implements Listener {
                     if (slot == 31) {
                         zoneManager.removeZone(contextId);
                         zoneManager.save();
-                        player.sendMessage("§cZone supprimée.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.zone_supprimée"));
                         gui.openZoneList(player);
                         return;
                     }
@@ -1873,13 +1873,13 @@ public class GuiListener implements Listener {
                         Location loc = player.getLocation();
                         zone.setMinMax(loc.getX(), loc.getY(), loc.getZ(), zone.getMaxX(), zone.getMaxY(), zone.getMaxZ());
                         zoneManager.save();
-                        player.sendMessage("§aPosition 1 définie.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.position_1_définie"));
                         gui.openZoneEditor(player, contextId);
                     } else if (slot == 15) {
                         Location loc = player.getLocation();
                         zone.setMinMax(zone.getMinX(), zone.getMinY(), zone.getMinZ(), loc.getX(), loc.getY(), loc.getZ());
                         zoneManager.save();
-                        player.sendMessage("§aPosition 2 définie.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.position_2_définie"));
                         gui.openZoneEditor(player, contextId);
                     } else if (slot == 16) {
                         Location tpLoc;
@@ -1899,7 +1899,7 @@ public class GuiListener implements Listener {
                             tpLoc = new Location(player.getWorld(), cx, cy, cz);
                         }
                         player.teleport(tpLoc);
-                        player.sendMessage("§aTéléporté à la zone.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.téléporté_à_la_zone"));
                         player.closeInventory();
                     } else if (slot == 17) {
                         zone.setMobsCanCross(!zone.isMobsCanCross());
@@ -1910,13 +1910,13 @@ public class GuiListener implements Listener {
                         gui.openZoneScalingEdit(player, zone);
                     } else if (slot == 19) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Saisissez la hauteur de particule par rapport au sol (ex: 0.15) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_la_hauteur_de_particule"), input -> {
                                 try {
                                     double val = Double.parseDouble(input);
                                     zone.setParticleHeightOffset(val);
                                     zoneManager.save();
                                     player.sendMessage("§aHauteur de particule définie à " + val);
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openZoneEditor(player, contextId));
                             });
                             return;
@@ -1950,7 +1950,7 @@ public class GuiListener implements Listener {
                         zone.setTeleportZ(loc.getZ());
                         zone.setHasCustomTeleport(true);
                         zoneManager.save();
-                        player.sendMessage("§aPoint de téléportation personnalisé défini à votre position actuelle.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.point_de_téléportation_personnalisé_défini"));
                         gui.openZoneEditor(player, contextId);
                     } else if (slot == 23) {
                         plugin.getEditingZoneId().put(player.getUniqueId(), zone.getId());
@@ -1978,14 +1978,14 @@ public class GuiListener implements Listener {
                         return;
                     }
                     if (slot == 0) {
-                        ChatPromptUtil.prompt(plugin, player, "Saisissez le pseudo du joueur à ajouter comme membre :", input -> {
+                        ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_pseudo_du_joueur"), input -> {
                             org.bukkit.OfflinePlayer target = Bukkit.getOfflinePlayer(input.trim());
                             if (target != null && target.getUniqueId() != null) {
                                 zone.addMember(new fr.wilddifficulty.zone.ZoneMember(target.getUniqueId(), input.trim(), 1));
                                 zoneManager.save();
                                 player.sendMessage("§aMembre " + input.trim() + " ajouté avec succès (Niv. 1) !");
                             } else {
-                                player.sendMessage("§cJoueur introuvable.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.joueur_introuvable"));
                             }
                             plugin.getServer().getScheduler().runTask(plugin, () -> gui.openZoneMembersConfig(player, contextId));
                         });
@@ -2081,9 +2081,9 @@ public class GuiListener implements Listener {
                             zone.addSubSection(sec);
                             zoneManager.clearPendingZone(player.getUniqueId());
                             zoneManager.save();
-                            player.sendMessage("§aSous-section ajoutée et fusionnée avec la zone !");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.soussection_ajoutée_et_fusionnée_avec"));
                         } else {
-                            player.sendMessage("§cAucune sélection valide avec la houe en cours. Utilisez la houe pour sélectionner la sous-section !");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.aucune_sélection_valide_avec_la"));
                         }
                         gui.openZoneSubsectionsConfig(player, contextId);
                         return;
@@ -2149,13 +2149,13 @@ public class GuiListener implements Listener {
                         gui.openThirstHardcoreAdminGui(player);
                     } else if (slot == 11) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Entrez le multiplicateur de dégradation de soif (ex: 1.0, 1.5, 0.5) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_le_multiplicateur_de_dégradation"), input -> {
                                 try {
                                     double val = Double.parseDouble(input);
                                     mainCfg.setThirstDrainMultiplier(val);
                                     mainCfg.save();
                                     player.sendMessage("§aMultiplicateur de dégradation de soif mis à jour : " + String.format("%.2fx", mainCfg.getThirstDrainMultiplier()));
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openThirstHardcoreAdminGui(player));
                             });
                             return;
@@ -2170,13 +2170,13 @@ public class GuiListener implements Listener {
                         gui.openThirstSourcesAdminGui(player);
                     } else if (slot == 14) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Durée de despawn du stuff de mort (en secondes, ex: 300) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.durée_de_despawn_du_stuff"), input -> {
                                 try {
                                     int val = Integer.parseInt(input);
                                     mainCfg.setDeathItemDespawnSeconds(val);
                                     mainCfg.save();
-                                    player.sendMessage("§aTemps de despawn mis à jour.");
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.temps_de_despawn_mis_à"));
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openThirstHardcoreAdminGui(player));
                             });
                             return;
@@ -2187,13 +2187,13 @@ public class GuiListener implements Listener {
                         gui.openThirstHardcoreAdminGui(player);
                     } else if (slot == 15) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Multiplicateur de déshydratation par chaleur (ex: 1.0, 1.5, 0.5) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.multiplicateur_de_déshydratation_par_chaleur"), input -> {
                                 try {
                                     double val = Double.parseDouble(input);
                                     mainCfg.setThirstHeatDrainMultiplier(val);
                                     mainCfg.save();
                                     player.sendMessage("§aMultiplicateur de chaleur mis à jour : " + String.format("%.2fx", mainCfg.getThirstHeatDrainMultiplier()));
-                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openThirstHardcoreAdminGui(player));
                             });
                             return;
@@ -2304,12 +2304,12 @@ public class GuiListener implements Listener {
                     // Slot 4 = Cap global
                     if (slot == 4) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Cap max multiplicateur (ex: 3.0) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.cap_max_multiplicateur_ex_30"), input -> {
                                 try {
                                     double v = Double.parseDouble(input);
                                     zone.setExtMaxMult(Math.max(1.0, v));
                                     zoneManager.save();
-                                } catch (Exception ignored) { player.sendMessage("§cNombre invalide."); }
+                                } catch (Exception ignored) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openZoneScalingEdit(player, zone));
                             });
                             return;
@@ -2324,13 +2324,13 @@ public class GuiListener implements Listener {
                     // Slot 10 = PV bonus
                     if (slot == 10) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "PV — Pas en blocs (ex: 50) puis bonus % (ex: 0.20) séparés par espace :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.pv_pas_en_blocs_ex"), input -> {
                                 try {
                                     String[] parts = input.trim().split("\\s+");
                                     zone.setExtStepHp(Double.parseDouble(parts[0]));
                                     if (parts.length > 1) zone.setExtMultHp(Double.parseDouble(parts[1]));
                                     zoneManager.save();
-                                } catch (Exception ignored) { player.sendMessage("§cFormat invalide. Ex: 50 0.20"); }
+                                } catch (Exception ignored) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.format_invalide_ex_50_020")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openZoneScalingEdit(player, zone));
                             });
                             return;
@@ -2358,13 +2358,13 @@ public class GuiListener implements Listener {
                     // Slot 19 = Dégâts bonus
                     if (slot == 19) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Dégâts — Pas en blocs (ex: 75) puis bonus % (ex: 0.15) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.dégâts_pas_en_blocs_ex"), input -> {
                                 try {
                                     String[] parts = input.trim().split("\\s+");
                                     zone.setExtStepDmg(Double.parseDouble(parts[0]));
                                     if (parts.length > 1) zone.setExtMultDmg(Double.parseDouble(parts[1]));
                                     zoneManager.save();
-                                } catch (Exception ignored) { player.sendMessage("§cFormat invalide. Ex: 75 0.15"); }
+                                } catch (Exception ignored) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.format_invalide_ex_75_015")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openZoneScalingEdit(player, zone));
                             });
                             return;
@@ -2392,13 +2392,13 @@ public class GuiListener implements Listener {
                     // Slot 28 = Vitesse bonus
                     if (slot == 28) {
                         if (event.getClick() == ClickType.MIDDLE) {
-                            ChatPromptUtil.prompt(plugin, player, "Vitesse — Pas en blocs (ex: 100) puis bonus % (ex: 0.10) :", input -> {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.vitesse_pas_en_blocs_ex"), input -> {
                                 try {
                                     String[] parts = input.trim().split("\\s+");
                                     zone.setExtStepSpd(Double.parseDouble(parts[0]));
                                     if (parts.length > 1) zone.setExtMultSpd(Double.parseDouble(parts[1]));
                                     zoneManager.save();
-                                } catch (Exception ignored) { player.sendMessage("§cFormat invalide. Ex: 100 0.10"); }
+                                } catch (Exception ignored) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.format_invalide_ex_100_010")); }
                                 plugin.getServer().getScheduler().runTask(plugin, () -> gui.openZoneScalingEdit(player, zone));
                             });
                             return;
@@ -2516,7 +2516,7 @@ public class GuiListener implements Listener {
                                 var.getModifiers().setDeathSpawnVariant("none");
                                 var.getModifiers().setDeathSpawnAmount(0);
                                 varManager.save();
-                                player.sendMessage("§aSbire de renfort retiré.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.sbire_de_renfort_retiré"));
                                 gui.openVariantBehaviors(player, contextId);
                                 return;
                             }
@@ -2546,19 +2546,19 @@ public class GuiListener implements Listener {
                                 var.setCustomModelData(0);
                                 varManager.save();
                                 plugin.updateVisualizedMobs(contextId);
-                                player.sendMessage("§aCustom Model Data réinitialisé.");
+                                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.custom_model_data_réinitialisé"));
                                 gui.openVariantAesthetics(player, contextId);
                                 return;
                             }
                             if (slot == 18) {
-                                ChatPromptUtil.prompt(plugin, player, "Saisissez l'ID numérique du Custom Model Data (ex: 10450) :", input -> {
+                                ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_lid_numérique_du_custom_1"), input -> {
                                     try {
                                         int val = Integer.parseInt(input);
                                         var.setCustomModelData(Math.max(0, val));
                                         varManager.save();
                                         plugin.updateVisualizedMobs(contextId);
                                         player.sendMessage("§aCustom Model Data défini à " + val);
-                                    } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                    } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                                     plugin.getServer().getScheduler().runTask(plugin, () -> gui.openVariantAesthetics(player, contextId));
                                 });
                                 return;
@@ -2681,14 +2681,14 @@ public class GuiListener implements Listener {
 
     private void handleNumericScaleClick(Player player, InventoryClickEvent event, MobVariant var, boolean isVariance) {
         if (event.getClick() == ClickType.MIDDLE) {
-            ChatPromptUtil.prompt(plugin, player, "Entrez la valeur précise (ex: 1.5) :", input -> {
+            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_la_valeur_précise_ex"), input -> {
                 try {
                     double val = Double.parseDouble(input);
                     if (isVariance) var.setScaleVariance(Math.max(0.0, val));
                     else var.setScale(Math.max(0.1, val));
                     plugin.getVariantManager().save();
-                    player.sendMessage("§aValeur définie.");
-                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.valeur_définie"));
+                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                 plugin.getServer().getScheduler().runTask(plugin, () -> plugin.getGuiManager().openVariantAesthetics(player, var.getId()));
             });
             return;
@@ -2712,13 +2712,13 @@ public class GuiListener implements Listener {
 
     private void handleSquadChanceClick(Player player, InventoryClickEvent event, MobSquad sq) {
         if (event.getClick() == ClickType.MIDDLE) {
-            ChatPromptUtil.prompt(plugin, player, "Entrez la chance sous forme de pourcentage (ex: 15 pour 15%) :", input -> {
+            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_la_chance_sous_forme"), input -> {
                 try {
                     double val = Double.parseDouble(input) / 100.0;
                     sq.setSpawnChance(Math.max(0.0, val));
                     plugin.getVariantManager().save();
-                    player.sendMessage("§aChance définie.");
-                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.chance_définie"));
+                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                 plugin.getServer().getScheduler().runTask(plugin, () -> plugin.getGuiManager().openSquadEditor(player, sq.getId()));
             });
             return;
@@ -2741,13 +2741,13 @@ public class GuiListener implements Listener {
 
     private void handleZonePriorityClick(Player player, InventoryClickEvent event, DifficultyZone zone) {
         if (event.getClick() == ClickType.MIDDLE) {
-            ChatPromptUtil.prompt(plugin, player, "Entrez la priorité précise (ex: 10) :", input -> {
+            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_la_priorité_précise_ex"), input -> {
                 try {
                     int val = Integer.parseInt(input);
                     zone.setPriority(val);
                     plugin.getZoneManager().save();
-                    player.sendMessage("§aPriorité définie.");
-                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.priorité_définie"));
+                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                 plugin.getServer().getScheduler().runTask(plugin, () -> plugin.getGuiManager().openZoneEditor(player, zone.getId()));
             });
             return;
@@ -2777,12 +2777,12 @@ public class GuiListener implements Listener {
         }
 
         if (event.getClick() == ClickType.MIDDLE) {
-            ChatPromptUtil.prompt(plugin, player, "Entrez la nouvelle valeur précise (ex: 2.0) :", input -> {
+            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.entrez_la_nouvelle_valeur_précise"), input -> {
                 try {
                     double val = Double.parseDouble(input);
                     applyModifier(type, contextId, slot, val, true, varManager, zoneManager, mainCfg);
                     player.sendMessage("§aValeur définie sur " + val);
-                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
                 plugin.getServer().getScheduler().runTask(plugin, () -> {
                     if (type.equals("global")) gui.openGlobalModifiersMenu(player);
                     else if (type.equals("variant")) gui.openVariantModifiers(player, contextId);

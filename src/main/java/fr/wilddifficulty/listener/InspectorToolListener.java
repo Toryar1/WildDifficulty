@@ -43,7 +43,7 @@ public class InspectorToolListener implements Listener {
         event.setCancelled(true);
 
         if (!(event.getRightClicked() instanceof LivingEntity victim)) {
-            player.sendMessage("§c[WD] L'entité ciblée n'est pas vivante.");
+            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.wd_lentité_ciblée_nest_pas"));
             return;
         }
 
@@ -102,19 +102,19 @@ public class InspectorToolListener implements Listener {
         // Let's retrieve modifiers if it is a variant
         double distMult = plugin.getMainConfigManager().computeDistanceMultiplier(worldName, loc.getX(), loc.getZ());
 
-        player.sendMessage("§e§m----------------------------------------");
-        player.sendMessage("§6§lWildDifficulty - Inspecteur de Mob");
+        player.sendMessage(plugin.getLangManager().getRaw("empty"));
+        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.wilddifficulty_inspecteur_de_mob"));
         player.sendMessage("§fType de Base: §e" + baseType);
         player.sendMessage("§fNom/Affichage: §f" + displayName);
         player.sendMessage("§fVariante: " + variantId);
         player.sendMessage("§fZone: " + zoneStr);
-        player.sendMessage("§e§lStatistiques en Jeu :");
+        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.statistiques_en_jeu"));
         player.sendMessage("§f  - PV: §a" + String.format("%.1f", currentHp) + "§7/§a" + String.format("%.1f", maxHp));
         player.sendMessage("§f  - Dégâts: §c" + String.format("%.1f", damage));
         player.sendMessage("§f  - Vitesse: §b" + String.format("%.3f", speed));
         player.sendMessage("§f  - Portée de détection: §e" + String.format("%.1f", followRange) + " blocs");
         player.sendMessage("§f  - Résistance Knockback: §7" + String.format("%.1f", kbRes));
-        player.sendMessage("§e§lModificateurs de Distance :");
+        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.modificateurs_de_distance"));
         player.sendMessage("§f  - Mult. Distance Central: §e" + String.format("%.2f", distMult) + "x");
         
         if (zone != null) {
@@ -140,7 +140,7 @@ public class InspectorToolListener implements Listener {
             MobVariant var = plugin.getVariantManager().getVariant(varId);
             if (var != null && var.getModifiers() != null) {
                 StatModifiers mods = var.getModifiers();
-                player.sendMessage("§e§lPropriétés de la Variante :");
+                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.propriétés_de_la_variante"));
                 if (mods.getRegenerationValue() > 0) {
                     player.sendMessage("§f  - Régénération: §d+" + mods.getRegenerationValue() + " HP/s");
                 }
@@ -154,7 +154,7 @@ public class InspectorToolListener implements Listener {
                     player.sendMessage("§f  - Dashs max: §e" + mods.getDashMaxUses());
                 }
                 if (mods.isJumpAttack()) {
-                    player.sendMessage("§f  - Attaque sautée: §aOui");
+                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.attaque_sautée_oui"));
                 }
                 if (mods.getRangedAttackType() != null && !"none".equalsIgnoreCase(mods.getRangedAttackType())) {
                     player.sendMessage("§f  - Projectile à distance: §a" + mods.getRangedAttackType());
@@ -167,6 +167,6 @@ public class InspectorToolListener implements Listener {
             player.sendMessage("§e§lEscouade: §b" + squadId);
         }
 
-        player.sendMessage("§e§m----------------------------------------");
+        player.sendMessage(plugin.getLangManager().getRaw("empty"));
     }
 }

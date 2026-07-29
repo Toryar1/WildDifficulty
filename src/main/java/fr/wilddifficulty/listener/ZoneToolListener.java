@@ -113,7 +113,7 @@ public class ZoneToolListener implements Listener {
                     }
 
                     if (zone.getPoints().size() < 3) {
-                        player.sendMessage("§cIl vous faut au moins 3 points pour fermer le polygone ! (Shift+Clic Gauche pour réinitialiser)");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.il_vous_faut_au_moins"));
                         return;
                     }
 
@@ -124,7 +124,7 @@ public class ZoneToolListener implements Listener {
                         plugin.getEditingZoneId().remove(uuid);
                     }
                     plugin.getZoneManager().save();
-                    player.sendMessage("§a[WD] Polygone fermé et enregistré avec succès !");
+                    player.sendMessage(plugin.getLangManager().getRaw("gui.msg.wd_polygone_fermé_et_enregistré"));
                     player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
                 }
             }

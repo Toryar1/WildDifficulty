@@ -102,7 +102,7 @@ public class WDGuiCommand implements CommandExecutor, TabCompleter {
                 if (sender instanceof Player player) {
                     plugin.getGuiManager().openLanguageSelector(player);
                 } else {
-                    sender.sendMessage("§cUsage: /wd language <code_langue>");
+                    sender.sendMessage(plugin.getLangManager().getRaw("gui.msg.usage_wd_language_code_langue"));
                 }
                 return true;
             }
@@ -286,7 +286,7 @@ public class WDGuiCommand implements CommandExecutor, TabCompleter {
                 eClass = org.bukkit.entity.Zombie.class;
             }
             if (player.getWorld().getDifficulty() == org.bukkit.Difficulty.PEACEFUL && eClass != null && org.bukkit.entity.Enemy.class.isAssignableFrom(eClass)) {
-                player.sendMessage("§cImpossible de faire spawner ce monstre en difficulté Paisible (Peaceful).");
+                player.sendMessage(plugin.getLangManager().getRaw("gui.msg.impossible_de_faire_spawner_ce"));
                 return true;
             }
             Location safeLoc = MobSpawnListener.ensureSafeLocation(loc);

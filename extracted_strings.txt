@@ -1,0 +1,368 @@
+createItem(Material.GRAY_STAINED_GLASS_PANE, " "
+createItem(Material.DIAMOND_SWORD, "&cModificateurs Globaux", "&7Ajustez la difficulté générale."
+createItem(Material.ZOMBIE_HEAD, "&aVariantes", "&7Gérer les variantes de mobs."
+createItem(Material.SKELETON_SKULL, "&eEscouades", "&7Gérer les escouades."
+createItem(Material.MAP, "&dZones", "&7Gérer les zones de difficulté."
+createItem(Material.REDSTONE, "&cConfiguration Lune de Sang", 
+                "&7Gérer le taux d'apparition, multiplicateurs", 
+                "&7et bonus lors des nuits rouges."
+createItem(Material.COMPARATOR, "&bConfiguration Générale",
+                "&7Configurer le cap de mobs, la distance",
+                "&7de spawn max, la langue du plugin,",
+                "&7les nametags et paramètres généraux."
+createItem(Material.CHEST_MINECART, "&6Outils d'Administration", 
+                "&7Obtenir individuellement ou tous les outils", 
+                "&7de configuration et d'analyse."
+createItem(Material.BOOK, "&bLangue du Plugin",
+                "&7Langue actuelle : &e"
+createItem(Material.COMMAND_BLOCK, "&dRecharger Config", "&7Recharge les fichiers YAML."
+createItem(Material.CLOCK, "&bDistance de Spawn Max",
+                "&7Distance actuelle : &e"
+createItem(Material.COMPARATOR, "&bCap de Variantes / Joueur",
+                "&7Limite actuelle : &e"
+createItem(Material.WRITABLE_BOOK, "&bFormat des Nametags",
+                "&7Format actuel : &f"
+createItem(Material.POTION, "§bSoif, Hardcore & Mort",
+                "§7Soif globale: "
+createItem(Material.BOOK, "&bLangue du Plugin",
+                "&7Langue actuelle : &e"
+createItem(mat, "&6&l"
+createItem(Material.GOLDEN_HOE, "&eOutil de Zone", "&7Dessine les points du polygone."
+createItem(Material.NETHERITE_SHOVEL, "&eOutil de Spawner", "&7Configure les spawners personnalisés."
+createItem(Material.COMPASS, "&dOutil de Biome", "&7Configure les spawns par biome."
+createItem(Material.STICK, "&bInspecteur de Mobs", "&7Affiche les détails complets d'une entité."
+createItem(Material.CHEST, "&aTous les Outils", "&7Obtenir tous les outils d'un coup."
+createItem(Material.FILLED_MAP, "&6Activer/Désactiver Scoreboard Debug", "&7Affiche le scoreboard latéral d'analyse."
+createItem(Material.CLOCK, "&bChance d'apparition", 
+                "&7Chance actuelle : &e"
+createItem(Material.RED_DYE, "&cMultiplicateur PV", 
+                "&7Actuel : &e"
+createItem(Material.NETHERITE_SWORD, "&cMultiplicateur Dégâts", 
+                "&7Actuel : &e"
+createItem(Material.FEATHER, "&bMultiplicateur Vitesse", 
+                "&7Actuel : &e"
+createItem(Material.CHEST, "&6Multiplicateur Drops", 
+                "&7Actuel : &e"
+createItem(Material.SPAWNER, "&5Multiplicateur Spawn",
+                "&7Actuel : &e"
+createItem(Material.WRITABLE_BOOK, "&bMessage de Début", 
+                "&7Actuel : &f"
+createItem(Material.WRITTEN_BOOK, "&bMessage de Fin", 
+                "&7Actuel : &f"
+createItem(Material.JUKEBOX, "&bSon de Début", 
+                "&7Actuel : &e"
+createItem(Material.JUKEBOX, "&bSon de Fin", 
+                "&7Actuel : &e"
+createItem(Material.REDSTONE, "&bParticule de Début", 
+                "&7Actuelle : &e"
+createItem(Material.EMERALD, "&bParticule de Fin", 
+                "&7Actuelle : &e"
+createItem(Material.POTION, "&bEffets Potion de Début", 
+                "&7Actuels : &f"
+createItem(Material.POTION, "&bEffets Potion de Fin", 
+                "&7Actuels : &f"
+createItem(Material.NETHER_STAR, "&dForcer la Lune de Sang",
+                "&7Active la Lune de Sang.",
+                "&7- Si c'est le jour: planifiée pour la prochaine nuit.",
+                "&7- Si c'est la nuit: démarre immédiatement."
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&f"
+createItem(Material.EMERALD, "&a+ Nouvelle Variante", "&7Créer une nouvelle variante"
+createItem(Material.HOPPER, "&bTri actuel : &e"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&f"
+createItem(Material.NETHERITE_SWORD, "&cFiltrer : Hostiles", "&7Afficher uniquement les monstres."
+createItem(Material.WHEAT, "&aFiltrer : Passifs & Neutres", "&7Afficher les animaux et créatures pacifiques."
+createItem(Material.BOOK, "&fFiltrer : Tous", "&7Afficher toutes les créatures de base."
+createItem(Material.ARROW, "&ePage Précédente ("
+createItem(Material.ARROW, "&ePage Suivante ("
+createItem(Material.BARRIER, "&cAnnuler"
+createItem(Material.NAME_TAG, "&aType de base", "&7Actuel: &e"
+createItem(Material.ANVIL, "&aPoids d'apparition", "&7Actuel: &a"
+createItem(Material.DAYLIGHT_DETECTOR, "&aImmunité Solaire", "&7Actuel: &e"
+createItem(Material.EXPERIENCE_BOTTLE, "&aXP Donnée à la mort",
+                "&7Actuel : &e"
+createItem(Material.CLOCK, "&bConditions de Spawn", "&7Configurer la météo, le jour/nuit", "&7et les biomes autorisés."
+createItem(Material.DIAMOND_SWORD, "&cModifier Stats (Absolues)", "&7PV, Dégâts, Vitesse,", "&7Knockback et Portée."
+createItem(Material.NETHER_STAR, "&bComportements (AI)", "&7Agressivité, fuite, charge,", "&7vision murs et renforts mort."
+createItem(Material.GLOWSTONE_DUST, "&dEsthétique & Cosmétique", "&7Skins, taille, auras, noms,", "&7BossBar et bébés."
+createItem(Material.CHEST, "&6Drops, Audio & Équipement", "&7Chance d'équipements,", "&7sons et drops personnalisés."
+createItem(Material.ZOMBIE_SPAWN_EGG, "&bFaire apparaître", 
+                "&7Invoque ce monstre 2 blocs devant vous."
+createItem(Material.LAVA_BUCKET, "&cSupprimer la variante", "&4Attention: Action immédiate"
+createItem(Material.PAPER, "&bCopier la variante", "&7Cloner cette variante avec", "&7tous ses paramètres sous", "&7un nouvel ID."
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.IRON_CHESTPLATE, "&aÉquipement (Armure)", "&7Tier: &e"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.POTION, "&dEffets de Potion", "&7Gérer les effets de potion passifs"
+createItem(aggMat, "&bAgressivité IA", "&7Actuel : &e"
+createItem(Material.FEATHER, "&cFuite Seuil PV", 
+                "&7Seuil de vie actuel : &e"
+createItem(Material.SPIDER_EYE, "&dSpawns Renforts à la Mort", 
+                "&7Variante: &e"
+createItem(Material.ENDER_PEARL, "&eTéléportation Max Usages", 
+                "&7Actuel : &e"
+createItem(Material.SADDLE, "&bCharge Max Usages", 
+                "&7Actuel : &e"
+createItem(Material.ARROW, "&7Projectile à distance", 
+                "&7Type actuel : &e"
+createItem(Material.DRAGON_BREATH, "&dEffet sur coup donné (On Hit)", 
+                "&7Effet: &e"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.NAME_TAG, "&aNom d'affichage", "&7Actuel: &e"
+createItem(Material.WRITABLE_BOOK, "&aNoms Conditionnels", "&7Gérer les noms selon les PV"
+createItem(Material.ITEM_FRAME, "&bSkin (Custom Model Data)", 
+                "&7Actuel: &e"
+createItem(Material.PLAYER_HEAD, "&bBanque de Skins / Têtes", 
+                "&7Actuel: &e"
+createItem(Material.BARRIER, "&cBébé non supporté", "&7Ce type de mob de base", "&7ne supporte pas de forme bébé."
+createItem(Material.SLIME_BLOCK, "&aTaille (Scale)", 
+                "&7Actuelle : &b"
+createItem(Material.HONEY_BLOCK, "&aVariance de Taille", 
+                "&7Actuelle : &e"
+createItem(Material.PAINTING, "§bSkin / Variante & Trait Spécial Vanilla",
+                "§7Configuration actuelle : §e"
+createItem(Material.DRAGON_BREATH, "&dParticules Aura", "&7Type: &e"
+createItem(Material.FIREWORK_ROCKET, "&aParticule Spawn", "&7Type: &e"
+createItem(Material.BONE_MEAL, "&cParticule Trail", "&7Type: &e"
+createItem(Material.RED_DYE, "&cBossBar Couleur", "&7Couleur: &e"
+createItem(Material.ANVIL, "&7BossBar Style", "&7Style: &e"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.BARRIER, "§cPar Défaut (Aucun Skin Spécifique)",
+                "§7Skin/Variante de base du jeu",
+                "none"
+createItem(Material.PAPER, "§eAucune variante prédéfinie pour "
+createItem(mat, "§b"
+createItem(Material.BARRIER, "§cRetour"
+createItem(Material.NAME_TAG, "&aPseudo personnalisé (Tchat)", "&7Entrer le pseudo d'un joueur", "&7pour récupérer son skin."
+createItem(Material.PAPER, "&bLien URL / Texture Base64 (Tchat)", "&7Entrer une URL minecraft.net", "&7ou une texture base64."
+createItem(Material.BARRIER, "&cRetirer le Skin de Tête", "&7Remet la tête par défaut."
+createItem(Material.CHEST, "&aGlisser/Déposer une Tête", "&7Déposez un item de tête (Skull) ici", "&7pour copier sa texture et l'appliquer", "&7à cette variante. Elle sera ajoutée"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.DIAMOND_CHESTPLATE, "&bÉquipement Spécifique", "&7Gérer casque, plastron, jambières, bottes, main principale/secondaire."
+createItem(Material.CHEST, "&6Tables de Drops", "&7Gérer les loots personnalisés"
+createItem(Material.JUKEBOX, "&bSon d'Ambiance", "&7Actuel: &e"
+createItem(Material.JUKEBOX, "&bSon de Dégâts/Aggro", "&7Actuel: &e"
+createItem(Material.JUKEBOX, "&bSon de Mort", "&7Actuel: &e"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&b"
+createItem(mat, "&f"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&b"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&f"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.ANVIL, "&f"
+createItem(Material.BARRIER, "&cRetour"
+createItem(active ? Material.GLOWSTONE_DUST : Material.REDSTONE, 
+                    "&f"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&e"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&f"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.WRITABLE_BOOK, "&fSous &e"
+createItem(Material.EMERALD, "&a+ Ajouter un nom", "&7Ajouter un nom conditionnel"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&e"
+createItem(Material.EMERALD, "&a+ Ajouter un drop", "&7Ajouter un drop par liste cliquable"
+createItem(Material.BARRIER, "&cRetour"
+createItem(m, "&e"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&f"
+createItem(Material.EMERALD, "&a+ Nouvelle Escouade", "&7Créer une nouvelle escouade"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.GOLD_NUGGET, "&aChance de spawn", 
+                "&7Actuelle : &a"
+createItem(Material.ZOMBIE_HEAD, "&aMembres de l'Escouade", "&7Gérer les variantes membres"
+createItem(Material.NETHER_STAR, "&dBonus d'Escouade", 
+                "&7Gérer les multiplicateurs de PV,",
+                "&7Dégâts, Vitesse et Regen",
+                "&7pour tous les membres."
+createItem(Material.PAPER, "&aTypes Déclencheurs", "&7Gérer les entités déclencheurs"
+createItem(Material.SKELETON_SPAWN_EGG, "&bFaire apparaître", "&7Invoque cette escouade devant vous"
+createItem(Material.LAVA_BUCKET, "&cSupprimer l'escouade", "&4Attention: Action immédiate"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&a"
+createItem(Material.BARRIER, "&c"
+createItem(Material.BARRIER, "&cRetour"
+createItem(active ? mat : Material.REDSTONE, 
+                    "&f"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.MAP, "&f"
+createItem(Material.GOLDEN_HOE, "&eOuvrir l'outil de création (Houe)", "&7Obtenir l'outil de zone en or pour", "&7dessiner les points du polygone."
+createItem(Material.EMERALD, "&a+ Nouvelle Zone", "&7Créer une nouvelle zone de difficulté"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.ANVIL, "&aPriorité", 
+                "&7Actuelle : &a"
+createItem(Material.MAP, "&bType de Forme", 
+                "&7Type actuel : &e"
+createItem(Material.COMPASS, "&bDéfinir Pos 1 (Ici)", "&7Assigne la Position 1 de la zone", "&7à votre position actuelle."
+createItem(Material.COMPASS, "&bDéfinir Pos 2 (Ici)", "&7Assigne la Position 2 de la zone", "&7à votre position actuelle."
+createItem(Material.ENDER_PEARL, "&aSe téléporter à la zone", 
+                "&7Téléporte instantanément au", 
+                "&7"
+createItem(Material.COMPARATOR, "§bScaling Extérieur par Stat",
+                "§7Augmentation de difficulté par tranche",
+                "§7de blocs au-delà des limites de la zone."
+createItem(Material.GLOWSTONE_DUST, "&aHauteur Particules Bordure", 
+                "&7Hauteur relative au sol: &e"
+createItem(Material.COMPASS, "&bDéfinir point de TP (Ici)", 
+                "&7Assigne le point de téléportation", 
+                "&7de cette zone à vos coordonnées actuelles.", 
+                "&7Actuel : "
+createItem(Material.GOLDEN_HOE, "&eOuvrir l'outil de création (Houe)", 
+                "&7Obtenir l'outil de zone en or pour", 
+                "&7dessiner la forme en jeu :",
+                "  &e- CUBOID : &7Clic Droit = Pos 1, Clic Gauche = Pos 2"
+createItem(Material.DIAMOND_SWORD, "&cModifier Stats (Absolues)", "&7PV, Dégâts, Vitesse, Knockback, Portée."
+createItem(Material.WRITABLE_BOOK, "&aParticule Quand On Rentre", 
+                "&7Actuelle : &d"
+createItem(Material.WRITABLE_BOOK, "&cParticule Quand On Sort", 
+                "&7Actuelle : &d"
+createItem(Material.PLAYER_HEAD, "§bGestion des Membres", "§7Membres actuels: §a"
+createItem(Material.BEACON, "§bEffets de Beacon", "§7Effets actifs: §e"
+createItem(Material.NETHER_STAR, "§cNid d'Ennemis (Danger Nest)", "§7Statut: "
+createItem(Material.MAP, "§bSous-sections (Multi-sections)", "§7Sections additionnelles: §e"
+createItem(Material.LAVA_BUCKET, "&cSupprimer la zone", "&4Attention: Action immédiate"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&b"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.IRON_CHESTPLATE, "&aÉquipement (Armure)", "&7Tier: &e"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.BARRIER, "&cRetour"
+createItem(wMat, "&bMétéo requise", "&7Actuel : &e"
+createItem(tMat, "&bMoment requis", "&7Actuel : &e"
+createItem(cMat, "&bSpawn dans Caves", "&7Actuel : &e"
+createItem(Material.GRASS_BLOCK, "&aGérer les Biomes Autorisés", 
+                "&7Actuellement : &e"
+createItem(Material.PAPER, "&f"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.LIME_DYE, "&aCatégorie: Iris", "&7Afficher les biomes Iris."
+createItem(Material.BLUE_DYE, "&bCatégorie: Minecraft/Vanilla", "&7Afficher les biomes Minecraft."
+createItem(Material.BOOK, "&fCatégorie: Tous", "&7Afficher tous les biomes."
+createItem(Material.ARROW, "&ePage Précédente ("
+createItem(Material.COMPASS, "&6Biome Actuel : "
+createItem(Material.ARROW, "&ePage Suivante ("
+createItem(Material.BARRIER, "&cRetour"
+createItem(item, "§eCouleur #"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.CLOCK, "&bIntervalle d'Apparition", 
+                "&7Actuel : &e"
+createItem(Material.BEACON, "&bRayon de Détection / Spawn", 
+                "&7Actuel : &e"
+createItem(Material.IRON_BARS, "&bMax Monstres Proches", 
+                "&7Actuel : &e"
+createItem(Material.CHEST, "&6Monstres & Poids", 
+                "&7Configurer les variantes de monstres",
+                "&7qui peuvent apparaître ici et",
+                "&7leurs chances relatives (poids)."
+createItem(Material.CLOCK, "&bVariation d'Intervalle (sec)", 
+                "&7Actuel : &e+/- "
+createItem(Material.COMPASS, "&bRayon de Dispersion (Spawn)", 
+                "&7Actuel : &e"
+createItem(Material.PAPER, "&aCopier ce spawner", 
+                "&7Enregistre la configuration de ce spawner", 
+                "&7pour pouvoir la coller sur un autre bloc."
+createItem(Material.SHEARS, "&aColler la configuration", 
+                    "&7Applique les réglages copiés sur ce spawner."
+createItem(Material.GLOWSTONE_DUST, "&bParticules du Spawner", 
+                "&7Actuel : &e"
+createItem(Material.JUKEBOX, "&bSons du Spawner", 
+                "&7Actuel : &e"
+createItem(Material.LAVA_BUCKET, "&cSupprimer ce spawner", "&4Attention: Supprime le bloc", "&4spawner de la configuration."
+createItem(Material.BARRIER, "&cQuitter"
+createItem(mat, "&a[Inclus] "
+createItem(mat, "&7[Exclus] "
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&f"
+createItem(Material.BARRIER, "&cRetirer le renfort", "&7Aucun monstre ne spawneront à la mort"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.GOLD_INGOT, "&eModèle : &6"
+createItem(Material.EMERALD, "&aValeur personnalisée (Tchat)", "&7Saisir un identifiant CMD précis"
+createItem(Material.BARRIER, "&cRéinitialiser (0)", "&7Retirer le CustomModelData"
+createItem(Material.BARRIER, "&cRetour"
+createItem(mat, "&f"
+createItem(Material.BARRIER, "&cRetour"
+createItem(Material.BARRIER, "§cMultiplicateur Maximum (Cap)",
+                "§7Limite le bonus maximum toutes stats confondues.",
+                "§7Actuel: §c"
+createItem(Material.HEART_OF_THE_SEA, "§c❤ Bonus PV",
+                "§7Augmente les PV des mobs hors zone.",
+                "§7Pas: §e"
+createItem(Material.RED_DYE, "§cDésactiver Bonus PV",
+                "§7Remet le bonus PV à 0 (utilise le global)."
+createItem(Material.DIAMOND_SWORD, "§6⚔ Bonus Dégâts",
+                "§7Augmente les dégâts des mobs hors zone.",
+                "§7Pas: §e"
+createItem(Material.ORANGE_DYE, "§6Désactiver Bonus Dégâts",
+                "§7Remet le bonus dégâts à 0 (utilise le global)."
+createItem(Material.FEATHER, "§bBonus Vitesse",
+                "§7Augmente la vitesse des mobs hors zone.",
+                "§7Pas: §e"
+createItem(Material.LIGHT_BLUE_DYE, "§bDésactiver Bonus Vitesse",
+                "§7Remet le bonus vitesse à 0 (utilise le global)."
+createItem(Material.CLOCK, "§7Bonus Global (Fallback)",
+                "§7Utilisé si une stat n'a pas son propre pas.",
+                "§7Pas: §e"
+createItem(Material.SPYGLASS, "§eAperçu à "
+createItem(Material.BARRIER, "§cRetour"
+createItem(Material.NAME_TAG, "§aAjouter un Membre", "§7Ajouter un joueur via son pseudo dans le tchat."
+createItem(Material.BARRIER, "§cRetour"
+createItem(Material.BARRIER, "§cRetour"
+createItem(Material.REDSTONE, "§cBoost Spawn Rate", "§7Multiplicateur: §e"
+createItem(Material.DIAMOND_SWORD, "§cModifier Stats Nest (PV, Dégâts, Vitesse)", "§7Stats additionnelles appliquées aux entités dans ce nid."
+createItem(Material.BARRIER, "§cRetour"
+createItem(Material.GOLDEN_HOE, "§aAjouter la Sélection Actuelle", "§7Ajoute la forme/sélection de votre houe comme nouvelle sous-section de la zone."
+createItem(Material.MAP, "§eSous-section: "
+createItem(Material.BARRIER, "§cRetour"
+createItem(Material.DIAMOND_SWORD, "§bDifficulté Personnelle",
+                "§7Niveau actuel: §e"
+createItem(Material.WITHER_SKELETON_SKULL, "§cMode Hardcore Personnel",
+                "§7Statut: "
+createItem(Material.BARRIER, "§cFermer"
+createItem(Material.BARRIER, "§cRetour"
+createItem(Material.CLOCK, "§bMultiplicateur Vitesse Dégradation Soif",
+                "§7Multiplicateur actuel: §e"
+createItem(Material.WITHER_SKELETON_SKULL, "§cConfigurer le Mode Hardcore",
+                "§7Statut global: "
+createItem(Material.WATER_BUCKET, "§bConfigurer les Sources d'Eau",
+                "§7Définir les points d'hydratation apportés",
+                "§7par chaque seau, bouteille, chaudron, etc."
+createItem(Material.CHEST, "§eTemps Despawn Stuff Mort",
+                "§7Temps avant disparition: §e"
+createItem(Material.LAVA_BUCKET, "§cDéshydratation par Chaleur (Lave)",
+                "§7Augmente la déshydratation près de la lave/feu.",
+                "§7Statut: "
+createItem(Material.BARRIER, "§cRetour"
+createItem(Material.WATER_BUCKET, "§bSeau d'eau",
+                "§7Restauration: §a+"
+createItem(Material.POTION, "§bBouteille d'eau",
+                "§7Restauration: §a+"
+createItem(Material.GLASS_BOTTLE, "§dAutres Potions",
+                "§7Restauration: §a+"
+createItem(Material.CAULDRON, "§bChaudron d'eau",
+                "§7Restauration: §a+"
+createItem(Material.WATER_BUCKET, "§bSource d'eau (Bloc)",
+                "§7Restauration: §a+"
+createItem(Material.MILK_BUCKET, "§fSeau de Lait",
+                "§7Restauration: §a+"
+createItem(Material.HONEY_BOTTLE, "§eFiole de Miel",
+                "§7Restauration: §a+"
+createItem(Material.MELON_SLICE, "§aTranche de Melon",
+                "§7Restauration: §a+"
+createItem(Material.APPLE, "§cPomme / Pomme Dorée",
+                "§7Restauration: §a+"
+createItem(Material.BARRIER, "§cRetour"
+createItem(Material.BARRIER, "§cAucune Zone Éditable", "§7Vous n'avez le rôle Gestionnaire (Niveau 3)", "§7sur aucune zone actuellement."
+createItem(Material.MAP, "§eZone: "
+createItem(Material.BARRIER, "§cFermer"
+createItem(Material.NETHERITE_SWORD, "§cMultiplicateur Dégâts Subis",
+                "§7Actuel: §e"
+createItem(Material.ROTTEN_FLESH, "§6Multiplicateur Épuisement Faim",
+                "§7Actuel: §e"
+createItem(Material.BARRIER, "§cRetour"
