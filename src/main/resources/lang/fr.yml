@@ -80,6 +80,24 @@ help:
 bloodmoon:
   start_message: "&cLa Lune de Sang se lève... Les monstres sont enragés !"
   end_message: "&aLa Lune de Sang se couche. Le calme revient..."
+  activated_now: "&a[WD] Lune de Sang activée immédiatement car il fait nuit !"
+  already_active: "&c[WD] La Lune de Sang est déjà active !"
+  chance_set: "&aChance de Lune de Sang définie à {val}%."
+  hp_mult_set: "&aMultiplicateur PV défini à {val}x."
+  dmg_mult_set: "&aMultiplicateur Dégâts défini à {val}x."
+  speed_mult_set: "&aMultiplicateur Vitesse défini à {val}x."
+  drops_mult_set: "&aMultiplicateur Drops défini à {val}x."
+  spawn_mult_set: "&aMultiplicateur Spawn défini à {val}x."
+  start_msg_set: "&aMessage de début de Lune de Sang défini."
+  end_msg_set: "&aMessage de fin de Lune de Sang défini."
+  start_sound_set: "&aSon de début défini."
+  invalid_sound: "&cType de son invalide. Utilisez un nom de son Minecraft vanilla."
+  end_sound_set: "&aSon de fin défini."
+  start_particle_set: "&aParticule de début définie."
+  invalid_particle: "&cType de particule invalide."
+  end_particle_set: "&aParticule de fin définie."
+  start_effects_set: "&aEffets de potion de début définis."
+  end_effects_set: "&aEffets de potion de fin définis."
 
 hardcore:
   instant_death_despawn: "&cMode Hardcore : Votre équipement a disparu instantanément à votre mort."
@@ -101,6 +119,20 @@ spawner:
   created: "&aSpawner personnalisé créé en X: {x}, Y: {y}, Z: {z}."
   removed: "&cSpawner personnalisé supprimé."
   no_spawner_clicked: "&cAucun spawner trouvé sur ce bloc. Clic-droit sur un spawner."
+  interval_set: "&aIntervalle défini à {val} secondes."
+  radius_set: "&aRayon défini à {val} blocs."
+  limit_set: "&aLimite définie à {val} monstres."
+  interval_variance_set: "&aVariation d'intervalle définie à {val} secondes."
+  spread_set: "&aRayon de dispersion défini à {val} blocs."
+  config_copied: "&aConfiguration du spawner copiée !"
+  config_pasted: "&aConfiguration du spawner collée !"
+  weight_set: "&aPoids défini."
+  variant_removed: "&cVariante {id} retirée du spawner."
+  variant_added: "&aVariante {id} ajoutée au spawner (poids: 1)."
+
+variant:
+  equip_leather_set: "&a[WD] Équipement cuir {slot} défini avec la couleur #{color} depuis votre inventaire."
+  equip_set: "&a[WD] Équipement défini sur {slot} depuis votre inventaire."
 
 inspector:
   header: "&e=== Inspecteur de Mobs WildDifficulty ==="

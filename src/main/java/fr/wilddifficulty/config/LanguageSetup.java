@@ -43,34 +43,48 @@ public class LanguageSetup {
     }
 
     /**
-     * Vérifie si c'est le premier démarrage (lang.yml absent) et lance la sélection si nécessaire.
+     * Vérifie et applique la langue configurée. Si c'est le premier démarrage, propose
+     * une sélection interactive en console. Sinon, relit plugin.language depuis config.yml
+     * et ré-extrait toujours le bon fichier de langue pour garantir la cohérence.
      */
     public void setupIfNeeded() {
-        File langFile = new File(plugin.getDataFolder(), "lang.yml");
-        if (langFile.exists()) return;
-
         plugin.reloadConfig();
         String configured = plugin.getConfig().getString("plugin.language", null);
-        if (configured != null && LANGUAGES.containsKey(configured)) {
-            extractLang(configured);
+        File langFile = new File(plugin.getDataFolder(), "lang.yml");
+
+        // Premier démarrage absolu : ni lang.yml ni langue configurée
+        if (!langFile.exists() && (configured == null || !LANGUAGES.containsKey(configured))) {
+            printSelectionMenu();
+            String choice = readConsoleInput();
+            String selectedCode = resolveChoice(choice);
+
+            if (selectedCode == null) {
+                logger.warning(ConsoleColor.WARN_PREFIX + "Choix invalide. Langue par défaut : Français (fr)");
+                selectedCode = "fr";
+            }
+
+            plugin.getConfig().set("plugin.language", selectedCode);
+            plugin.saveConfig();
+
+            extractLang(selectedCode);
+            logger.info(ConsoleColor.INFO_PREFIX + "Langue sélectionnée : " + LANGUAGES.get(selectedCode) + " (" + selectedCode + ")");
             return;
         }
 
-        printSelectionMenu();
-
-        String choice = readConsoleInput();
-        String selectedCode = resolveChoice(choice);
-
-        if (selectedCode == null) {
-            logger.warning(ConsoleColor.WARN_PREFIX + "Choix invalide. Langue par défaut : Français (fr)");
-            selectedCode = "fr";
+        // Langue déjà configurée : toujours ré-extraire pour garantir la cohérence
+        if (configured != null && LANGUAGES.containsKey(configured)) {
+            extractLang(configured);
+            logger.info(ConsoleColor.INFO_PREFIX + "Langue active : " + LANGUAGES.get(configured) + " (" + configured + ")");
+            return;
         }
 
-        plugin.getConfig().set("plugin.language", selectedCode);
-        plugin.saveConfig();
-
-        extractLang(selectedCode);
-        logger.info(ConsoleColor.INFO_PREFIX + "Langue sélectionnée : " + LANGUAGES.get(selectedCode) + " (" + selectedCode + ")");
+        // lang.yml existe mais pas de langue configurée : on garde le fichier existant
+        // et on détermine la langue par défaut (fr)
+        if (langFile.exists()) {
+            plugin.getConfig().set("plugin.language", "fr");
+            plugin.saveConfig();
+            logger.info(ConsoleColor.INFO_PREFIX + "Langue non configurée. Langue par défaut : Français (fr)");
+        }
     }
 
     private void printSelectionMenu() {

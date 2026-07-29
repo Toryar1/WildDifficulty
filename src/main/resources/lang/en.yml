@@ -78,18 +78,36 @@ help:
   help: "&e/wd help &7- Displays this help message"
 
 bloodmoon:
-  start_message: "&cThe Blood Moon rises... The monsters are enraged!"
-  end_message: "&aThe Blood Moon sets. Calm returns..."
+  start_message: "&cThe Blood Moon rises... Monsters are enraged!"
+  end_message: "&aThe Blood Moon sets. Peace returns..."
+  activated_now: "&a[WD] Blood Moon activated immediately because it is night time!"
+  already_active: "&c[WD] Blood Moon is already active!"
+  chance_set: "&aBlood Moon chance set to {val}%."
+  hp_mult_set: "&aHP multiplier set to {val}x."
+  dmg_mult_set: "&aDamage multiplier set to {val}x."
+  speed_mult_set: "&aSpeed multiplier set to {val}x."
+  drops_mult_set: "&aDrops multiplier set to {val}x."
+  spawn_mult_set: "&aSpawn multiplier set to {val}x."
+  start_msg_set: "&aBlood Moon start message set."
+  end_msg_set: "&aBlood Moon end message set."
+  start_sound_set: "&aStart sound set."
+  invalid_sound: "&cInvalid sound type. Use a vanilla Minecraft sound name."
+  end_sound_set: "&aEnd sound set."
+  start_particle_set: "&aStart particle set."
+  invalid_particle: "&cInvalid particle type."
+  end_particle_set: "&aEnd particle set."
+  start_effects_set: "&aStart potion effects set."
+  end_effects_set: "&aEnd potion effects set."
 
 hardcore:
-  instant_death_despawn: "&cHardcore Mode: Your equipment vanished instantly upon your death."
+  instant_death_despawn: "&cHardcore Mode: Your equipment despawned instantly upon death."
 
 zone:
-  created: "&aZone &e{zone}&a created successfully!"
+  created: "&aZone &e{zone}&a successfully created!"
   deleted: "&cZone &e{zone}&c deleted."
   protection_denied: "&cThis zone is protected! You are not allowed to act here."
-  container_denied: "&cThis zone is protected! You are not allowed to use these elements."
-  no_active_zone: "&cNo zone is currently being edited or created. Open a zone editor and take the tool."
+  container_denied: "&cThis zone is protected! You are not allowed to use these containers."
+  no_active_zone: "&cNo zone is currently being edited. Open a zone editor and hold the tool."
   pos1_set: "&aPosition 1 (CUBOID) set to: {x}, {y}, {z}"
   pos2_set: "&aPosition 2 (CUBOID) set to: {x}, {y}, {z}"
   center_set: "&aCenter (RADIUS) set to: {x}, {y}, {z}"
@@ -100,7 +118,21 @@ zone:
 spawner:
   created: "&aCustom spawner created at X: {x}, Y: {y}, Z: {z}."
   removed: "&cCustom spawner removed."
-  no_spawner_clicked: "&cNo spawner found on this block. Right-click a spawner."
+  no_spawner_clicked: "&cNo spawner found on this block. Right-click on a spawner."
+  interval_set: "&aInterval set to {val} seconds."
+  radius_set: "&aRadius set to {val} blocks."
+  limit_set: "&aLimit set to {val} monsters."
+  interval_variance_set: "&aInterval variance set to {val} seconds."
+  spread_set: "&aSpread radius set to {val} blocks."
+  config_copied: "&aSpawner configuration copied!"
+  config_pasted: "&aSpawner configuration pasted!"
+  weight_set: "&aWeight set."
+  variant_removed: "&cVariant {id} removed from spawner."
+  variant_added: "&aVariant {id} added to spawner (weight: 1)."
+
+variant:
+  equip_leather_set: "&a[WD] Leather equipment {slot} set with color #{color} from your inventory."
+  equip_set: "&a[WD] Equipment set for {slot} from your inventory."
 
 inspector:
   header: "&e=== WildDifficulty Mob Inspector ==="

@@ -103,6 +103,24 @@ public class LangManager {
 
         setIfNotExists("bloodmoon.start_message", "&cLa Lune de Sang se lève... Les monstres sont enragés !");
         setIfNotExists("bloodmoon.end_message", "&aLa Lune de Sang se couche. Le calme revient...");
+        setIfNotExists("bloodmoon.activated_now", "&a[WD] Lune de Sang activée immédiatement car il fait nuit !");
+        setIfNotExists("bloodmoon.already_active", "&c[WD] La Lune de Sang est déjà active !");
+        setIfNotExists("bloodmoon.chance_set", "&aChance de Lune de Sang définie à {val}%.");
+        setIfNotExists("bloodmoon.hp_mult_set", "&aMultiplicateur PV défini à {val}x.");
+        setIfNotExists("bloodmoon.dmg_mult_set", "&aMultiplicateur Dégâts défini à {val}x.");
+        setIfNotExists("bloodmoon.speed_mult_set", "&aMultiplicateur Vitesse défini à {val}x.");
+        setIfNotExists("bloodmoon.drops_mult_set", "&aMultiplicateur Drops défini à {val}x.");
+        setIfNotExists("bloodmoon.spawn_mult_set", "&aMultiplicateur Spawn défini à {val}x.");
+        setIfNotExists("bloodmoon.start_msg_set", "&aMessage de début de Lune de Sang défini.");
+        setIfNotExists("bloodmoon.end_msg_set", "&aMessage de fin de Lune de Sang défini.");
+        setIfNotExists("bloodmoon.start_sound_set", "&aSon de début défini.");
+        setIfNotExists("bloodmoon.invalid_sound", "&cType de son invalide. Utilisez un nom de son Minecraft vanilla.");
+        setIfNotExists("bloodmoon.end_sound_set", "&aSon de fin défini.");
+        setIfNotExists("bloodmoon.start_particle_set", "&aParticule de début définie.");
+        setIfNotExists("bloodmoon.invalid_particle", "&cType de particule invalide.");
+        setIfNotExists("bloodmoon.end_particle_set", "&aParticule de fin définie.");
+        setIfNotExists("bloodmoon.start_effects_set", "&aEffets de potion de début définis.");
+        setIfNotExists("bloodmoon.end_effects_set", "&aEffets de potion de fin définis.");
 
         setIfNotExists("hardcore.instant_death_despawn", "&cMode Hardcore : Votre équipement a disparu instantanément à votre mort.");
 
@@ -121,6 +139,19 @@ public class LangManager {
         setIfNotExists("spawner.created", "&aSpawner personnalisé créé en X: {x}, Y: {y}, Z: {z}.");
         setIfNotExists("spawner.removed", "&cSpawner personnalisé supprimé.");
         setIfNotExists("spawner.no_spawner_clicked", "&cAucun spawner trouvé sur ce bloc. Clic-droit sur un spawner.");
+        setIfNotExists("spawner.interval_set", "&aIntervalle défini à {val} secondes.");
+        setIfNotExists("spawner.radius_set", "&aRayon défini à {val} blocs.");
+        setIfNotExists("spawner.limit_set", "&aLimite définie à {val} monstres.");
+        setIfNotExists("spawner.interval_variance_set", "&aVariation d'intervalle définie à {val} secondes.");
+        setIfNotExists("spawner.spread_set", "&aRayon de dispersion défini à {val} blocs.");
+        setIfNotExists("spawner.config_copied", "&aConfiguration du spawner copiée !");
+        setIfNotExists("spawner.config_pasted", "&aConfiguration du spawner collée !");
+        setIfNotExists("spawner.weight_set", "&aPoids défini.");
+        setIfNotExists("spawner.variant_removed", "&cVariante {id} retirée du spawner.");
+        setIfNotExists("spawner.variant_added", "&aVariante {id} ajoutée au spawner (poids: 1).");
+
+        setIfNotExists("variant.equip_leather_set", "&a[WD] Équipement cuir {slot} défini avec la couleur #{color} depuis votre inventaire.");
+        setIfNotExists("variant.equip_set", "&a[WD] Équipement défini sur {slot} depuis votre inventaire.");
 
         setIfNotExists("inspector.header", "&e=== Inspecteur de Mobs WildDifficulty ===");
         setIfNotExists("inspector.type", "&7Type: &f{type}");

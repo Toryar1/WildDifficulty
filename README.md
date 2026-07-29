@@ -108,6 +108,7 @@
 | `/wd scoreboard` | Active/désactive le scoreboard | `wilddifficulty.admin` |
 | `/wd debug` | Active/désactive les logs debug | `wilddifficulty.admin` |
 | `/wd settings` | Paramètres personnels du joueur | `wilddifficulty.player.settings` |
+| `/wd language [code]` | Change la langue du plugin (`fr`, `en`, `de`, `es`, ...) | `wilddifficulty.admin` |
 | `/wd zone <args>` | Gestion manuelle des zones | `wilddifficulty.admin` |
 | `/wd help` | Affiche l'aide | `wilddifficulty.admin` |
 
@@ -133,6 +134,12 @@
 3. Redémarrez le serveur
 4. Configurez les fichiers YAML dans `plugins/WildDifficulty/`
 5. Utilisez `/wd gui` pour accéder à l'interface graphique
+
+### 🐛 Signalement de Bugs & Support
+
+Pour tout signalement de bug, suggestion ou demande d'assistance :
+- **Discord** : Contactez **`Toryar`** sur Discord.
+- **GitHub Issues** : Ouvrez un ticket dans la section [Issues](https://github.com/Toryar1/WildDifficulty/issues).
 
 ---
 
@@ -195,7 +202,7 @@
 - Toggle on/off with `/wd scoreboard`
 
 #### 🌐 Full Localization
-- All messages are in an editable `lang.yml` file
+- All messages are localized in `lang.yml` and auto-downloadable in 10 languages
 - Color code support (`&a`, `&c`, etc.)
 - Dynamic placeholders (`{zone}`, `{count}`, etc.)
 
@@ -230,6 +237,7 @@
 | `/wd scoreboard` | Toggles the debug scoreboard | `wilddifficulty.admin` |
 | `/wd debug` | Toggles debug logging | `wilddifficulty.admin` |
 | `/wd settings` | Personal player settings | `wilddifficulty.player.settings` |
+| `/wd language [code]` | Changes the plugin language (`fr`, `en`, `de`, `es`, ...) | `wilddifficulty.admin` |
 | `/wd zone <args>` | Manual zone management | `wilddifficulty.admin` |
 | `/wd help` | Shows help | `wilddifficulty.admin` |
 
@@ -256,6 +264,12 @@
 4. Configure the YAML files in `plugins/WildDifficulty/`
 5. Use `/wd gui` to access the graphical interface
 
+### 🐛 Bug Reporting & Support
+
+For any bug reports, feature requests, or assistance:
+- **Discord**: Contact **`Toryar`** on Discord.
+- **GitHub Issues**: Open a ticket in the [Issues](https://github.com/Toryar1/WildDifficulty/issues) section.
+
 ---
 
 ## ⚖️ Licence / License
@@ -263,7 +277,7 @@
 Ce logiciel est protégé par une licence propriétaire.  
 This software is protected under a proprietary license.
 
-**Toute reproduction, modification ou distribution sans autorisation écrite et compensation financière préalable est strictement interdite.**  
+**Toute reproduction, modification ou distribution sans autorisation écrite et compensation financière préalable est strictly interdite.**  
 **Any reproduction, modification, or distribution without prior written authorization and financial compensation is strictly prohibited.**
 
 Voir le fichier [LICENSE](LICENSE) pour les détails complets.  
