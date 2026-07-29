@@ -1,0 +1,95 @@
+# ============================================================
+# WildDifficulty — lang/ru.yml
+# Yazyk: Russkiy | Language: Russian (transliterated)
+# ============================================================
+
+prefix: "&8[&6WildDifficulty&8] &7"
+
+general:
+  no_permission: "&cU vas net prav dlya vypolneniya etoy komandy."
+  config_reloaded: "&aKonfiguratsiya uspeshno perezagruzhena!"
+  invalid_number: "&cNedeystvitelnoye chislo."
+  player_only: "&cTolko igroki mogut vypolnyat etu komandu."
+  unknown_command: "&cNeizvestnaya komanda. Vvedite /wd chtoby otkryt menu."
+  spawn_distance_updated: "&aMaksimalnoye rasstoyaniye spawna obnovleno."
+  variant_cap_updated: "&aMaksimalnyy limit variantov obnovlen."
+  nametag_format_updated: "&aFormat neyminteha obnovlen."
+  thirst_multiplier_updated: "&aMnozitel degradatsii zhazhdy obnovlen: {val}"
+  heat_multiplier_updated: "&aMnozitel zhary obnovlen: {val}"
+  despawn_time_updated: "&aVremya dsspouna obnovleno."
+
+tools:
+  given_biome: "&a[WD] Instrument nastroyki bayoma peredан."
+  given_spawner: "&a[WD] Instrument Spawner peredан. PKM po bloku dlya redaktirovaniya."
+  given_zone: "&a[WD] Instrument Zony peredан. PKM dlya razmeshcheniya tochek."
+  given_inspector: "&a[WD] Instrument Inspektor peredан. PKM po monstre dlya analiza."
+  given_all: "&a[WD] Vse administrativnyye instrumenty vydany."
+
+command:
+  killall: "&a[WD] {count} monostrov WildDifficulty udaleno."
+  scoreboard_on: "&a[WD] Tablitsa otladki vklyuchena."
+  scoreboard_off: "&c[WD] Tablitsa otladki vyklyuchena."
+  bloodmoon_scheduled: "&a[WD] Krovavaya Luna zaplanirana na sleduyushchuyu noch!"
+  debug_toggled: "&a[WD] Rezhim otladki ustanovlen na: {status}"
+  spawn_player: "&aSpavnen NPC-Igrok: {id}"
+  spawn_mob: "&aSpavnen: {id} {mode}"
+  variant_not_found: "&cVariant ne naydyen."
+  squad_not_found: "&cOtryad ne naydyen."
+  squad_spawned: "&aOtryad {id} vyzvаn pered vami."
+  teleport_zone: "&aTeleportirovan v zonu '{zone}'."
+  zone_not_found: "&cZona ne naydena: {zone}"
+  no_target: "&cNyet pravilnoy miseni."
+  target_no_variant: "&cU etoy sushchnosti net varianta (eto obychnyy vanilla-mob)."
+
+help:
+  header: "&6★ WildDifficulty - Pomoshch ★"
+  gui: "&e/wd gui &7- Otkryvayet glavnoye admin-menu"
+  reload: "&e/wd reload &7- Perezagruzhayet fayly konfiguratsii"
+  killall: "&e/wd killall &7- Udalяyet vse polzovatelskiye sushchnosti"
+  biome_tool: "&e/wd biome_tool &7- Vydayet kompas upravleniya biomом"
+  spawner_tool: "&e/wd spawner_tool &7- Vydayet lopatu upravleniya spawnerami"
+  zone_tool: "&e/wd zone_tool &7- Vydayet motыgu upravleniya zonami"
+  inspector_tool: "&e/wd inspector_tool &7- Vydayet instrument inspektora"
+  tools: "&e/wd tools &7- Vydayet vse administrativnyye instrumenty"
+  scoreboard: "&e/wd scoreboard &7- Vklyuchayet/vyklyuchayet tablitsu otladki"
+  debug: "&e/wd debug &7- Vklyuchayet/vyklyuchayet zhurnaly otladki"
+  bloodmoon: "&e/wd bloodmoon &7- Prinuditelnaya Krovavaya Luna v sleduyushchuyu noch"
+  spawn: "&e/wd spawn <variant> [normal|static] &7- Spawnit monstra"
+  spawnsquad: "&e/wd spawnsquad <otryad> &7- Spawnit otryad"
+  edit: "&e/wd edit &7- Otkryvayet GUI redaktirovaniya ukazannogo varianta"
+  tp: "&e/wd tp <zona> &7- Teleportiruyetsya v zonu slozhnosti"
+  zone: "&e/wd zone <args> &7- Ruchnyye komandy upravleniya zonoy"
+  help: "&e/wd help &7- Pokazyvayet eto spravochnoye soobshcheniye"
+
+bloodmoon:
+  start_message: "&cKrovavaya Luna voskhodit... Monstry v yarosti!"
+  end_message: "&aKrovavaya Luna zakhodit. Spokoystviye vozvrashchayetsya..."
+
+hardcore:
+  instant_death_despawn: "&cRezhim Hardcore: Vashe snaryadeniye mgnovenno ischezlo posle vashey smerti."
+
+zone:
+  created: "&aZona &e{zone}&a uspeshno sozdana!"
+  deleted: "&cZona &e{zone}&c udalena."
+  protection_denied: "&cEta zona zashchishchena! U vas net prav deystvovat zdes."
+  container_denied: "&cEta zona zashchishchena! Vy ne mozhete ispolzovat eti elementy."
+  no_active_zone: "&cNikakaya zona ne redaktiruyetsya ili sozdayetsya pryamo seychas."
+  pos1_set: "&aPozitsiya 1 (KUBOID) ustanovlena na: {x}, {y}, {z}"
+  pos2_set: "&aPozitsiya 2 (KUBOID) ustanovlena na: {x}, {y}, {z}"
+  center_set: "&aTsentr (RADIUS) ustanovlen na: {x}, {y}, {z}"
+  radius_set: "&aRadius ustanovlen na {radius} blokov."
+  point_added: "&aTochka dobavlena: [{x}, {z}] (Vsego: {total} tochek)"
+  points_reset: "&cTochki poligona sbrosheny."
+
+spawner:
+  created: "&aPolzovatelskiy spawner sozdan na X: {x}, Y: {y}, Z: {z}."
+  removed: "&cPolzovatelskiy spawner udalyen."
+  no_spawner_clicked: "&cNikakoy spawnyer na etom bloke. PKM po spawneru."
+
+inspector:
+  header: "&e=== Inspektor Mobov WildDifficulty ==="
+  type: "&7Tip: &f{type}"
+  variant: "&7Variant: &f{variant}"
+  health: "&7OZ: &e{hp}/{max_hp}"
+  damage: "&7Uron: &c{dmg}"
+  speed: "&7Skorost: &b{speed}"

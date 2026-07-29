@@ -2,9 +2,13 @@ name: WildDifficulty
 version: '${project.version}'
 main: fr.wilddifficulty.WildDifficultyPlugin
 api-version: '1.21'
-description: Plugin de scaling de difficulté pour mobs vanilla selon biome, distance et zones.
-authors: [WildDifficulty]
-website: ''
+description: Advanced mob difficulty scaling plugin — variants, zones, blood moon, thirst & more.
+authors: [Toryar1]
+website: 'https://www.spigotmc.org/resources/wilddifficulty'
+
+softdepend:
+  - Citizens
+  - PlaceholderAPI
 
 commands:
   wd:

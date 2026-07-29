@@ -1,0 +1,95 @@
+# ============================================================
+# WildDifficulty — lang/pl.yml
+# Jezyk: Polski | Language: Polish
+# ============================================================
+
+prefix: "&8[&6WildDifficulty&8] &7"
+
+general:
+  no_permission: "&cNie masz uprawnien do wykonania tego polecenia."
+  config_reloaded: "&aKonfiguracja pomyslnie przeladowana!"
+  invalid_number: "&cNieprawidlowa liczba."
+  player_only: "&cTylko gracze moga wykonywac to polecenie."
+  unknown_command: "&cNieznane polecenie. Wpisz /wd aby otworzyc menu."
+  spawn_distance_updated: "&aAktualizacja maksymalnej odleglosci spawnu."
+  variant_cap_updated: "&aAktualizacja maksymalnego limitu wariantow."
+  nametag_format_updated: "&aFormat nazwy zaktualizowany."
+  thirst_multiplier_updated: "&aMnoznik degradacji pragnienia zaktualizowany: {val}"
+  heat_multiplier_updated: "&aMnoznik ciepla zaktualizowany: {val}"
+  despawn_time_updated: "&aAktualizacja czasu despawnu."
+
+tools:
+  given_biome: "&a[WD] Otrzymano narzedzie do konfiguracji biomu."
+  given_spawner: "&a[WD] Otrzymano narzedzie Spawner. Kliknij prawym przyciskiem na blok aby edytowac."
+  given_zone: "&a[WD] Otrzymano narzedzie Strefy. Kliknij prawym przyciskiem aby umiescic punkty."
+  given_inspector: "&a[WD] Otrzymano narzedzie Inspektor. Kliknij prawym przyciskiem na potwora."
+  given_all: "&a[WD] Otrzymano wszystkie narzedzia administracyjne."
+
+command:
+  killall: "&a[WD] Usunieto {count} potworow WildDifficulty."
+  scoreboard_on: "&a[WD] Tablica debugowania wlaczona."
+  scoreboard_off: "&c[WD] Tablica debugowania wylaczona."
+  bloodmoon_scheduled: "&a[WD] Krwawy Ksiezyc zaplanowany na nastepna noc!"
+  debug_toggled: "&a[WD] Tryb debugowania ustawiony na: {status}"
+  spawn_player: "&aSpawnowano gracza NPC: {id}"
+  spawn_mob: "&aSpawnowano: {id} {mode}"
+  variant_not_found: "&cNie znaleziono wariantu."
+  squad_not_found: "&cNie znaleziono oddzialu."
+  squad_spawned: "&aOddzial {id} przywolany przed toba."
+  teleport_zone: "&aPrzeteleportowano do strefy '{zone}'."
+  zone_not_found: "&cNie znaleziono strefy: {zone}"
+  no_target: "&cBrak prawidlowego celu."
+  target_no_variant: "&cTen byt nie ma wariantu (to zwykly mob vanilla)."
+
+help:
+  header: "&6★ WildDifficulty - Pomoc ★"
+  gui: "&e/wd gui &7- Otwiera glowne menu administracyjne"
+  reload: "&e/wd reload &7- Przeladowuje pliki konfiguracyjne"
+  killall: "&e/wd killall &7- Usuwa wszystkie niestandardowe byty"
+  biome_tool: "&e/wd biome_tool &7- Daje kompas zarzadzania biomem"
+  spawner_tool: "&e/wd spawner_tool &7- Daje lopatke zarzadzania spawnerami"
+  zone_tool: "&e/wd zone_tool &7- Daje motyczke zarzadzania strefami"
+  inspector_tool: "&e/wd inspector_tool &7- Daje narzedzie inspektora"
+  tools: "&e/wd tools &7- Daje wszystkie narzedzia administracyjne"
+  scoreboard: "&e/wd scoreboard &7- Wlacza/wylacza tablice debugowania"
+  debug: "&e/wd debug &7- Wlacza/wylacza logi debugowania"
+  bloodmoon: "&e/wd bloodmoon &7- Wymusza Krwawy Ksiezyc na nastepna noc"
+  spawn: "&e/wd spawn <wariant> [normal|static] &7- Spawnuje potwora"
+  spawnsquad: "&e/wd spawnsquad <oddzial> &7- Spawnuje oddzial"
+  edit: "&e/wd edit &7- Otwiera GUI edycji wskazanego wariantu"
+  tp: "&e/wd tp <strefa> &7- Teleportuje do strefy trudnosci"
+  zone: "&e/wd zone <args> &7- Reczne polecenia zarzadzania strefami"
+  help: "&e/wd help &7- Wyswietla te wiadomosc pomocy"
+
+bloodmoon:
+  start_message: "&cKrwawy Ksiezyc wschodzi... Potwory sa wsciekle!"
+  end_message: "&aKrwawy Ksiezyc zachodzi. Spokoj powraca..."
+
+hardcore:
+  instant_death_despawn: "&cTryb Hardcore: Twoj ekwipunek natychmiastowo zniknal po smierci."
+
+zone:
+  created: "&aStrefa &e{zone}&a utworzona pomyslnie!"
+  deleted: "&cStrefa &e{zone}&c usunieta."
+  protection_denied: "&cTa strefa jest chroniona! Nie masz uprawnien do dzialania tutaj."
+  container_denied: "&cTa strefa jest chroniona! Nie mozesz uzywac tych elementow."
+  no_active_zone: "&cZadna strefa nie jest aktualnie edytowana ani tworzona."
+  pos1_set: "&aPozycja 1 (SZESCIAN) ustawiona na: {x}, {y}, {z}"
+  pos2_set: "&aPozycja 2 (SZESCIAN) ustawiona na: {x}, {y}, {z}"
+  center_set: "&aCentrum (PROMIEN) ustawione na: {x}, {y}, {z}"
+  radius_set: "&aPromien ustawiony na {radius} blokow."
+  point_added: "&aDodano punkt: [{x}, {z}] (Lacznie: {total} punktow)"
+  points_reset: "&cPunkty wielokata zresetowane."
+
+spawner:
+  created: "&aNiestandardowy spawner utworzony w X: {x}, Y: {y}, Z: {z}."
+  removed: "&cNiestandardowy spawner usuniety."
+  no_spawner_clicked: "&cNie znaleziono spawnera na tym bloku. Kliknij prawym przyciskiem na spawner."
+
+inspector:
+  header: "&e=== Inspektor Mobow WildDifficulty ==="
+  type: "&7Typ: &f{type}"
+  variant: "&7Wariant: &f{variant}"
+  health: "&7PZ: &e{hp}/{max_hp}"
+  damage: "&7Obrazenia: &c{dmg}"
+  speed: "&7Predkosc: &b{speed}"

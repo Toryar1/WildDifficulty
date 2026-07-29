@@ -1,0 +1,95 @@
+# ============================================================
+# WildDifficulty — lang/en.yml
+# Language: English
+# ============================================================
+
+prefix: "&8[&6WildDifficulty&8] &7"
+
+general:
+  no_permission: "&cYou do not have permission to execute this command."
+  config_reloaded: "&aConfiguration reloaded successfully!"
+  invalid_number: "&cInvalid number."
+  player_only: "&cOnly players can execute this command."
+  unknown_command: "&cUnknown command. Type /wd to open the menu."
+  spawn_distance_updated: "&aMaximum spawn distance updated."
+  variant_cap_updated: "&aMaximum variant cap updated."
+  nametag_format_updated: "&aNametag format updated."
+  thirst_multiplier_updated: "&aThirst degradation multiplier updated: {val}"
+  heat_multiplier_updated: "&aHeat multiplier updated: {val}"
+  despawn_time_updated: "&aDespawn time updated."
+
+tools:
+  given_biome: "&a[WD] Biome configuration tool given."
+  given_spawner: "&a[WD] Spawner tool given. Right-click a block to edit a spawner."
+  given_zone: "&a[WD] Zone tool given. Right-click to place points."
+  given_inspector: "&a[WD] Inspector tool given. Right-click a mob to analyse it."
+  given_all: "&a[WD] All administration tools have been given."
+
+command:
+  killall: "&a[WD] {count} WildDifficulty monsters removed."
+  scoreboard_on: "&a[WD] Debug scoreboard enabled."
+  scoreboard_off: "&c[WD] Debug scoreboard disabled."
+  bloodmoon_scheduled: "&a[WD] Blood Moon scheduled for the next night!"
+  debug_toggled: "&a[WD] Debug mode set to: {status}"
+  spawn_player: "&aSpawned Player NPC: {id}"
+  spawn_mob: "&aSpawned: {id} {mode}"
+  variant_not_found: "&cVariant not found."
+  squad_not_found: "&cSquad not found."
+  squad_spawned: "&aSquad {id} spawned in front of you."
+  teleport_zone: "&aTeleported to zone '{zone}'."
+  zone_not_found: "&cZone not found: {zone}"
+  no_target: "&cNo valid entity targeted."
+  target_no_variant: "&cThis entity has no variant (it is a vanilla mob)."
+
+help:
+  header: "&6★ WildDifficulty - Help ★"
+  gui: "&e/wd gui &7- Opens the main admin menu"
+  reload: "&e/wd reload &7- Reloads configuration files"
+  killall: "&e/wd killall &7- Removes all custom entities"
+  biome_tool: "&e/wd biome_tool &7- Gives the biome management compass"
+  spawner_tool: "&e/wd spawner_tool &7- Gives the spawner management shovel"
+  zone_tool: "&e/wd zone_tool &7- Gives the zone management hoe"
+  inspector_tool: "&e/wd inspector_tool &7- Gives the mob inspector tool"
+  tools: "&e/wd tools &7- Gives all administration tools"
+  scoreboard: "&e/wd scoreboard &7- Toggles the debug scoreboard"
+  debug: "&e/wd debug &7- Toggles debug logging"
+  bloodmoon: "&e/wd bloodmoon &7- Forces a Blood Moon for the next night"
+  spawn: "&e/wd spawn <variant> [normal|static] &7- Spawns a monster"
+  spawnsquad: "&e/wd spawnsquad <squad> &7- Spawns a squad"
+  edit: "&e/wd edit &7- Opens the edit GUI for the targeted variant"
+  tp: "&e/wd tp <zone> &7- Teleports to a difficulty zone"
+  zone: "&e/wd zone <args> &7- Manual zone management commands"
+  help: "&e/wd help &7- Displays this help message"
+
+bloodmoon:
+  start_message: "&cThe Blood Moon rises... The monsters are enraged!"
+  end_message: "&aThe Blood Moon sets. Calm returns..."
+
+hardcore:
+  instant_death_despawn: "&cHardcore Mode: Your equipment vanished instantly upon your death."
+
+zone:
+  created: "&aZone &e{zone}&a created successfully!"
+  deleted: "&cZone &e{zone}&c deleted."
+  protection_denied: "&cThis zone is protected! You are not allowed to act here."
+  container_denied: "&cThis zone is protected! You are not allowed to use these elements."
+  no_active_zone: "&cNo zone is currently being edited or created. Open a zone editor and take the tool."
+  pos1_set: "&aPosition 1 (CUBOID) set to: {x}, {y}, {z}"
+  pos2_set: "&aPosition 2 (CUBOID) set to: {x}, {y}, {z}"
+  center_set: "&aCenter (RADIUS) set to: {x}, {y}, {z}"
+  radius_set: "&aRadius (RADIUS) set to {radius} blocks."
+  point_added: "&aPoint added: [{x}, {z}] (Total: {total} points)"
+  points_reset: "&cPolygon points reset."
+
+spawner:
+  created: "&aCustom spawner created at X: {x}, Y: {y}, Z: {z}."
+  removed: "&cCustom spawner removed."
+  no_spawner_clicked: "&cNo spawner found on this block. Right-click a spawner."
+
+inspector:
+  header: "&e=== WildDifficulty Mob Inspector ==="
+  type: "&7Type: &f{type}"
+  variant: "&7Variant: &f{variant}"
+  health: "&7HP: &e{hp}/{max_hp}"
+  damage: "&7Damage: &c{dmg}"
+  speed: "&7Speed: &b{speed}"

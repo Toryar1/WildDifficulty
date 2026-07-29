@@ -1,0 +1,95 @@
+# ============================================================
+# WildDifficulty — lang/nl.yml
+# Taal: Nederlands | Language: Dutch
+# ============================================================
+
+prefix: "&8[&6WildDifficulty&8] &7"
+
+general:
+  no_permission: "&cJe hebt geen toestemming om dit commando uit te voeren."
+  config_reloaded: "&aConfiguratie succesvol herladen!"
+  invalid_number: "&cOngeldig nummer."
+  player_only: "&cAlleen spelers kunnen dit commando uitvoeren."
+  unknown_command: "&cOnbekend commando. Typ /wd om het menu te openen."
+  spawn_distance_updated: "&aMaximale spawn-afstand bijgewerkt."
+  variant_cap_updated: "&aMaximaal variantenlimiet bijgewerkt."
+  nametag_format_updated: "&aNaamtag-formaat bijgewerkt."
+  thirst_multiplier_updated: "&aDorst-degradatiemultiplier bijgewerkt: {val}"
+  heat_multiplier_updated: "&aWarmtemultiplier bijgewerkt: {val}"
+  despawn_time_updated: "&aDespawn-tijd bijgewerkt."
+
+tools:
+  given_biome: "&a[WD] Bioom-configuratietool ontvangen."
+  given_spawner: "&a[WD] Spawner-tool ontvangen. Rechtsklik op een blok om de spawner te bewerken."
+  given_zone: "&a[WD] Zone-tool ontvangen. Rechtsklik om punten te plaatsen."
+  given_inspector: "&a[WD] Inspecteur-tool ontvangen. Rechtsklik op een monster om het te analyseren."
+  given_all: "&a[WD] Alle beheerstools zijn overhandigd."
+
+command:
+  killall: "&a[WD] {count} WildDifficulty-monsters verwijderd."
+  scoreboard_on: "&a[WD] Debug-scoreboard ingeschakeld."
+  scoreboard_off: "&c[WD] Debug-scoreboard uitgeschakeld."
+  bloodmoon_scheduled: "&a[WD] Bloedmaan gepland voor de volgende nacht!"
+  debug_toggled: "&a[WD] Debug-modus ingesteld op: {status}"
+  spawn_player: "&aSpeler-NPC gespawnd: {id}"
+  spawn_mob: "&aGespawnd: {id} {mode}"
+  variant_not_found: "&cVariant niet gevonden."
+  squad_not_found: "&cPloeg niet gevonden."
+  squad_spawned: "&aPloeg {id} voor je gespawnd."
+  teleport_zone: "&aGeteleporteerd naar zone '{zone}'."
+  zone_not_found: "&cZone niet gevonden: {zone}"
+  no_target: "&cGeen geldig doelwit aangewezen."
+  target_no_variant: "&cDit wezen heeft geen variant (het is een vanilla-mob)."
+
+help:
+  header: "&6★ WildDifficulty - Hulp ★"
+  gui: "&e/wd gui &7- Opent het hoofd-beheermenu"
+  reload: "&e/wd reload &7- Herlaadt de configuratiebestanden"
+  killall: "&e/wd killall &7- Verwijdert alle aangepaste entiteiten"
+  biome_tool: "&e/wd biome_tool &7- Geeft het bioom-beheerkompas"
+  spawner_tool: "&e/wd spawner_tool &7- Geeft de spawner-beheerschop"
+  zone_tool: "&e/wd zone_tool &7- Geeft de zone-beheerhou"
+  inspector_tool: "&e/wd inspector_tool &7- Geeft de inspecteur-tool"
+  tools: "&e/wd tools &7- Geeft alle beheertools"
+  scoreboard: "&e/wd scoreboard &7- Schakelt het debug-scoreboard in/uit"
+  debug: "&e/wd debug &7- Schakelt debug-logboeken in/uit"
+  bloodmoon: "&e/wd bloodmoon &7- Forceert een Bloedmaan voor de volgende nacht"
+  spawn: "&e/wd spawn <variant> [normal|static] &7- Spawnt een monster"
+  spawnsquad: "&e/wd spawnsquad <ploeg> &7- Spawnt een ploeg"
+  edit: "&e/wd edit &7- Opent de bewerkings-GUI van de aangewezen variant"
+  tp: "&e/wd tp <zone> &7- Teleporteert naar een moeilijkheidszone"
+  zone: "&e/wd zone <args> &7- Handmatige zonebeheercommando's"
+  help: "&e/wd help &7- Toont dit helpbericht"
+
+bloodmoon:
+  start_message: "&cDe Bloedmaan stijgt op... De monsters zijn woedend!"
+  end_message: "&aDe Bloedmaan gaat onder. De rust keert terug..."
+
+hardcore:
+  instant_death_despawn: "&cHardcore-modus: Je uitrusting verdween onmiddellijk bij je dood."
+
+zone:
+  created: "&aZone &e{zone}&a succesvol aangemaakt!"
+  deleted: "&cZone &e{zone}&c verwijderd."
+  protection_denied: "&cDeze zone is beschermd! Je hebt geen toestemming om hier te handelen."
+  container_denied: "&cDeze zone is beschermd! Je kunt deze elementen niet gebruiken."
+  no_active_zone: "&cGeen zone wordt momenteel bewerkt of aangemaakt."
+  pos1_set: "&aPositie 1 (KUBOID) ingesteld op: {x}, {y}, {z}"
+  pos2_set: "&aPositie 2 (KUBOID) ingesteld op: {x}, {y}, {z}"
+  center_set: "&aCentrum (RADIUS) ingesteld op: {x}, {y}, {z}"
+  radius_set: "&aStraal ingesteld op {radius} blokken."
+  point_added: "&aPunt toegevoegd: [{x}, {z}] (Totaal: {total} punten)"
+  points_reset: "&cPolygoonpunten gereset."
+
+spawner:
+  created: "&cAangepaste spawner aangemaakt op X: {x}, Y: {y}, Z: {z}."
+  removed: "&cAangepaste spawner verwijderd."
+  no_spawner_clicked: "&cGeen spawner gevonden op dit blok. Rechtsklik op een spawner."
+
+inspector:
+  header: "&e=== WildDifficulty Mob-Inspecteur ==="
+  type: "&7Type: &f{type}"
+  variant: "&7Variant: &f{variant}"
+  health: "&7LP: &e{hp}/{max_hp}"
+  damage: "&7Schade: &c{dmg}"
+  speed: "&7Snelheid: &b{speed}"

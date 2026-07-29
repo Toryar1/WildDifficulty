@@ -1,0 +1,95 @@
+# ============================================================
+# WildDifficulty — lang/it.yml
+# Lingua: Italiano | Language: Italian
+# ============================================================
+
+prefix: "&8[&6WildDifficulty&8] &7"
+
+general:
+  no_permission: "&cNon hai il permesso di eseguire questo comando."
+  config_reloaded: "&aConfigurazione ricaricata con successo!"
+  invalid_number: "&cNumero non valido."
+  player_only: "&cSolo i giocatori possono eseguire questo comando."
+  unknown_command: "&cComando sconosciuto. Digita /wd per aprire il menu."
+  spawn_distance_updated: "&aDistanza massima di spawn aggiornata."
+  variant_cap_updated: "&aLimite massimo di varianti aggiornato."
+  nametag_format_updated: "&aFormato nametag aggiornato."
+  thirst_multiplier_updated: "&aMultiplicatore di degradazione della sete aggiornato: {val}"
+  heat_multiplier_updated: "&aMultiplicatore di calore aggiornato: {val}"
+  despawn_time_updated: "&aTempo di scomparsa aggiornato."
+
+tools:
+  given_biome: "&a[WD] Strumento di configurazione bioma consegnato."
+  given_spawner: "&a[WD] Strumento Spawner consegnato. Clic destro su un blocco per modificare."
+  given_zone: "&a[WD] Strumento Zona consegnato. Clic destro per posizionare i punti."
+  given_inspector: "&a[WD] Strumento Ispettore consegnato. Clic destro su un mostro per analizzarlo."
+  given_all: "&a[WD] Tutti gli strumenti di amministrazione sono stati consegnati."
+
+command:
+  killall: "&a[WD] {count} mostri di WildDifficulty rimossi."
+  scoreboard_on: "&a[WD] Tabellone di debug attivato."
+  scoreboard_off: "&c[WD] Tabellone di debug disattivato."
+  bloodmoon_scheduled: "&a[WD] Luna di Sangue programmata per la prossima notte!"
+  debug_toggled: "&a[WD] Modalità debug impostata su: {status}"
+  spawn_player: "&aGenerato NPC Giocatore: {id}"
+  spawn_mob: "&aGenerato: {id} {mode}"
+  variant_not_found: "&cVariante non trovata."
+  squad_not_found: "&cSquadra non trovata."
+  squad_spawned: "&aSquadra {id} evocata davanti a te."
+  teleport_zone: "&aTeleportato alla zona '{zone}'."
+  zone_not_found: "&cZona non trovata: {zone}"
+  no_target: "&cNessuna entità valida puntata."
+  target_no_variant: "&cQuesta entità non ha una variante (è un mob vanilla)."
+
+help:
+  header: "&6★ WildDifficulty - Aiuto ★"
+  gui: "&e/wd gui &7- Apre il menu principale di amministrazione"
+  reload: "&e/wd reload &7- Ricarica i file di configurazione"
+  killall: "&e/wd killall &7- Rimuove tutte le entità personalizzate"
+  biome_tool: "&e/wd biome_tool &7- Consegna la bussola di gestione dei biomi"
+  spawner_tool: "&e/wd spawner_tool &7- Consegna la vanga di gestione degli spawner"
+  zone_tool: "&e/wd zone_tool &7- Consegna la zappa di gestione delle zone"
+  inspector_tool: "&e/wd inspector_tool &7- Consegna lo strumento ispettore"
+  tools: "&e/wd tools &7- Consegna tutti gli strumenti di amministrazione"
+  scoreboard: "&e/wd scoreboard &7- Attiva/disattiva il tabellone di debug"
+  debug: "&e/wd debug &7- Attiva/disattiva i log di debug"
+  bloodmoon: "&e/wd bloodmoon &7- Forza una Luna di Sangue per la prossima notte"
+  spawn: "&e/wd spawn <variante> [normal|static] &7- Genera un mostro"
+  spawnsquad: "&e/wd spawnsquad <squadra> &7- Genera una squadra"
+  edit: "&e/wd edit &7- Apre il GUI di modifica della variante puntata"
+  tp: "&e/wd tp <zona> &7- Teleporta a una zona di difficoltà"
+  zone: "&e/wd zone <args> &7- Comandi manuali di gestione delle zone"
+  help: "&e/wd help &7- Mostra questo messaggio di aiuto"
+
+bloodmoon:
+  start_message: "&cLa Luna di Sangue sorge... I mostri sono in preda alla furia!"
+  end_message: "&aLa Luna di Sangue tramonta. La calma ritorna..."
+
+hardcore:
+  instant_death_despawn: "&cModalità Hardcore: Il tuo equipaggiamento è scomparso istantaneamente alla tua morte."
+
+zone:
+  created: "&aZona &e{zone}&a creata con successo!"
+  deleted: "&cZona &e{zone}&c eliminata."
+  protection_denied: "&cQuesta zona è protetta! Non sei autorizzato ad agire qui."
+  container_denied: "&cQuesta zona è protetta! Non puoi usare questi elementi."
+  no_active_zone: "&cNessuna zona in fase di modifica o creazione. Apri l'editor di una zona."
+  pos1_set: "&aPosizione 1 (CUBOIDE) impostata su: {x}, {y}, {z}"
+  pos2_set: "&aPosizione 2 (CUBOIDE) impostata su: {x}, {y}, {z}"
+  center_set: "&aCentro (RAGGIO) impostato su: {x}, {y}, {z}"
+  radius_set: "&aRaggio impostato su {radius} blocchi."
+  point_added: "&aPunto aggiunto: [{x}, {z}] (Totale: {total} punti)"
+  points_reset: "&cPunti del poligono reimpostati."
+
+spawner:
+  created: "&aSpawner personalizzato creato in X: {x}, Y: {y}, Z: {z}."
+  removed: "&cSpawner personalizzato rimosso."
+  no_spawner_clicked: "&cNessuno spawner trovato su questo blocco. Clic destro su uno spawner."
+
+inspector:
+  header: "&e=== Ispettore Mob WildDifficulty ==="
+  type: "&7Tipo: &f{type}"
+  variant: "&7Variante: &f{variant}"
+  health: "&7PV: &e{hp}/{max_hp}"
+  damage: "&7Danno: &c{dmg}"
+  speed: "&7Velocità: &b{speed}"

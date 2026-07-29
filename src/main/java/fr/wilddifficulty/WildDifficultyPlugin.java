@@ -3,6 +3,7 @@ package fr.wilddifficulty;
 import fr.wilddifficulty.commands.MobZoneCommand;
 import fr.wilddifficulty.commands.WDReloadCommand;
 import fr.wilddifficulty.config.BiomeConfigManager;
+import fr.wilddifficulty.config.LanguageSetup;
 import fr.wilddifficulty.config.MainConfigManager;
 import fr.wilddifficulty.config.MobConfigManager;
 import fr.wilddifficulty.listener.DaytimeSpawnListener;
@@ -14,11 +15,16 @@ import fr.wilddifficulty.listener.ZoneToolListener;
 import fr.wilddifficulty.listener.SafeZoneListener;
 import fr.wilddifficulty.util.AttributeUtil;
 import fr.wilddifficulty.util.MobTickScheduler;
+import fr.wilddifficulty.util.UpdateChecker;
 import fr.wilddifficulty.variant.VariantManager;
 import fr.wilddifficulty.gui.GuiManager;
 import fr.wilddifficulty.zone.ZoneManager;
 import fr.wilddifficulty.commands.WDGuiCommand;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.persistence.PersistentDataType;
@@ -38,12 +44,16 @@ public final class WildDifficultyPlugin extends JavaPlugin {
     private GuiManager guiManager;
     private fr.wilddifficulty.spawner.SpawnerManager spawnerManager;
     private fr.wilddifficulty.config.LangManager langManager;
-    
+    private UpdateChecker updateChecker;
+    private LanguageSetup languageSetup;
+
     private fr.wilddifficulty.player.PlayerSettingsManager playerSettingsManager;
-    
+
     public fr.wilddifficulty.player.PlayerSettingsManager getPlayerSettingsManager() {
         return playerSettingsManager;
     }
+
+    public UpdateChecker getUpdateChecker() { return updateChecker; }
 
     private MobTickScheduler tickScheduler;
     private final java.util.Set<java.util.UUID> activeScoreboards = new java.util.HashSet<>();
@@ -72,13 +82,17 @@ public final class WildDifficultyPlugin extends JavaPlugin {
             skinsDir.mkdirs();
             try {
                 java.io.File readme = new java.io.File(skinsDir, "LISEZ_MOI.txt");
-                java.nio.file.Files.writeString(readme.toPath(), 
+                java.nio.file.Files.writeString(readme.toPath(),
                     "Glissez-deposez des fichiers .txt contenant l'URL de texture ou le code Base64 dans ce dossier.\n" +
                     "Exemple de contenu d'un fichier 'vache_sang.txt' :\n" +
                     "http://textures.minecraft.net/texture/3f1a2b...\n" +
                     "Cette texture sera alors disponible dans la banque de tetes/skins sous le nom 'vache_sang'.");
             } catch (Exception ignored) {}
         }
+
+        // ─── Sélection de la langue au premier démarrage ───
+        languageSetup = new LanguageSetup(this);
+        languageSetup.setupIfNeeded();
 
         // Initialisation des managers
         langManager = new fr.wilddifficulty.config.LangManager(this);
@@ -127,6 +141,30 @@ public final class WildDifficultyPlugin extends JavaPlugin {
 
         // Génération automatique du resource pack
         fr.wilddifficulty.util.ResourcePackGenerator.generate(this);
+
+        // ─── Update Checker (asynchrone) ───
+        updateChecker = new UpdateChecker(this);
+        updateChecker.checkAsync();
+
+        // ─── PlaceholderAPI ───
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new fr.wilddifficulty.hook.PlaceholderAPIHook(this).register();
+            getLogger().info("[WildDifficulty] PlaceholderAPI détecté — placeholders enregistrés.");
+        }
+
+        // ─── Listener pour notifier les admins des mises à jour ───
+        getServer().getPluginManager().registerEvents(new Listener() {
+            @EventHandler
+            public void onJoin(PlayerJoinEvent e) {
+                if (updateChecker != null) {
+                    getServer().getScheduler().runTaskLater(WildDifficultyPlugin.this,
+                        () -> updateChecker.notifyPlayer(e.getPlayer()), 40L);
+                }
+            }
+        }, this);
+
+        // ─── bStats Métriques ───
+        fr.wilddifficulty.util.BStatsMetrics.register(this);
 
         getLogger().info("WildDifficulty activé avec succès !");
     }

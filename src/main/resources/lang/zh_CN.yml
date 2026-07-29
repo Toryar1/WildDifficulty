@@ -1,0 +1,95 @@
+# ============================================================
+# WildDifficulty — lang/zh_CN.yml
+# Yuyan: Jiantizi Zhongwen | Language: Chinese Simplified
+# ============================================================
+
+prefix: "&8[&6WildDifficulty&8] &7"
+
+general:
+  no_permission: "&c您没有权限执行此命令。"
+  config_reloaded: "&a配置重载成功！"
+  invalid_number: "&c无效数字。"
+  player_only: "&c只有玩家可以执行此命令。"
+  unknown_command: "&c未知命令。输入 /wd 打开菜单。"
+  spawn_distance_updated: "&a最大生成距离已更新。"
+  variant_cap_updated: "&a最大变体上限已更新。"
+  nametag_format_updated: "&a名牌格式已更新。"
+  thirst_multiplier_updated: "&a口渴降解倍增器已更新：{val}"
+  heat_multiplier_updated: "&a热量倍增器已更新：{val}"
+  despawn_time_updated: "&a消失时间已更新。"
+
+tools:
+  given_biome: "&a[WD] 生物群系配置工具已给予。"
+  given_spawner: "&a[WD] 刷怪笼工具已给予。右键点击方块以编辑刷怪笼。"
+  given_zone: "&a[WD] 区域工具已给予。右键点击以放置点。"
+  given_inspector: "&a[WD] 检查员工具已给予。右键点击怪物进行分析。"
+  given_all: "&a[WD] 所有管理工具已给予。"
+
+command:
+  killall: "&a[WD] 已删除 {count} 个 WildDifficulty 怪物。"
+  scoreboard_on: "&a[WD] 调试计分板已启用。"
+  scoreboard_off: "&c[WD] 调试计分板已禁用。"
+  bloodmoon_scheduled: "&a[WD] 血月已安排在下一个夜晚！"
+  debug_toggled: "&a[WD] 调试模式已设置为：{status}"
+  spawn_player: "&a已生成玩家NPC：{id}"
+  spawn_mob: "&a已生成：{id} {mode}"
+  variant_not_found: "&c未找到变体。"
+  squad_not_found: "&c未找到小队。"
+  squad_spawned: "&a小队 {id} 已在您面前召唤。"
+  teleport_zone: "&a已传送至区域 '{zone}'。"
+  zone_not_found: "&c未找到区域：{zone}"
+  no_target: "&c没有指向有效实体。"
+  target_no_variant: "&c此实体没有变体（这是一个原版生物）。"
+
+help:
+  header: "&6★ WildDifficulty - 帮助 ★"
+  gui: "&e/wd gui &7- 打开主管理菜单"
+  reload: "&e/wd reload &7- 重载配置文件"
+  killall: "&e/wd killall &7- 删除所有自定义实体"
+  biome_tool: "&e/wd biome_tool &7- 给予生物群系管理指南针"
+  spawner_tool: "&e/wd spawner_tool &7- 给予刷怪笼管理铲子"
+  zone_tool: "&e/wd zone_tool &7- 给予区域管理锄头"
+  inspector_tool: "&e/wd inspector_tool &7- 给予检查员工具"
+  tools: "&e/wd tools &7- 给予所有管理工具"
+  scoreboard: "&e/wd scoreboard &7- 切换调试计分板"
+  debug: "&e/wd debug &7- 切换调试日志"
+  bloodmoon: "&e/wd bloodmoon &7- 强制下一晚血月"
+  spawn: "&e/wd spawn <变体> [normal|static] &7- 生成一个怪物"
+  spawnsquad: "&e/wd spawnsquad <小队> &7- 生成一个小队"
+  edit: "&e/wd edit &7- 打开所指变体的编辑GUI"
+  tp: "&e/wd tp <区域> &7- 传送到难度区域"
+  zone: "&e/wd zone <args> &7- 手动区域管理命令"
+  help: "&e/wd help &7- 显示此帮助消息"
+
+bloodmoon:
+  start_message: "&c血月升起……怪物们狂暴了！"
+  end_message: "&a血月落下。平静重新降临……"
+
+hardcore:
+  instant_death_despawn: "&c极限模式：您的装备在死亡时立即消失。"
+
+zone:
+  created: "&a区域 &e{zone}&a 已成功创建！"
+  deleted: "&c区域 &e{zone}&c 已删除。"
+  protection_denied: "&c该区域受到保护！您无权在此行动。"
+  container_denied: "&c该区域受到保护！您无法使用这些元素。"
+  no_active_zone: "&c目前没有正在编辑或创建的区域。"
+  pos1_set: "&a位置 1（长方体）已设置为：{x}, {y}, {z}"
+  pos2_set: "&a位置 2（长方体）已设置为：{x}, {y}, {z}"
+  center_set: "&a中心（半径）已设置为：{x}, {y}, {z}"
+  radius_set: "&a半径已设置为 {radius} 格。"
+  point_added: "&a已添加点：[{x}, {z}]（共：{total} 个点）"
+  points_reset: "&c多边形点已重置。"
+
+spawner:
+  created: "&a自定义刷怪笼已在 X: {x}, Y: {y}, Z: {z} 创建。"
+  removed: "&c自定义刷怪笼已删除。"
+  no_spawner_clicked: "&c该方块上未找到刷怪笼。右键点击刷怪笼。"
+
+inspector:
+  header: "&e=== WildDifficulty 生物检查员 ==="
+  type: "&7类型：&f{type}"
+  variant: "&7变体：&f{variant}"
+  health: "&7生命值：&e{hp}/{max_hp}"
+  damage: "&7伤害：&c{dmg}"
+  speed: "&7速度：&b{speed}"
