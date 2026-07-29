@@ -27,11 +27,15 @@ public class ZoneToolListener implements Listener {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
         if (item == null || item.getType() != Material.GOLDEN_HOE) return;
-        if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) return;
-        
-        // Adventure components matching checking
-        String plainName = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(item.getItemMeta().displayName());
-        if (!plainName.contains("Outil de Zone")) return;
+        if (!item.hasItemMeta()) return;
+
+        org.bukkit.NamespacedKey toolKey = new org.bukkit.NamespacedKey(plugin, "wd_tool_type");
+        String toolType = item.getItemMeta().getPersistentDataContainer().get(toolKey, org.bukkit.persistence.PersistentDataType.STRING);
+        if (!"zone".equals(toolType)) {
+            if (!item.getItemMeta().hasDisplayName()) return;
+            String plainName = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(item.getItemMeta().displayName());
+            if (!plainName.contains("Outil de Zone") && !plainName.contains("Zone Tool")) return;
+        }
 
         event.setCancelled(true); // Annule l'action par défaut (labourage)
 

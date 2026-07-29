@@ -2634,6 +2634,12 @@ public class GuiListener implements Listener {
             gui.openZoneEditor(player, contextId);
         } else if (menuType.equals("ZONE_MEMBERS") || menuType.equals("ZONE_BEACON") || menuType.equals("ZONE_DANGER_NEST") || menuType.equals("ZONE_SUBSECTIONS")) {
             gui.openZoneEditor(player, contextId);
+        } else if (menuType.equals("LANGUAGE_SELECT")) {
+            gui.openGeneralConfig(player);
+        } else if (menuType.equals("ADMIN_TOOLS") || menuType.equals("GENERAL_CONFIG") || menuType.equals("BLOODMOON_EDIT")) {
+            gui.openMainMenu(player);
+        } else if (menuType.equals("MAIN")) {
+            player.closeInventory();
         } else if (menuType.equals("ADMIN_THIRST_HARDCORE")) {
             gui.openGeneralConfig(player);
         } else if (menuType.equals("ADMIN_THIRST_SOURCES")) {
@@ -2855,12 +2861,16 @@ public class GuiListener implements Listener {
         if (item == null || item.getType() != org.bukkit.Material.COMPASS) return;
         if (!item.hasItemMeta()) return;
 
-        String plainName = getCleanName(item);
-        if (plainName.contains("Configure Spawns de Biome")) {
-            event.setCancelled(true);
-            String bKey = plugin.getGuiManager().getBiomeKeyString(player.getLocation());
-            plugin.getGuiManager().openBiomeSpawnConfig(player, bKey);
+        org.bukkit.NamespacedKey toolKey = new org.bukkit.NamespacedKey(plugin, "wd_tool_type");
+        String toolType = item.getItemMeta().getPersistentDataContainer().get(toolKey, org.bukkit.persistence.PersistentDataType.STRING);
+        if (!"biome".equals(toolType)) {
+            String plainName = getCleanName(item);
+            if (!plainName.contains("Configure Spawns de Biome") && !plainName.contains("Biome")) return;
         }
+
+        event.setCancelled(true);
+        String bKey = plugin.getGuiManager().getBiomeKeyString(player.getLocation());
+        plugin.getGuiManager().openBiomeSpawnConfig(player, bKey);
     }
 
     private String getCleanName(ItemStack item) {

@@ -30,10 +30,15 @@ public class InspectorToolListener implements Listener {
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item == null || item.getType() != org.bukkit.Material.STICK) return;
-        if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) return;
+        if (!item.hasItemMeta()) return;
 
-        String plainName = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(item.getItemMeta().displayName());
-        if (!plainName.contains("Inspecteur de Mobs")) return;
+        org.bukkit.NamespacedKey toolKey = new org.bukkit.NamespacedKey(plugin, "wd_tool_type");
+        String toolType = item.getItemMeta().getPersistentDataContainer().get(toolKey, org.bukkit.persistence.PersistentDataType.STRING);
+        if (!"inspector".equals(toolType)) {
+            if (!item.getItemMeta().hasDisplayName()) return;
+            String plainName = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(item.getItemMeta().displayName());
+            if (!plainName.contains("Inspecteur") && !plainName.contains("Inspector")) return;
+        }
 
         event.setCancelled(true);
 

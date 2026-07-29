@@ -10,6 +10,10 @@ import java.util.List;
 
 public final class ToolsUtil {
 
+    private static org.bukkit.NamespacedKey toolKey() {
+        return new org.bukkit.NamespacedKey(WildDifficultyPlugin.getInstance(), "wd_tool_type");
+    }
+
     private ToolsUtil() {}
 
     public static ItemStack getZoneTool() {
@@ -17,6 +21,7 @@ public final class ToolsUtil {
         ItemStack hoe = new ItemStack(Material.GOLDEN_HOE);
         ItemMeta meta = hoe.getItemMeta();
         if (meta != null) {
+            meta.getPersistentDataContainer().set(toolKey(), org.bukkit.persistence.PersistentDataType.STRING, "zone");
             meta.displayName(plugin.getLangManager().getRawComponent("tools.item_zone_title"));
             meta.lore(List.of(
                 plugin.getLangManager().getRawComponent("tools.item_zone_lore1"),
@@ -33,6 +38,7 @@ public final class ToolsUtil {
         ItemStack shovel = new ItemStack(Material.NETHERITE_SHOVEL);
         ItemMeta meta = shovel.getItemMeta();
         if (meta != null) {
+            meta.getPersistentDataContainer().set(toolKey(), org.bukkit.persistence.PersistentDataType.STRING, "spawner");
             meta.displayName(plugin.getLangManager().getRawComponent("tools.item_spawner_title"));
             meta.lore(List.of(
                 plugin.getLangManager().getRawComponent("tools.item_spawner_lore1"),
@@ -48,6 +54,7 @@ public final class ToolsUtil {
         ItemStack compass = new ItemStack(Material.COMPASS);
         ItemMeta meta = compass.getItemMeta();
         if (meta != null) {
+            meta.getPersistentDataContainer().set(toolKey(), org.bukkit.persistence.PersistentDataType.STRING, "biome");
             meta.displayName(plugin.getLangManager().getRawComponent("tools.item_biome_title"));
             meta.lore(List.of(
                 plugin.getLangManager().getRawComponent("tools.item_biome_lore1"),
@@ -63,6 +70,7 @@ public final class ToolsUtil {
         ItemStack stick = new ItemStack(Material.STICK);
         ItemMeta meta = stick.getItemMeta();
         if (meta != null) {
+            meta.getPersistentDataContainer().set(toolKey(), org.bukkit.persistence.PersistentDataType.STRING, "inspector");
             meta.displayName(plugin.getLangManager().getRawComponent("tools.item_inspector_title"));
             meta.lore(List.of(
                 plugin.getLangManager().getRawComponent("tools.item_inspector_lore1"),
