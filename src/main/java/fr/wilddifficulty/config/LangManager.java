@@ -153,6 +153,15 @@ public class LangManager {
         setIfNotExists("variant.equip_leather_set", "&a[WD] Équipement cuir {slot} défini avec la couleur #{color} depuis votre inventaire.");
         setIfNotExists("variant.equip_set", "&a[WD] Équipement défini sur {slot} depuis votre inventaire.");
 
+        setIfNotExists("gui.title_main", "WildDifficulty - Menu Principal");
+        setIfNotExists("gui.title_general_config", "WD - Config Générale");
+        setIfNotExists("gui.title_admin_tools", "WD - Outils d'Administration");
+        setIfNotExists("gui.title_language_select", "WD - Sélection de Langue");
+        setIfNotExists("gui.title_bloodmoon", "WD - Lune de Sang");
+        setIfNotExists("gui.title_global_modifiers", "WD - Modificateurs Globaux");
+        setIfNotExists("gui.button_close", "&c&lFermer");
+        setIfNotExists("gui.button_back", "&cRetour");
+
         setIfNotExists("inspector.header", "&e=== Inspecteur de Mobs WildDifficulty ===");
         setIfNotExists("inspector.type", "&7Type: &f{type}");
         setIfNotExists("inspector.variant", "&7Variante: &f{variant}");

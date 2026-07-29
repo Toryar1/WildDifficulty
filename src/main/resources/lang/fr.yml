@@ -141,3 +141,13 @@ inspector:
   health: "&7PV: &e{hp}/{max_hp}"
   damage: "&7Dégâts: &c{dmg}"
   speed: "&7Vitesse: &b{speed}"
+
+gui:
+  title_main: "WildDifficulty - Menu Principal"
+  title_general_config: "WD - Config Générale"
+  title_admin_tools: "WD - Outils d'Administration"
+  title_language_select: "WD - Sélection de Langue"
+  title_bloodmoon: "WD - Lune de Sang"
+  title_global_modifiers: "WD - Modificateurs Globaux"
+  button_close: "&c&lFermer"
+  button_back: "&cRetour"

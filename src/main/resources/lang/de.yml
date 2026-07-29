@@ -17,6 +17,8 @@ general:
   thirst_multiplier_updated: "&aDurst-Abbaumultiplikator aktualisiert: {val}"
   heat_multiplier_updated: "&aHitze-Multiplikator aktualisiert: {val}"
   despawn_time_updated: "&aDespawn-Zeit aktualisiert."
+  language_changed: "&a[WD] Sprache erfolgreich geändert zu: {lang}"
+  invalid_language: "&cUngültiger Sprachcode: {code}. Verfügbare Sprachen: fr, en, de, es, pt_BR, nl, pl, ru, zh_CN, it"
 
 tools:
   given_biome: "&a[WD] Biom-Konfigurationswerkzeug erhalten."
@@ -24,6 +26,19 @@ tools:
   given_zone: "&a[WD] Zonen-Werkzeug erhalten. Rechtsklick zum Setzen von Punkten."
   given_inspector: "&a[WD] Inspektor-Werkzeug erhalten. Rechtsklick auf ein Monster zum Analysieren."
   given_all: "&a[WD] Alle Verwaltungswerkzeuge wurden gegeben."
+  item_zone_title: "&eWildDifficulty Zonen-Werkzeug"
+  item_zone_lore1: "&7Rechtsklick auf Block zum Hinzufügen."
+  item_zone_lore2: "&7Linksklick zum Schließen des Polygons."
+  item_zone_lore3: "&7Schleichen + Linksklick zum Rückgängigmachen."
+  item_spawner_title: "&eSpawner-Werkzeug"
+  item_spawner_lore1: "&7Rechtsklick auf einen Block zum Öffnen"
+  item_spawner_lore2: "&7des Spawner-Konfigurationsmenüs."
+  item_biome_title: "&dBiom-Spawns konfigurieren"
+  item_biome_lore1: "&7Rechtsklick zum Öffnen der Konfiguration"
+  item_biome_lore2: "&7für Varianten im aktuellen Biom."
+  item_inspector_title: "&bMonster-Inspektor"
+  item_inspector_lore1: "&7Rechtsklick auf ein Monster zum Analysieren"
+  item_inspector_lore2: "&7seiner Eigenschaften und Modifikatoren."
 
 command:
   killall: "&a[WD] {count} WildDifficulty-Monster entfernt."

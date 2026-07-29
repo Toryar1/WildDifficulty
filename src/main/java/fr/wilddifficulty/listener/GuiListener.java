@@ -109,13 +109,24 @@ public class GuiListener implements Listener {
             MainConfigManager mainCfg = plugin.getMainConfigManager();
             int slot = event.getRawSlot();
 
-            // Return buttons generic handler
+            // Return buttons generic handler — use PDC key so it works in all languages
             if (event.getCurrentItem().getType() == org.bukkit.Material.BARRIER) {
-                if (event.getCurrentItem().hasItemMeta() && event.getCurrentItem().getItemMeta().hasDisplayName()) {
-                    String plainName = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(event.getCurrentItem().getItemMeta().displayName());
-                    if (plainName.contains("Retour") || plainName.contains("Annuler")) {
+                if (event.getCurrentItem().hasItemMeta()) {
+                    org.bukkit.NamespacedKey backKey = new org.bukkit.NamespacedKey(plugin, "wd_back_button");
+                    String isBack = event.getCurrentItem().getItemMeta().getPersistentDataContainer()
+                            .get(backKey, org.bukkit.persistence.PersistentDataType.STRING);
+                    if ("true".equals(isBack)) {
                         handleGenericReturn(player, menuType, contextId, gui);
                         return;
+                    }
+                    // Fallback for legacy items without PDC (text-based)
+                    if (event.getCurrentItem().getItemMeta().hasDisplayName()) {
+                        String plainName = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(event.getCurrentItem().getItemMeta().displayName());
+                        if (plainName.contains("Retour") || plainName.contains("Annuler") || plainName.contains("Back") || plainName.contains("Cancel")
+                                || plainName.contains("Close") || plainName.contains("Fermer")) {
+                            handleGenericReturn(player, menuType, contextId, gui);
+                            return;
+                        }
                     }
                 }
             }
@@ -246,7 +257,7 @@ public class GuiListener implements Listener {
                 }
                 case "LANGUAGE_SELECT" -> {
                     if (slot == 49) {
-                        gui.openGeneralConfig(player);
+                        gui.openMainMenu(player);
                         return;
                     }
                     int[] langSlots = {10, 11, 12, 13, 14, 19, 20, 21, 22, 23};
@@ -2634,9 +2645,7 @@ public class GuiListener implements Listener {
             gui.openZoneEditor(player, contextId);
         } else if (menuType.equals("ZONE_MEMBERS") || menuType.equals("ZONE_BEACON") || menuType.equals("ZONE_DANGER_NEST") || menuType.equals("ZONE_SUBSECTIONS")) {
             gui.openZoneEditor(player, contextId);
-        } else if (menuType.equals("LANGUAGE_SELECT")) {
-            gui.openGeneralConfig(player);
-        } else if (menuType.equals("ADMIN_TOOLS") || menuType.equals("GENERAL_CONFIG") || menuType.equals("BLOODMOON_EDIT")) {
+        } else if (menuType.equals("LANGUAGE_SELECT") || menuType.equals("ADMIN_TOOLS") || menuType.equals("GENERAL_CONFIG") || menuType.equals("BLOODMOON_EDIT")) {
             gui.openMainMenu(player);
         } else if (menuType.equals("MAIN")) {
             player.closeInventory();

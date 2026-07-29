@@ -45,10 +45,37 @@ public class GuiManager {
         }
     }
 
+    /** Creates a Retour/Back barrier button tagged with PDC so all languages work */
+    private ItemStack createBackItem() {
+        ItemStack item = createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.button_back"));
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.getPersistentDataContainer().set(
+                new org.bukkit.NamespacedKey(plugin, "wd_back_button"),
+                org.bukkit.persistence.PersistentDataType.STRING, "true");
+            item.setItemMeta(meta);
+        }
+        return item;
+    }
+
+    /** Creates a Fermer/Close barrier button tagged with PDC so all languages work */
+    private ItemStack createCloseItem() {
+        ItemStack item = createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.button_close"));
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.getPersistentDataContainer().set(
+                new org.bukkit.NamespacedKey(plugin, "wd_back_button"),
+                org.bukkit.persistence.PersistentDataType.STRING, "true");
+            item.setItemMeta(meta);
+        }
+        return item;
+    }
+
+
     // ================= MAIN MENU =================
     public void openMainMenu(Player player) {
         WDMenuHolder holder = new WDMenuHolder("MAIN", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WildDifficulty - Menu Principal"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_main")));
         holder.setInventory(inv);
         MainConfigManager cfg = plugin.getMainConfigManager();
 
@@ -90,14 +117,14 @@ public class GuiManager {
 
         inv.setItem(34, createItem(Material.COMMAND_BLOCK, "&dRecharger Config", "&7Recharge les fichiers YAML.", "", "&eClic pour recharger"));
 
-        inv.setItem(49, createItem(Material.BARRIER, "&c§lFermer"));
+        inv.setItem(49, createCloseItem());
 
         player.openInventory(inv);
     }
 
     public void openGeneralConfig(Player player) {
         WDMenuHolder holder = new WDMenuHolder("GENERAL_CONFIG", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WD - Config Générale"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_general_config")));
         holder.setInventory(inv);
         MainConfigManager cfg = plugin.getMainConfigManager();
 
@@ -155,13 +182,13 @@ public class GuiManager {
                 "",
                 "&eClic pour choisir la langue"));
 
-        inv.setItem(49, createItem(Material.BARRIER, "&cRetour"));
+        inv.setItem(49, createBackItem());
         player.openInventory(inv);
     }
 
     public void openLanguageSelector(Player player) {
         WDMenuHolder holder = new WDMenuHolder("LANGUAGE_SELECT", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WD - Sélection de Langue"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_language_select")));
         holder.setInventory(inv);
 
         fillBorders(inv);
@@ -197,13 +224,13 @@ public class GuiManager {
             idx++;
         }
 
-        inv.setItem(49, createItem(Material.BARRIER, "&cRetour"));
+        inv.setItem(49, createBackItem());
         player.openInventory(inv);
     }
 
     public void openAdminToolsMenu(Player player) {
         WDMenuHolder holder = new WDMenuHolder("ADMIN_TOOLS", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WD - Outils d'Administration"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_admin_tools")));
         holder.setInventory(inv);
 
         fillBorders(inv);
@@ -216,13 +243,13 @@ public class GuiManager {
         inv.setItem(24, createItem(Material.CHEST, "&aTous les Outils", "&7Obtenir tous les outils d'un coup.", "", "&eClic pour obtenir"));
         inv.setItem(31, createItem(Material.FILLED_MAP, "&6Activer/Désactiver Scoreboard Debug", "&7Affiche le scoreboard latéral d'analyse.", "", "&eClic pour basculer"));
 
-        inv.setItem(49, createItem(Material.BARRIER, "&cRetour"));
+        inv.setItem(49, createBackItem());
         player.openInventory(inv);
     }
 
     public void openBloodMoonEditor(Player player) {
         WDMenuHolder holder = new WDMenuHolder("BLOODMOON_EDIT", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WD - Lune de Sang"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_bloodmoon")));
         holder.setInventory(inv);
         MainConfigManager cfg = plugin.getMainConfigManager();
 
