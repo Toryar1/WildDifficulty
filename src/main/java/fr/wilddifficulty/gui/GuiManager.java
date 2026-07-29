@@ -48,7 +48,7 @@ public class GuiManager {
     // ================= MAIN MENU =================
     public void openMainMenu(Player player) {
         WDMenuHolder holder = new WDMenuHolder("MAIN", null);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("WildDifficulty - Menu"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WildDifficulty - Menu Principal"));
         holder.setInventory(inv);
         MainConfigManager cfg = plugin.getMainConfigManager();
 
@@ -58,29 +58,39 @@ public class GuiManager {
         inv.setItem(12, createItem(Material.ZOMBIE_HEAD, "&aVariantes", "&7Gérer les variantes de mobs."));
         inv.setItem(14, createItem(Material.SKELETON_SKULL, "&eEscouades", "&7Gérer les escouades."));
         inv.setItem(16, createItem(Material.MAP, "&dZones", "&7Gérer les zones de difficulté."));
-        inv.setItem(18, createToggleItem(Material.BARRIER, "&cBloquer Hostiles Vanilla", cfg.isBlockVanillaHostiles()));
-        inv.setItem(19, createToggleItem(Material.PIG_SPAWN_EGG, "&aBloquer Passifs Vanilla", cfg.isBlockVanillaPassives()));
-        
+
         inv.setItem(20, createItem(Material.REDSTONE, "&cConfiguration Lune de Sang", 
                 "&7Gérer le taux d'apparition, multiplicateurs", 
                 "&7et bonus lors des nuits rouges.", 
                 "", 
                 "&eClic pour configurer"));
         
-        inv.setItem(22, createItem(Material.CHEST_MINECART, "&6Outils d'Administration", 
+        inv.setItem(22, createItem(Material.COMPARATOR, "&bConfiguration Générale",
+                "&7Configurer le cap de mobs, la distance",
+                "&7de spawn max, la langue du plugin,",
+                "&7les nametags et paramètres généraux.",
+                "",
+                "&eClic pour configurer"));
+
+        inv.setItem(24, createItem(Material.CHEST_MINECART, "&6Outils d'Administration", 
                 "&7Obtenir individuellement ou tous les outils", 
                 "&7de configuration et d'analyse.", 
                 "", 
                 "&eClic pour ouvrir"));
 
-        inv.setItem(24, createItem(Material.COMPARATOR, "&bConfiguration Générale",
-                "&7Configurer le cap de mobs, la distance",
-                "&7de spawn max, les soleils, les nametags",
-                "&7et autres paramètres généraux.",
-                "",
-                "&eClic pour configurer"));
+        inv.setItem(28, createToggleItem(Material.BARRIER, "&cBloquer Hostiles Vanilla", cfg.isBlockVanillaHostiles()));
+        inv.setItem(30, createToggleItem(Material.PIG_SPAWN_EGG, "&aBloquer Passifs Vanilla", cfg.isBlockVanillaPassives()));
 
-        inv.setItem(26, createItem(Material.COMMAND_BLOCK, "&dRecharger Config"));
+        String currentLangCode = plugin.getConfig().getString("plugin.language", "fr");
+        String currentLangName = fr.wilddifficulty.config.LanguageSetup.getAvailableLanguages().getOrDefault(currentLangCode, "Français");
+        inv.setItem(32, createItem(Material.BOOK, "&bLangue du Plugin",
+                "&7Langue actuelle : &e" + currentLangName + " (" + currentLangCode + ")",
+                "",
+                "&eClic pour changer la langue"));
+
+        inv.setItem(34, createItem(Material.COMMAND_BLOCK, "&dRecharger Config", "&7Recharge les fichiers YAML.", "", "&eClic pour recharger"));
+
+        inv.setItem(49, createItem(Material.BARRIER, "&c§lFermer"));
 
         player.openInventory(inv);
     }
@@ -90,6 +100,8 @@ public class GuiManager {
         Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WD - Config Générale"));
         holder.setInventory(inv);
         MainConfigManager cfg = plugin.getMainConfigManager();
+
+        fillBorders(inv);
 
         // Debug mode
         inv.setItem(10, createToggleItem(Material.REDSTONE_TORCH, "&cMode Debug", cfg.isDebug()));
@@ -135,24 +147,76 @@ public class GuiManager {
                 "",
                 "§eClic pour configurer"));
 
+        // Langue du plugin
+        String currentLangCode = plugin.getConfig().getString("plugin.language", "fr");
+        String currentLangName = fr.wilddifficulty.config.LanguageSetup.getAvailableLanguages().getOrDefault(currentLangCode, "Français");
+        inv.setItem(31, createItem(Material.BOOK, "&bLangue du Plugin",
+                "&7Langue actuelle : &e" + currentLangName + " (" + currentLangCode + ")",
+                "",
+                "&eClic pour choisir la langue"));
+
+        inv.setItem(49, createItem(Material.BARRIER, "&cRetour"));
+        player.openInventory(inv);
+    }
+
+    public void openLanguageSelector(Player player) {
+        WDMenuHolder holder = new WDMenuHolder("LANGUAGE_SELECT", null);
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WD - Sélection de Langue"));
+        holder.setInventory(inv);
+
+        fillBorders(inv);
+
+        String currentLang = plugin.getConfig().getString("plugin.language", "fr");
+
+        int[] slots = {10, 11, 12, 13, 14, 19, 20, 21, 22, 23};
+        int idx = 0;
+
+        for (Map.Entry<String, String> entry : fr.wilddifficulty.config.LanguageSetup.getAvailableLanguages().entrySet()) {
+            if (idx >= slots.length) break;
+            String code = entry.getKey();
+            String name = entry.getValue();
+            boolean isCurrent = code.equalsIgnoreCase(currentLang);
+
+            Material mat = isCurrent ? Material.EMERALD_BLOCK : Material.PAPER;
+            String statusLore = isCurrent ? "&a✔ Langue Actuelle" : "&eClic pour choisir";
+
+            ItemStack item = createItem(mat, "&6&l" + name + " &7(" + code + ")",
+                "&7Code: &f" + code,
+                "",
+                statusLore);
+
+            if (isCurrent) {
+                ItemMeta meta = item.getItemMeta();
+                if (meta != null) {
+                    meta.setEnchantmentGlintOverride(true);
+                    item.setItemMeta(meta);
+                }
+            }
+
+            inv.setItem(slots[idx], item);
+            idx++;
+        }
+
         inv.setItem(49, createItem(Material.BARRIER, "&cRetour"));
         player.openInventory(inv);
     }
 
     public void openAdminToolsMenu(Player player) {
         WDMenuHolder holder = new WDMenuHolder("ADMIN_TOOLS", null);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("WD - Outils d'Administration"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WD - Outils d'Administration"));
         holder.setInventory(inv);
 
-        inv.setItem(10, createItem(Material.GOLDEN_HOE, "&eOutil de Zone", "&7Dessine les points du polygone.", "", "&eClic pour obtenir"));
-        inv.setItem(11, createItem(Material.NETHERITE_SHOVEL, "&eOutil de Spawner", "&7Configure les spawners personnalisés.", "", "&eClic pour obtenir"));
-        inv.setItem(12, createItem(Material.COMPASS, "&dOutil de Biome", "&7Configure les spawns par biome.", "", "&eClic pour obtenir"));
-        inv.setItem(13, createItem(Material.STICK, "&bInspecteur de Mobs", "&7Affiche les détails complets d'une entité.", "", "&eClic pour obtenir"));
-        
-        inv.setItem(15, createItem(Material.CHEST, "&aTous les Outils", "&7Obtenir tous les outils d'un coup.", "", "&eClic pour obtenir"));
-        inv.setItem(16, createItem(Material.FILLED_MAP, "&6Activer/Désactiver Scoreboard Debug", "&7Affiche le scoreboard latéral d'analyse.", "", "&eClic pour basculer"));
+        fillBorders(inv);
 
-        inv.setItem(26, createItem(Material.BARRIER, "&cRetour"));
+        inv.setItem(20, createItem(Material.GOLDEN_HOE, "&eOutil de Zone", "&7Dessine les points du polygone.", "", "&eClic pour obtenir"));
+        inv.setItem(21, createItem(Material.NETHERITE_SHOVEL, "&eOutil de Spawner", "&7Configure les spawners personnalisés.", "", "&eClic pour obtenir"));
+        inv.setItem(22, createItem(Material.COMPASS, "&dOutil de Biome", "&7Configure les spawns par biome.", "", "&eClic pour obtenir"));
+        inv.setItem(23, createItem(Material.STICK, "&bInspecteur de Mobs", "&7Affiche les détails complets d'une entité.", "", "&eClic pour obtenir"));
+        
+        inv.setItem(24, createItem(Material.CHEST, "&aTous les Outils", "&7Obtenir tous les outils d'un coup.", "", "&eClic pour obtenir"));
+        inv.setItem(31, createItem(Material.FILLED_MAP, "&6Activer/Désactiver Scoreboard Debug", "&7Affiche le scoreboard latéral d'analyse.", "", "&eClic pour basculer"));
+
+        inv.setItem(49, createItem(Material.BARRIER, "&cRetour"));
         player.openInventory(inv);
     }
 

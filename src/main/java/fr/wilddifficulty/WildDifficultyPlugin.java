@@ -204,6 +204,7 @@ public final class WildDifficultyPlugin extends JavaPlugin {
 
     public static WildDifficultyPlugin getInstance() { return instance; }
     public fr.wilddifficulty.config.LangManager getLangManager() { return langManager; }
+    public LanguageSetup getLanguageSetup() { return languageSetup; }
     public MainConfigManager getMainConfigManager() { return mainConfigManager; }
     public BiomeConfigManager getBiomeConfigManager() { return biomeConfigManager; }
     public MobConfigManager getMobConfigManager() { return mobConfigManager; }

@@ -17,6 +17,8 @@ general:
   thirst_multiplier_updated: "&aMultiplicateur de dégradation de soif mis à jour : {val}"
   heat_multiplier_updated: "&aMultiplicateur de chaleur mis à jour : {val}"
   despawn_time_updated: "&aTemps de despawn mis à jour."
+  language_changed: "&a[WD] Langue changée avec succès : {lang}"
+  invalid_language: "&cCode de langue invalide : {code}. Langues disponibles : fr, en, de, es, pt_BR, nl, pl, ru, zh_CN, it"
 
 tools:
   given_biome: "&a[WD] Outil de configuration de biome donné."
@@ -24,6 +26,19 @@ tools:
   given_zone: "&a[WD] Outil de Zone donné. Clic droit pour placer des points."
   given_inspector: "&a[WD] Outil d'Analyse (Inspecteur) donné. Clic droit sur un monstre pour l'analyser."
   given_all: "&a[WD] Tous les outils d'administration vous ont été donnés."
+  item_zone_title: "&eOutil de Zone WildDifficulty"
+  item_zone_lore1: "&7Clic Droit sur un bloc pour ajouter un point."
+  item_zone_lore2: "&7Clic Gauche pour fermer le polygone."
+  item_zone_lore3: "&7Sneak + Clic Gauche pour annuler le dernier point."
+  item_spawner_title: "&eOutil de Spawner"
+  item_spawner_lore1: "&7Clic Droit sur un bloc pour ouvrir"
+  item_spawner_lore2: "&7le panneau de configuration de spawner."
+  item_biome_title: "&dConfigure Spawns de Biome"
+  item_biome_lore1: "&7Clic Droit pour ouvrir la configuration"
+  item_biome_lore2: "&7des variantes de votre biome actuel."
+  item_inspector_title: "&bInspecteur de Mobs"
+  item_inspector_lore1: "&7Clic Droit sur une entité pour analyser"
+  item_inspector_lore2: "&7ses caractéristiques et ses modificateurs."
 
 command:
   killall: "&a[WD] {count} monstres de WildDifficulty ont été supprimés."
@@ -59,6 +74,7 @@ help:
   edit: "&e/wd edit &7- Ouvre le GUI d'édition de la variante pointée"
   tp: "&e/wd tp <zone> &7- Téléporte à une zone de difficulté"
   zone: "&e/wd zone <args> &7- Commandes manuelles pour les zones"
+  language: "&e/wd language [code] &7- Change la langue du plugin"
   help: "&e/wd help &7- Affiche ce message d'aide"
 
 bloodmoon:

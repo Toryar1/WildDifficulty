@@ -17,6 +17,8 @@ general:
   thirst_multiplier_updated: "&aThirst degradation multiplier updated: {val}"
   heat_multiplier_updated: "&aHeat multiplier updated: {val}"
   despawn_time_updated: "&aDespawn time updated."
+  language_changed: "&a[WD] Language successfully changed to: {lang}"
+  invalid_language: "&cInvalid language code: {code}. Available languages: fr, en, de, es, pt_BR, nl, pl, ru, zh_CN, it"
 
 tools:
   given_biome: "&a[WD] Biome configuration tool given."
@@ -24,6 +26,19 @@ tools:
   given_zone: "&a[WD] Zone tool given. Right-click to place points."
   given_inspector: "&a[WD] Inspector tool given. Right-click a mob to analyse it."
   given_all: "&a[WD] All administration tools have been given."
+  item_zone_title: "&eWildDifficulty Zone Tool"
+  item_zone_lore1: "&7Right-click a block to add a point."
+  item_zone_lore2: "&7Left-click to close the polygon."
+  item_zone_lore3: "&7Sneak + Left-click to cancel last point."
+  item_spawner_title: "&eSpawner Tool"
+  item_spawner_lore1: "&7Right-click a block to open"
+  item_spawner_lore2: "&7the spawner configuration panel."
+  item_biome_title: "&dConfigure Biome Spawns"
+  item_biome_lore1: "&7Right-click to open configuration"
+  item_biome_lore2: "&7for variants in your current biome."
+  item_inspector_title: "&bMob Inspector"
+  item_inspector_lore1: "&7Right-click an entity to analyze"
+  item_inspector_lore2: "&7its features and modifiers."
 
 command:
   killall: "&a[WD] {count} WildDifficulty monsters removed."
@@ -59,6 +74,7 @@ help:
   edit: "&e/wd edit &7- Opens the edit GUI for the targeted variant"
   tp: "&e/wd tp <zone> &7- Teleports to a difficulty zone"
   zone: "&e/wd zone <args> &7- Manual zone management commands"
+  language: "&e/wd language [code] &7- Changes the plugin language"
   help: "&e/wd help &7- Displays this help message"
 
 bloodmoon:

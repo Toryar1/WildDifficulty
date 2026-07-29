@@ -126,28 +126,28 @@ public class GuiListener implements Listener {
                     else if (slot == 12) gui.openVariantList(player);
                     else if (slot == 14) gui.openSquadList(player);
                     else if (slot == 16) gui.openZoneList(player);
-                    else if (slot == 18) {
+                    else if (slot == 20) gui.openBloodMoonEditor(player);
+                    else if (slot == 22) gui.openGeneralConfig(player);
+                    else if (slot == 24) gui.openAdminToolsMenu(player);
+                    else if (slot == 28) {
                         mainCfg.setBlockVanillaHostiles(!mainCfg.isBlockVanillaHostiles());
                         mainCfg.save();
                         gui.openMainMenu(player);
                     }
-                    else if (slot == 19) {
+                    else if (slot == 30) {
                         mainCfg.setBlockVanillaPassives(!mainCfg.isBlockVanillaPassives());
                         mainCfg.save();
                         gui.openMainMenu(player);
                     }
-                    else if (slot == 20) {
-                        gui.openBloodMoonEditor(player);
+                    else if (slot == 32) {
+                        gui.openLanguageSelector(player);
                     }
-                    else if (slot == 22) {
-                        gui.openAdminToolsMenu(player);
-                    }
-                    else if (slot == 24) {
-                        gui.openGeneralConfig(player);
-                    }
-                    else if (slot == 26) {
+                    else if (slot == 34) {
                         plugin.reloadAll();
-                        player.sendMessage(Component.text("§aConfiguration rechargée !"));
+                        player.sendMessage(plugin.getLangManager().get("general.config_reloaded"));
+                        player.closeInventory();
+                    }
+                    else if (slot == 49) {
                         player.closeInventory();
                     }
                 }
@@ -235,9 +235,58 @@ public class GuiListener implements Listener {
                         gui.openThirstHardcoreAdminGui(player);
                         return;
                     }
+                    if (slot == 31) {
+                        gui.openLanguageSelector(player);
+                        return;
+                    }
                     if (slot == 49 || slot == 53) {
                         gui.openMainMenu(player);
                         return;
+                    }
+                }
+                case "LANGUAGE_SELECT" -> {
+                    if (slot == 49) {
+                        gui.openGeneralConfig(player);
+                        return;
+                    }
+                    int[] langSlots = {10, 11, 12, 13, 14, 19, 20, 21, 22, 23};
+                    int idx = -1;
+                    for (int i = 0; i < langSlots.length; i++) {
+                        if (langSlots[i] == slot) {
+                            idx = i;
+                            break;
+                        }
+                    }
+                    if (idx != -1) {
+                        List<String> codes = new ArrayList<>(fr.wilddifficulty.config.LanguageSetup.getAvailableLanguages().keySet());
+                        if (idx < codes.size()) {
+                            String selectedCode = codes.get(idx);
+                            plugin.getLanguageSetup().changeLanguage(selectedCode, player);
+                        }
+                    }
+                }
+                case "ADMIN_TOOLS" -> {
+                    if (slot == 49) {
+                        gui.openMainMenu(player);
+                        return;
+                    }
+                    if (slot == 20) {
+                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getZoneTool());
+                        player.sendMessage(plugin.getLangManager().get("tools.given_zone"));
+                    } else if (slot == 21) {
+                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getSpawnerTool());
+                        player.sendMessage(plugin.getLangManager().get("tools.given_spawner"));
+                    } else if (slot == 22) {
+                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getBiomeTool());
+                        player.sendMessage(plugin.getLangManager().get("tools.given_biome"));
+                    } else if (slot == 23) {
+                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getInspectorTool());
+                        player.sendMessage(plugin.getLangManager().get("tools.given_inspector"));
+                    } else if (slot == 24) {
+                        fr.wilddifficulty.util.ToolsUtil.giveAllTools(player);
+                        player.sendMessage(plugin.getLangManager().get("tools.given_all"));
+                    } else if (slot == 31) {
+                        org.bukkit.Bukkit.dispatchCommand(player, "wd scoreboard");
                     }
                 }
                 case "SPAWNER_EDIT" -> {
@@ -436,32 +485,6 @@ public class GuiListener implements Listener {
                         }
                         plugin.getSpawnerManager().save();
                         gui.openSpawnerVariantsEditor(player, loc);
-                    }
-                }
-                case "ADMIN_TOOLS" -> {
-                    if (slot == 26) {
-                        gui.openMainMenu(player);
-                        return;
-                    }
-                    if (slot == 10) {
-                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getZoneTool());
-                        player.sendMessage("§a[WD] Outil de Zone donné.");
-                    } else if (slot == 11) {
-                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getSpawnerTool());
-                        player.sendMessage("§a[WD] Outil de Spawner donné. Clic droit sur un bloc pour éditer.");
-                    } else if (slot == 12) {
-                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getBiomeTool());
-                        player.sendMessage("§a[WD] Outil de Biome donné. Clic droit pour configurer.");
-                    } else if (slot == 13) {
-                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getInspectorTool());
-                        player.sendMessage("§a[WD] Outil d'Analyse (Inspecteur) donné. Clic droit sur un monstre pour l'analyser.");
-                    } else if (slot == 15) {
-                        fr.wilddifficulty.util.ToolsUtil.giveAllTools(player);
-                        player.sendMessage("§a[WD] Tous les outils d'administration ont été donnés.");
-                    } else if (slot == 16) {
-                        player.performCommand("wd scoreboard");
-                        // Refresh the menu to show update status or just close it? Let's refresh
-                        gui.openAdminToolsMenu(player);
                     }
                 }
                 case "GLOBALS" -> {

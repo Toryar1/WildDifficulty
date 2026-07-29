@@ -44,12 +44,27 @@ public class LangManager {
         setIfNotExists("general.thirst_multiplier_updated", "&aMultiplicateur de dégradation de soif mis à jour : {val}");
         setIfNotExists("general.heat_multiplier_updated", "&aMultiplicateur de chaleur mis à jour : {val}");
         setIfNotExists("general.despawn_time_updated", "&aTemps de despawn mis à jour.");
+        setIfNotExists("general.language_changed", "&a[WD] Langue changée avec succès : {lang}");
+        setIfNotExists("general.invalid_language", "&cCode de langue invalide : {code}. Langues disponibles : fr, en, de, es, pt_BR, nl, pl, ru, zh_CN, it");
 
         setIfNotExists("tools.given_biome", "&a[WD] Outil de configuration de biome donné.");
         setIfNotExists("tools.given_spawner", "&a[WD] Outil de Spawner donné. Clic droit sur un bloc avec cet outil pour éditer le spawner.");
         setIfNotExists("tools.given_zone", "&a[WD] Outil de Zone donné. Clic droit pour placer des points.");
         setIfNotExists("tools.given_inspector", "&a[WD] Outil d'Analyse (Inspecteur) donné. Clic droit sur un monstre pour l'analyser.");
         setIfNotExists("tools.given_all", "&a[WD] Tous les outils d'administration vous ont été donnés.");
+        setIfNotExists("tools.item_zone_title", "&eOutil de Zone WildDifficulty");
+        setIfNotExists("tools.item_zone_lore1", "&7Clic Droit sur un bloc pour ajouter un point.");
+        setIfNotExists("tools.item_zone_lore2", "&7Clic Gauche pour fermer le polygone.");
+        setIfNotExists("tools.item_zone_lore3", "&7Sneak + Clic Gauche pour annuler le dernier point.");
+        setIfNotExists("tools.item_spawner_title", "&eOutil de Spawner");
+        setIfNotExists("tools.item_spawner_lore1", "&7Clic Droit sur un bloc pour ouvrir");
+        setIfNotExists("tools.item_spawner_lore2", "&7le panneau de configuration de spawner.");
+        setIfNotExists("tools.item_biome_title", "&dConfigure Spawns de Biome");
+        setIfNotExists("tools.item_biome_lore1", "&7Clic Droit pour ouvrir la configuration");
+        setIfNotExists("tools.item_biome_lore2", "&7des variantes de votre biome actuel.");
+        setIfNotExists("tools.item_inspector_title", "&bInspecteur de Mobs");
+        setIfNotExists("tools.item_inspector_lore1", "&7Clic Droit sur une entité pour analyser");
+        setIfNotExists("tools.item_inspector_lore2", "&7ses caractéristiques et ses modificateurs.");
 
         setIfNotExists("command.killall", "&a[WD] {count} monstres de WildDifficulty ont été supprimés.");
         setIfNotExists("command.scoreboard_on", "&a[WD] Scoreboard de debug activé.");
@@ -83,6 +98,7 @@ public class LangManager {
         setIfNotExists("help.edit", "&e/wd edit &7- Ouvre le GUI d'édition de la variante pointée");
         setIfNotExists("help.tp", "&e/wd tp <zone> &7- Téléporte à une zone de difficulté");
         setIfNotExists("help.zone", "&e/wd zone <args> &7- Commandes manuelles pour les zones");
+        setIfNotExists("help.language", "&e/wd language [code] &7- Change la langue du plugin");
         setIfNotExists("help.help", "&e/wd help &7- Affiche ce message d'aide");
 
         setIfNotExists("bloodmoon.start_message", "&cLa Lune de Sang se lève... Les monstres sont enragés !");

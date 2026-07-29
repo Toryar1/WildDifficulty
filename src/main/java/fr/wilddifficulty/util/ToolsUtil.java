@@ -1,5 +1,7 @@
 package fr.wilddifficulty.util;
 
+import fr.wilddifficulty.WildDifficultyPlugin;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -11,14 +13,15 @@ public final class ToolsUtil {
     private ToolsUtil() {}
 
     public static ItemStack getZoneTool() {
+        WildDifficultyPlugin plugin = WildDifficultyPlugin.getInstance();
         ItemStack hoe = new ItemStack(Material.GOLDEN_HOE);
         ItemMeta meta = hoe.getItemMeta();
         if (meta != null) {
-            meta.displayName(net.kyori.adventure.text.Component.text("§eOutil de Zone WildDifficulty"));
+            meta.displayName(plugin.getLangManager().getRawComponent("tools.item_zone_title"));
             meta.lore(List.of(
-                net.kyori.adventure.text.Component.text("§7Clic Droit sur un bloc pour ajouter un point."),
-                net.kyori.adventure.text.Component.text("§7Clic Gauche pour fermer le polygone."),
-                net.kyori.adventure.text.Component.text("§7Sneak + Clic Gauche pour annuler le dernier point.")
+                plugin.getLangManager().getRawComponent("tools.item_zone_lore1"),
+                plugin.getLangManager().getRawComponent("tools.item_zone_lore2"),
+                plugin.getLangManager().getRawComponent("tools.item_zone_lore3")
             ));
             hoe.setItemMeta(meta);
         }
@@ -26,13 +29,14 @@ public final class ToolsUtil {
     }
 
     public static ItemStack getSpawnerTool() {
+        WildDifficultyPlugin plugin = WildDifficultyPlugin.getInstance();
         ItemStack shovel = new ItemStack(Material.NETHERITE_SHOVEL);
         ItemMeta meta = shovel.getItemMeta();
         if (meta != null) {
-            meta.displayName(net.kyori.adventure.text.Component.text("§eOutil de Spawner"));
+            meta.displayName(plugin.getLangManager().getRawComponent("tools.item_spawner_title"));
             meta.lore(List.of(
-                net.kyori.adventure.text.Component.text("§7Clic Droit sur un bloc pour ouvrir"),
-                net.kyori.adventure.text.Component.text("§7le panneau de configuration de spawner.")
+                plugin.getLangManager().getRawComponent("tools.item_spawner_lore1"),
+                plugin.getLangManager().getRawComponent("tools.item_spawner_lore2")
             ));
             shovel.setItemMeta(meta);
         }
@@ -40,13 +44,14 @@ public final class ToolsUtil {
     }
 
     public static ItemStack getBiomeTool() {
+        WildDifficultyPlugin plugin = WildDifficultyPlugin.getInstance();
         ItemStack compass = new ItemStack(Material.COMPASS);
         ItemMeta meta = compass.getItemMeta();
         if (meta != null) {
-            meta.displayName(net.kyori.adventure.text.Component.text("§dConfigure Spawns de Biome"));
+            meta.displayName(plugin.getLangManager().getRawComponent("tools.item_biome_title"));
             meta.lore(List.of(
-                net.kyori.adventure.text.Component.text("§7Clic Droit pour ouvrir la configuration"),
-                net.kyori.adventure.text.Component.text("§7des variantes de votre biome actuel.")
+                plugin.getLangManager().getRawComponent("tools.item_biome_lore1"),
+                plugin.getLangManager().getRawComponent("tools.item_biome_lore2")
             ));
             compass.setItemMeta(meta);
         }
@@ -54,13 +59,14 @@ public final class ToolsUtil {
     }
 
     public static ItemStack getInspectorTool() {
+        WildDifficultyPlugin plugin = WildDifficultyPlugin.getInstance();
         ItemStack stick = new ItemStack(Material.STICK);
         ItemMeta meta = stick.getItemMeta();
         if (meta != null) {
-            meta.displayName(net.kyori.adventure.text.Component.text("§bInspecteur de Mobs"));
+            meta.displayName(plugin.getLangManager().getRawComponent("tools.item_inspector_title"));
             meta.lore(List.of(
-                net.kyori.adventure.text.Component.text("§7Clic Droit sur une entité pour analyser"),
-                net.kyori.adventure.text.Component.text("§7ses caractéristiques et ses modificateurs.")
+                plugin.getLangManager().getRawComponent("tools.item_inspector_lore1"),
+                plugin.getLangManager().getRawComponent("tools.item_inspector_lore2")
             ));
             stick.setItemMeta(meta);
         }

@@ -97,6 +97,20 @@ public class WDGuiCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        if (sub.equalsIgnoreCase("language") || sub.equalsIgnoreCase("lang")) {
+            if (args.length == 1) {
+                if (sender instanceof Player player) {
+                    plugin.getGuiManager().openLanguageSelector(player);
+                } else {
+                    sender.sendMessage("§cUsage: /wd language <code_langue>");
+                }
+                return true;
+            }
+            String langCode = args[1];
+            plugin.getLanguageSetup().changeLanguage(langCode, sender);
+            return true;
+        }
+
         if (sub.equalsIgnoreCase("killall")) {
             int killed = 0;
             if (plugin.getServer().getPluginManager().isPluginEnabled("Citizens")) {
@@ -443,6 +457,7 @@ public class WDGuiCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage(plugin.getLangManager().getRaw("help.edit"));
         sender.sendMessage(plugin.getLangManager().getRaw("help.tp"));
         sender.sendMessage(plugin.getLangManager().getRaw("help.zone"));
+        sender.sendMessage(plugin.getLangManager().getRaw("help.language"));
         sender.sendMessage(plugin.getLangManager().getRaw("help.help"));
     }
 
@@ -451,12 +466,19 @@ public class WDGuiCommand implements CommandExecutor, TabCompleter {
         List<String> list = new ArrayList<>();
         if (args.length == 1) {
             String input = args[0].toLowerCase();
-            for (String sub : List.of("gui", "reload", "settings", "editzone", "zone", "killall", "spawn", "spawnsquad", "edit", "biome_tool", "spawner_tool", "zone_tool", "inspector_tool", "tools", "scoreboard", "debug", "bloodmoon", "tp", "help")) {
-                if (sub.startsWith(input)) list.add(sub);
+            for (String subCmd : List.of("gui", "reload", "settings", "editzone", "zone", "killall", "spawn", "spawnsquad", "edit", "biome_tool", "spawner_tool", "zone_tool", "inspector_tool", "tools", "scoreboard", "debug", "bloodmoon", "tp", "language", "lang", "help")) {
+                if (subCmd.startsWith(input)) list.add(subCmd);
             }
             return list;
         }
         String sub = args[0].toLowerCase();
+        if ((sub.equalsIgnoreCase("language") || sub.equalsIgnoreCase("lang")) && args.length == 2) {
+            String input = args[1].toLowerCase();
+            for (String langCode : fr.wilddifficulty.config.LanguageSetup.getAvailableLanguages().keySet()) {
+                if (langCode.toLowerCase().startsWith(input)) list.add(langCode);
+            }
+            return list;
+        }
         if (sub.equalsIgnoreCase("zone")) {
             String[] zoneArgs = new String[args.length - 1];
             System.arraycopy(args, 1, zoneArgs, 0, zoneArgs.length);
@@ -494,30 +516,10 @@ public class WDGuiCommand implements CommandExecutor, TabCompleter {
     }
 
     private void giveBiomeTool(Player player) {
-        org.bukkit.inventory.ItemStack compass = new org.bukkit.inventory.ItemStack(org.bukkit.Material.COMPASS);
-        org.bukkit.inventory.meta.ItemMeta meta = compass.getItemMeta();
-        if (meta != null) {
-            meta.displayName(net.kyori.adventure.text.Component.text("§dConfigure Spawns de Biome"));
-            meta.lore(List.of(
-                net.kyori.adventure.text.Component.text("§7Clic Droit pour ouvrir la configuration"),
-                net.kyori.adventure.text.Component.text("§7des variantes de votre biome actuel.")
-            ));
-            compass.setItemMeta(meta);
-        }
-        player.getInventory().addItem(compass);
+        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getBiomeTool());
     }
 
     private void giveSpawnerTool(Player player) {
-        org.bukkit.inventory.ItemStack shovel = new org.bukkit.inventory.ItemStack(org.bukkit.Material.NETHERITE_SHOVEL);
-        org.bukkit.inventory.meta.ItemMeta meta = shovel.getItemMeta();
-        if (meta != null) {
-            meta.displayName(net.kyori.adventure.text.Component.text("§eOutil de Spawner"));
-            meta.lore(List.of(
-                net.kyori.adventure.text.Component.text("§7Clic Droit sur un bloc pour ouvrir"),
-                net.kyori.adventure.text.Component.text("§7le panneau de configuration de spawner.")
-            ));
-            shovel.setItemMeta(meta);
-        }
-        player.getInventory().addItem(shovel);
+        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getSpawnerTool());
     }
 }
