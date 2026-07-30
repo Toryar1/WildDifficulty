@@ -458,6 +458,7 @@ public class WDGuiCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage(plugin.getLangManager().getRaw("help.tp"));
         sender.sendMessage(plugin.getLangManager().getRaw("help.zone"));
         sender.sendMessage(plugin.getLangManager().getRaw("help.language"));
+        sender.sendMessage(plugin.getLangManager().getRaw("help.footer"));
         sender.sendMessage(plugin.getLangManager().getRaw("help.help"));
     }
 
