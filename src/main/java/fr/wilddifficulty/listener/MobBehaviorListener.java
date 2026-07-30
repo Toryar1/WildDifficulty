@@ -511,7 +511,7 @@ public class MobBehaviorListener implements Listener {
         if (isMotherCustom || isFatherCustom) {
             event.setCancelled(true);
             if (event.getBreeder() instanceof Player player) {
-                player.sendMessage("§cVous ne pouvez pas accoupler des variantes de WildDifficulty !");
+                player.sendMessage(plugin.getLangManager().getRaw("variant.breed_denied"));
             }
         }
     }

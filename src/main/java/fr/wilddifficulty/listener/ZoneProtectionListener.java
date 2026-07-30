@@ -44,7 +44,7 @@ public class ZoneProtectionListener implements Listener {
         DifficultyZone zone = plugin.getZoneManager().getZoneAt(loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ());
         if (isProtected(player, zone, ZoneMember.LEVEL_BUILDER)) {
             event.setCancelled(true);
-            player.sendMessage("§cCette zone est protégée ! Vous devez être au moins Bâtisseur (Niv. 2) pour casser des blocs.");
+            player.sendMessage(plugin.getLangManager().getRaw("zone.protection_break_denied"));
         }
     }
 
@@ -57,7 +57,7 @@ public class ZoneProtectionListener implements Listener {
         DifficultyZone zone = plugin.getZoneManager().getZoneAt(loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ());
         if (isProtected(player, zone, ZoneMember.LEVEL_BUILDER)) {
             event.setCancelled(true);
-            player.sendMessage("§cCette zone est protégée ! Vous devez être au moins Bâtisseur (Niv. 2) pour poser des blocs.");
+            player.sendMessage(plugin.getLangManager().getRaw("zone.protection_place_denied"));
         }
     }
 
