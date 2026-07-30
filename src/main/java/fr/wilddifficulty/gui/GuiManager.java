@@ -357,17 +357,17 @@ public class GuiManager {
 
     public void openGlobalModifiersMenu(Player player) {
         WDMenuHolder holder = new WDMenuHolder("GLOBALS", null);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("WD - Globaux"));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_global_modifiers")));
         holder.setInventory(inv);
         MainConfigManager cfg = plugin.getMainConfigManager();
 
-        inv.setItem(10, createModifierItem(Material.APPLE, "&cPV (Santé)", cfg.getGlobalHealthMult()));
-        inv.setItem(11, createModifierItem(Material.IRON_SWORD, "&cDégâts", cfg.getGlobalDamageMult()));
-        inv.setItem(12, createModifierItem(Material.FEATHER, "&bVitesse", cfg.getGlobalSpeedMult()));
-        inv.setItem(13, createModifierItem(Material.ENDER_EYE, "&eDétection", cfg.getGlobalFollowRangeMult()));
-        inv.setItem(14, createModifierItem(Material.SHIELD, "&7Knockback", cfg.getGlobalKnockbackMult()));
+        inv.setItem(10, createModifierItem(Material.APPLE, plugin.getLangManager().getRaw("gui.item.pv_sante"), cfg.getGlobalHealthMult()));
+        inv.setItem(11, createModifierItem(Material.IRON_SWORD, plugin.getLangManager().getRaw("gui.item.degats"), cfg.getGlobalDamageMult()));
+        inv.setItem(12, createModifierItem(Material.FEATHER, plugin.getLangManager().getRaw("gui.item.vitesse"), cfg.getGlobalSpeedMult()));
+        inv.setItem(13, createModifierItem(Material.ENDER_EYE, plugin.getLangManager().getRaw("gui.item.detection"), cfg.getGlobalFollowRangeMult()));
+        inv.setItem(14, createModifierItem(Material.SHIELD, plugin.getLangManager().getRaw("gui.item.knockback"), cfg.getGlobalKnockbackMult()));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(22, createBackItem());
         player.openInventory(inv);
     }
 
@@ -391,7 +391,7 @@ public class GuiManager {
     // ================= VARIANTS =================
     public void openVariantList(Player player) {
         WDMenuHolder holder = new WDMenuHolder("VARIANT_LIST", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WD - Variantes"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_variants")));
         holder.setInventory(inv);
 
         String filter = getSortFilter(player.getUniqueId());
@@ -476,7 +476,7 @@ public class GuiManager {
         }
 
         WDMenuHolder holder = new WDMenuHolder("CHOOSE_ENTITY_TYPE", baseContext + ":" + page + ":" + filter);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Choisir Type de Base (" + filter + ")"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_choose_base_type") + " (" + filter + ")"));
         holder.setInventory(inv);
 
         List<EntityType> choicesList = new ArrayList<>();
@@ -536,7 +536,7 @@ public class GuiManager {
         if (var == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("VARIANT_EDIT", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("Édition: " + variantId));
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_edit") + ": " + variantId));
         holder.setInventory(inv);
 
         inv.setItem(10, createItem(Material.NAME_TAG, plugin.getLangManager().getRaw("gui.item.type_de_base"), plugin.getLangManager().getRaw("gui.item.actuel_2") + var.getType().name(), "", plugin.getLangManager().getRaw("gui.item.clic_pour_changer")));
@@ -583,7 +583,7 @@ public class GuiManager {
         }
 
         WDMenuHolder holder = new WDMenuHolder("VARIANT_MODS", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Stats: " + variantId));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_stats") + ": " + variantId));
         holder.setInventory(inv);
 
         inv.setItem(10, createModifierItem(Material.APPLE, "&cPV (Santé Absolue)", mods.getHealthValue()));
@@ -605,7 +605,7 @@ public class GuiManager {
         StatModifiers mods = var.getModifiers();
 
         WDMenuHolder holder = new WDMenuHolder("VARIANT_BEHAVIORS", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("IA & Comportement: " + variantId));
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_ai_behavior") + ": " + variantId));
         holder.setInventory(inv);
 
         inv.setItem(10, createToggleItem(Material.ENDER_PEARL, plugin.getLangManager().getRaw("gui.item.téléportation_cible"), mods.isTeleportToTarget()));
@@ -692,7 +692,7 @@ public class GuiManager {
         }
 
         WDMenuHolder holder = new WDMenuHolder("VARIANT_AESTHETICS", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("Esthétique: " + variantId));
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_aesthetics") + ": " + variantId));
         holder.setInventory(inv);
 
         // Noms
@@ -774,7 +774,7 @@ public class GuiManager {
         }
 
         WDMenuHolder holder = new WDMenuHolder("VARIANT_SKIN_SELECTOR", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("Sélecteur de Skin: " + variantId));
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_skin_selector") + ": " + variantId));
         holder.setInventory(inv);
 
         List<fr.wilddifficulty.util.EntitySubtypeUtil.SubtypeOption> options = fr.wilddifficulty.util.EntitySubtypeUtil.getAvailableSubtypes(var.getType());
@@ -816,7 +816,7 @@ public class GuiManager {
 
     public void openSkinHeadBank(Player player, String variantId) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_SKIN_HEAD", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("WD - Têtes / Skins"));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_heads_bank")));
         holder.setInventory(inv);
 
         inv.setItem(0, createSkullItem("MHF_Skeleton", "&bSquelette", "&7Pseudo: MHF_Skeleton", "", "&eClic pour appliquer"));
@@ -853,7 +853,7 @@ public class GuiManager {
         if (var == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("VARIANT_DROPS_AUDIO", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Drops & Sons: " + variantId));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_drops_sounds") + ": " + variantId));
         holder.setInventory(inv);
 
         inv.setItem(10, createItem(Material.DIAMOND_CHESTPLATE, plugin.getLangManager().getRaw("gui.item.équipement_spécifique"), plugin.getLangManager().getRaw("gui.item.gérer_casque_plastron_jambières_bottes"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_configurer")));
@@ -874,7 +874,7 @@ public class GuiManager {
         StatModifiers mods = var.getModifiers();
 
         WDMenuHolder holder = new WDMenuHolder("VARIANT_EQUIPMENT_EDIT", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Équipement: " + variantId));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_equipment") + ": " + variantId));
         holder.setInventory(inv);
 
         inv.setItem(10, createEquipmentSlotItem(mods.getHelmetItem(), mods.getHelmetChance(), "Casque", Material.LEATHER_HELMET));
@@ -901,7 +901,7 @@ public class GuiManager {
 
     public void openEquipmentItemSelector(Player player, String variantId, String slotName) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_EQ_" + slotName.toUpperCase(), variantId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Choisir : " + slotName));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_choose") + ": " + slotName));
         holder.setInventory(inv);
 
         String[] choices = switch (slotName.toLowerCase()) {
@@ -933,7 +933,7 @@ public class GuiManager {
     // 1. Particle selector
     public void openParticleSelector(Player player, String variantId, String fieldName) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_PARTICLE_" + fieldName.toUpperCase(), variantId);
-        Inventory inv = Bukkit.createInventory(holder, 18, Component.text("Particule : " + fieldName));
+        Inventory inv = Bukkit.createInventory(holder, 18, Component.text(plugin.getLangManager().getRaw("gui.title_particle") + ": " + fieldName));
         holder.setInventory(inv);
 
         String[] particles = {
@@ -954,7 +954,7 @@ public class GuiManager {
     // 2. BossBar Color selector
     public void openBossBarColorSelector(Player player, String variantId) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_BB_COLOR", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 9, Component.text("Couleur BossBar"));
+        Inventory inv = Bukkit.createInventory(holder, 9, Component.text(plugin.getLangManager().getRaw("gui.title_bossbar_color")));
         holder.setInventory(inv);
 
         String[] colors = { "BLUE", "GREEN", "PINK", "PURPLE", "RED", "WHITE", "YELLOW" };
@@ -978,7 +978,7 @@ public class GuiManager {
     // 3. BossBar Style selector
     public void openBossBarStyleSelector(Player player, String variantId) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_BB_STYLE", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 9, Component.text("Style BossBar"));
+        Inventory inv = Bukkit.createInventory(holder, 9, Component.text(plugin.getLangManager().getRaw("gui.title_bossbar_style")));
         holder.setInventory(inv);
 
         String[] styles = { "PROGRESS", "NOTCHED_6", "NOTCHED_10", "NOTCHED_12", "NOTCHED_20" };
@@ -997,7 +997,7 @@ public class GuiManager {
         List<String> activeEffects = var.getModifiers().getPotionEffects();
 
         WDMenuHolder holder = new WDMenuHolder("SELECT_POTIONS", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 18, Component.text("Effets de potion"));
+        Inventory inv = Bukkit.createInventory(holder, 18, Component.text(plugin.getLangManager().getRaw("gui.title_potion_effects")));
         holder.setInventory(inv);
 
         String[] effects = { "SPEED", "INCREASE_DAMAGE", "DAMAGE_RESISTANCE", "FIRE_RESISTANCE", "REGENERATION", "INVISIBILITY", "GLOWING" };
@@ -1019,7 +1019,7 @@ public class GuiManager {
         String activeEffect = var.getModifiers().getOnHitPotionEffect();
 
         WDMenuHolder holder = new WDMenuHolder("SELECT_ONHIT_POTION", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 18, Component.text("Effet On-Hit"));
+        Inventory inv = Bukkit.createInventory(holder, 18, Component.text(plugin.getLangManager().getRaw("gui.title_onhit_effect")));
         holder.setInventory(inv);
 
         String[] effects = { "POISON", "WITHER", "BLINDNESS", "SLOW", "WEAKNESS", "CONFUSION", "LEVITATION", "none" };
@@ -1039,7 +1039,7 @@ public class GuiManager {
     // 5. Sound Selector
     public void openSoundSelector(Player player, String variantId, String soundType) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_SOUND_" + soundType.toUpperCase(), variantId);
-        Inventory inv = Bukkit.createInventory(holder, 18, Component.text("Son : " + soundType));
+        Inventory inv = Bukkit.createInventory(holder, 18, Component.text(plugin.getLangManager().getRaw("gui.title_sound") + ": " + soundType));
         holder.setInventory(inv);
 
         String[] sounds = {
@@ -1063,7 +1063,7 @@ public class GuiManager {
     // 6. Equipment Tier Selector
     public void openEquipmentTierSelector(Player player, String contextId, String contextType) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_EQUIP_" + contextType.toUpperCase(), contextId);
-        Inventory inv = Bukkit.createInventory(holder, 9, Component.text("Tier d'équipement"));
+        Inventory inv = Bukkit.createInventory(holder, 9, Component.text(plugin.getLangManager().getRaw("gui.title_equipment_tier")));
         holder.setInventory(inv);
 
         String[] tiers = { "none", "leather", "chainmail", "iron", "gold", "diamond", "netherite" };
@@ -1090,7 +1090,7 @@ public class GuiManager {
         if (var == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("CONDITIONAL_NAMES", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Noms Conditionnels"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_conditional_names")));
         holder.setInventory(inv);
 
         int slot = 0;
@@ -1113,7 +1113,7 @@ public class GuiManager {
         if (var == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("CUSTOM_DROPS", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Drops Personnalisés"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_custom_drops")));
         holder.setInventory(inv);
 
         int slot = 0;
@@ -1137,7 +1137,7 @@ public class GuiManager {
     // 9. Choice of item to drop
     public void openDropMaterialSelector(Player player, String variantId) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_DROP_MAT", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 18, Component.text("Choisir Objet à Looter"));
+        Inventory inv = Bukkit.createInventory(holder, 18, Component.text(plugin.getLangManager().getRaw("gui.title_choose_loot_item")));
         holder.setInventory(inv);
 
         Material[] drops = {
@@ -1169,7 +1169,7 @@ public class GuiManager {
     // ================= SQUADS =================
     public void openSquadList(Player player) {
         WDMenuHolder holder = new WDMenuHolder("SQUAD_LIST", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WD - Escouades"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_squads")));
         holder.setInventory(inv);
 
         int slot = 0;
@@ -1211,7 +1211,7 @@ public class GuiManager {
         if (sq == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("SQUAD_EDIT", squadId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Édition: " + squadId));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_edit") + ": " + squadId));
         holder.setInventory(inv);
 
         // Chance de spawn avec +/- clics
@@ -1243,7 +1243,7 @@ public class GuiManager {
         if (sq == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("SQUAD_BONUSES_EDIT", squadId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Bonus : " + squadId));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_bonus") + ": " + squadId));
         holder.setInventory(inv);
 
         inv.setItem(10, createModifierItem(Material.APPLE, "&cBonus PV", sq.getBonusHealth()));
@@ -1261,7 +1261,7 @@ public class GuiManager {
         if (sq == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("SQUAD_MEMBERS_EDIT", squadId);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Membres : " + squadId));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_members") + ": " + squadId));
         holder.setInventory(inv);
 
         int slot = 0;
@@ -1296,7 +1296,7 @@ public class GuiManager {
         if (sq == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("SQUAD_TRIGGERS_EDIT", squadId);
-        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("Déclencheurs : " + squadId));
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_triggers") + ": " + squadId));
         holder.setInventory(inv);
 
         EntityType[] triggerChoices = {
@@ -1322,7 +1322,7 @@ public class GuiManager {
     // ================= ZONES =================
     public void openZoneList(Player player) {
         WDMenuHolder holder = new WDMenuHolder("ZONE_LIST", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("WD - Zones"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_zones")));
         holder.setInventory(inv);
 
         int slot = 0;
@@ -1347,7 +1347,7 @@ public class GuiManager {
         if (zone == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("ZONE_EDIT", zoneId);
-        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("Zone: " + zoneId));
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_zone") + ": " + zoneId));
         holder.setInventory(inv);
 
         inv.setItem(10, createToggleItem(Material.SHIELD, plugin.getLangManager().getRaw("gui.item.zone_sûre_safe_zone"), zone.isSafeZone()));
@@ -1437,7 +1437,7 @@ public class GuiManager {
 
     public void openZoneParticleSelector(Player player, String zoneId, String type) {
         WDMenuHolder holder = new WDMenuHolder("ZONE_PARTICLE_" + type.toUpperCase(), zoneId);
-        Inventory inv = Bukkit.createInventory(holder, 18, Component.text("Particule Zone (" + type + ")"));
+        Inventory inv = Bukkit.createInventory(holder, 18, Component.text(plugin.getLangManager().getRaw("gui.title_zone_particle") + " (" + type + ")"));
         holder.setInventory(inv);
 
         String[] particles = {
@@ -1465,7 +1465,7 @@ public class GuiManager {
         }
 
         WDMenuHolder holder = new WDMenuHolder("ZONE_MODS", zoneId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Stats Zone: " + zoneId));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_zone_stats") + ": " + zoneId));
         holder.setInventory(inv);
 
         inv.setItem(10, createModifierItem(Material.APPLE, "&cPV (Santé Absolue)", mods.getHealthValue()));
@@ -1556,7 +1556,7 @@ public class GuiManager {
 
     public void openBiomeSpawnConfig(Player player, String biomeName) {
         WDMenuHolder holder = new WDMenuHolder("BIOME_SPAWN_CONFIG", biomeName);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Spawns : " + biomeName));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_spawns") + ": " + biomeName));
         holder.setInventory(inv);
 
         int slot = 0;
@@ -1592,7 +1592,7 @@ public class GuiManager {
         if (var == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("SPAWN_CONDITIONS", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Conditions : " + variantId));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_conditions") + ": " + variantId));
         holder.setInventory(inv);
 
         // Météo (slot 10)
@@ -1631,7 +1631,7 @@ public class GuiManager {
         if (var == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("VARIANT_BIOMES_EDIT", variantId + ":" + page + ":" + filter);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Biomes de " + variantId));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_biomes_of") + " " + variantId));
         holder.setInventory(inv);
 
         // Gather all registry biomes
@@ -1706,7 +1706,7 @@ public class GuiManager {
 
     public void openLeatherColorSelector(Player player, String variantId, String slotName, String armorItem) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_LEATHER_COLOR", variantId + ":" + slotName + ":" + armorItem);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Couleur Cuir: " + slotName));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_leather_color") + ": " + slotName));
         holder.setInventory(inv);
 
         String[] colors = new String[] {
@@ -1760,7 +1760,7 @@ public class GuiManager {
         if (spawner == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("SPAWNER_EDIT", contextId);
-        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("Config Spawner Block"));
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_spawner_config")));
         holder.setInventory(inv);
 
         // Status active
@@ -1852,7 +1852,7 @@ public class GuiManager {
         if (spawner == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("SPAWNER_VARIANTS", contextId);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Monstres du Spawner"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_spawner_mobs")));
         holder.setInventory(inv);
 
         int slot = 0;
@@ -1885,7 +1885,7 @@ public class GuiManager {
 
     public void openVariantReinforcementSelector(Player player, String variantId) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_REINFORCEMENT", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Sbire de renfort à la mort"));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_death_reinforcement")));
         holder.setInventory(inv);
 
         int slot = 0;
@@ -1906,7 +1906,7 @@ public class GuiManager {
         if (var == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("SELECT_CMD", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Custom Model Data"));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_custom_model_data")));
         holder.setInventory(inv);
 
         // Predefined choices based on mob type
@@ -1933,7 +1933,7 @@ public class GuiManager {
 
     public void openRangedProjectileSelector(Player player, String variantId) {
         WDMenuHolder holder = new WDMenuHolder("SELECT_RANGED_TYPE", variantId);
-        Inventory inv = Bukkit.createInventory(holder, 18, Component.text("Projectile à distance"));
+        Inventory inv = Bukkit.createInventory(holder, 18, Component.text(plugin.getLangManager().getRaw("gui.title_ranged_projectile")));
         holder.setInventory(inv);
 
         String[] types = { "ARROW", "SNOWBALL", "FIREBALL", "SMALL_FIREBALL", "WITHER_SKULL", "EGG", "DRAGON_FIREBALL" };
@@ -1981,7 +1981,7 @@ public class GuiManager {
     public void openZoneScalingEdit(Player player, DifficultyZone zone) {
         WDMenuHolder holder = new WDMenuHolder("ZONE_SCALING_EDIT", zone.getId());
         Inventory inv = plugin.getServer().createInventory(holder, 54,
-                net.kyori.adventure.text.Component.text("§8Scaling Extérieur — " + zone.getId()));
+                net.kyori.adventure.text.Component.text(plugin.getLangManager().getRaw("gui.title_outer_scaling") + " — " + zone.getId()));
         holder.setInventory(inv);
 
         // === CAP GLOBAL (slot 4) ===
@@ -2057,7 +2057,7 @@ public class GuiManager {
         if (zone == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("ZONE_MEMBERS", zoneId);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("Membres: " + zoneId));
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_members") + ": " + zoneId));
         holder.setInventory(inv);
 
         inv.setItem(0, createItem(Material.NAME_TAG, plugin.getLangManager().getRaw("gui.item.ajouter_un_membre"), plugin.getLangManager().getRaw("gui.item.ajouter_un_joueur_via_son"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_saisir_le_pseudo")));
@@ -2089,7 +2089,7 @@ public class GuiManager {
         if (zone == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("ZONE_BEACON", zoneId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Beacon Effects: " + zoneId));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_beacon_effects") + ": " + zoneId));
         holder.setInventory(inv);
 
         String[] effects = {"SPEED", "HASTE", "RESISTANCE", "JUMP_BOOST", "INCREASE_DAMAGE", "REGENERATION", "FIRE_RESISTANCE", "NIGHT_VISION"};
@@ -2115,7 +2115,7 @@ public class GuiManager {
         if (zone == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("ZONE_DANGER_NEST", zoneId);
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Nid d'Ennemis: " + zoneId));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_danger_nest") + ": " + zoneId));
         holder.setInventory(inv);
 
         inv.setItem(10, createToggleItem(Material.NETHER_STAR, plugin.getLangManager().getRaw("gui.item.nid_dennemis_danger_nest"), zone.isDangerNest()));

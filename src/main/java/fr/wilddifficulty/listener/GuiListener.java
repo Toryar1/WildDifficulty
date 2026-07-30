@@ -499,6 +499,10 @@ public class GuiListener implements Listener {
                     }
                 }
                 case "GLOBALS" -> {
+                    if (slot == 22 || slot == 26) {
+                        gui.openMainMenu(player);
+                        return;
+                    }
                     handleModifierClick(player, event, "global", null, gui, varManager, zoneManager, mainCfg);
                 }
                 case "BLOODMOON_EDIT" -> {
