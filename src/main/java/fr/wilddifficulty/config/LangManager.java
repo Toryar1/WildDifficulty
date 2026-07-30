@@ -44,14 +44,14 @@ public class LangManager {
         setIfNotExists("general.thirst_multiplier_updated", "&aMultiplicateur de dégradation de soif mis à jour : {val}");
         setIfNotExists("general.heat_multiplier_updated", "&aMultiplicateur de chaleur mis à jour : {val}");
         setIfNotExists("general.despawn_time_updated", "&aTemps de despawn mis à jour.");
-        setIfNotExists("general.language_changed", "&a[WD] Langue changée avec succès : {lang}");
+        setIfNotExists("general.language_changed", "&aLangue changée avec succès : {lang}");
         setIfNotExists("general.invalid_language", "&cCode de langue invalide : {code}. Langues disponibles : fr, en, de, es, pt_BR, nl, pl, ru, zh_CN, it");
 
-        setIfNotExists("tools.given_biome", "&a[WD] Outil de configuration de biome donné.");
-        setIfNotExists("tools.given_spawner", "&a[WD] Outil de Spawner donné. Clic droit sur un bloc avec cet outil pour éditer le spawner.");
-        setIfNotExists("tools.given_zone", "&a[WD] Outil de Zone donné. Clic droit pour placer des points.");
-        setIfNotExists("tools.given_inspector", "&a[WD] Outil d'Analyse (Inspecteur) donné. Clic droit sur un monstre pour l'analyser.");
-        setIfNotExists("tools.given_all", "&a[WD] Tous les outils d'administration vous ont été donnés.");
+        setIfNotExists("tools.given_biome", "&aOutil de configuration de biome donné.");
+        setIfNotExists("tools.given_spawner", "&aOutil de Spawner donné. Clic droit sur un bloc avec cet outil pour éditer le spawner.");
+        setIfNotExists("tools.given_zone", "&aOutil de Zone donné. Clic droit pour placer des points.");
+        setIfNotExists("tools.given_inspector", "&aOutil d'Analyse (Inspecteur) donné. Clic droit sur un monstre pour l'analyser.");
+        setIfNotExists("tools.given_all", "&aTous les outils d'administration vous ont été donnés.");
         setIfNotExists("tools.item_zone_title", "&eOutil de Zone WildDifficulty");
         setIfNotExists("tools.item_zone_lore1", "&7Clic Droit sur un bloc pour ajouter un point.");
         setIfNotExists("tools.item_zone_lore2", "&7Clic Gauche pour fermer le polygone.");
@@ -66,11 +66,11 @@ public class LangManager {
         setIfNotExists("tools.item_inspector_lore1", "&7Clic Droit sur une entité pour analyser");
         setIfNotExists("tools.item_inspector_lore2", "&7ses caractéristiques et ses modificateurs.");
 
-        setIfNotExists("command.killall", "&a[WD] {count} monstres de WildDifficulty ont été supprimés.");
-        setIfNotExists("command.scoreboard_on", "&a[WD] Scoreboard de debug activé.");
-        setIfNotExists("command.scoreboard_off", "&c[WD] Scoreboard de debug désactivé.");
-        setIfNotExists("command.bloodmoon_scheduled", "&a[WD] Lune de Sang planifiée pour la prochaine nuit !");
-        setIfNotExists("command.debug_toggled", "&a[WD] Mode debug défini sur : {status}");
+        setIfNotExists("command.killall", "&a{count} monstres de WildDifficulty ont été supprimés.");
+        setIfNotExists("command.scoreboard_on", "&aScoreboard de debug activé.");
+        setIfNotExists("command.scoreboard_off", "&cScoreboard de debug désactivé.");
+        setIfNotExists("command.bloodmoon_scheduled", "&aLune de Sang planifiée pour la prochaine nuit !");
+        setIfNotExists("command.debug_toggled", "&aMode debug défini sur : {status}");
         setIfNotExists("command.spawn_player", "&aSpawné NPC Joueur : {id}");
         setIfNotExists("command.spawn_mob", "&aSpawné : {id} {mode}");
         setIfNotExists("command.variant_not_found", "&cVariante introuvable.");
@@ -103,8 +103,8 @@ public class LangManager {
 
         setIfNotExists("bloodmoon.start_message", "&cLa Lune de Sang se lève... Les monstres sont enragés !");
         setIfNotExists("bloodmoon.end_message", "&aLa Lune de Sang se couche. Le calme revient...");
-        setIfNotExists("bloodmoon.activated_now", "&a[WD] Lune de Sang activée immédiatement car il fait nuit !");
-        setIfNotExists("bloodmoon.already_active", "&c[WD] La Lune de Sang est déjà active !");
+        setIfNotExists("bloodmoon.activated_now", "&aLune de Sang activée immédiatement car il fait nuit !");
+        setIfNotExists("bloodmoon.already_active", "&cLa Lune de Sang est déjà active !");
         setIfNotExists("bloodmoon.chance_set", "&aChance de Lune de Sang définie à {val}%.");
         setIfNotExists("bloodmoon.hp_mult_set", "&aMultiplicateur PV défini à {val}x.");
         setIfNotExists("bloodmoon.dmg_mult_set", "&aMultiplicateur Dégâts défini à {val}x.");
@@ -150,8 +150,8 @@ public class LangManager {
         setIfNotExists("spawner.variant_removed", "&cVariante {id} retirée du spawner.");
         setIfNotExists("spawner.variant_added", "&aVariante {id} ajoutée au spawner (poids: 1).");
 
-        setIfNotExists("variant.equip_leather_set", "&a[WD] Équipement cuir {slot} défini avec la couleur #{color} depuis votre inventaire.");
-        setIfNotExists("variant.equip_set", "&a[WD] Équipement défini sur {slot} depuis votre inventaire.");
+        setIfNotExists("variant.equip_leather_set", "&aÉquipement cuir {slot} défini avec la couleur #{color} depuis votre inventaire.");
+        setIfNotExists("variant.equip_set", "&aÉquipement défini sur {slot} depuis votre inventaire.");
 
         setIfNotExists("gui.title_main", "WildDifficulty - Menu Principal");
         setIfNotExists("gui.title_general_config", "WD - Config Générale");
