@@ -361,11 +361,11 @@ public class GuiManager {
         holder.setInventory(inv);
         MainConfigManager cfg = plugin.getMainConfigManager();
 
-        inv.setItem(10, createModifierItem(Material.APPLE, plugin.getLangManager().getRaw("gui.item.pv_sante"), cfg.getGlobalHealthMult()));
-        inv.setItem(11, createModifierItem(Material.IRON_SWORD, plugin.getLangManager().getRaw("gui.item.degats"), cfg.getGlobalDamageMult()));
-        inv.setItem(12, createModifierItem(Material.FEATHER, plugin.getLangManager().getRaw("gui.item.vitesse"), cfg.getGlobalSpeedMult()));
-        inv.setItem(13, createModifierItem(Material.ENDER_EYE, plugin.getLangManager().getRaw("gui.item.detection"), cfg.getGlobalFollowRangeMult()));
-        inv.setItem(14, createModifierItem(Material.SHIELD, plugin.getLangManager().getRaw("gui.item.knockback"), cfg.getGlobalKnockbackMult()));
+        inv.setItem(11, createModifierItem(Material.APPLE, plugin.getLangManager().getRaw("gui.item.pv_sante"), cfg.getGlobalHealthMult()));
+        inv.setItem(12, createModifierItem(Material.IRON_SWORD, plugin.getLangManager().getRaw("gui.item.degats"), cfg.getGlobalDamageMult()));
+        inv.setItem(13, createModifierItem(Material.FEATHER, plugin.getLangManager().getRaw("gui.item.vitesse"), cfg.getGlobalSpeedMult()));
+        inv.setItem(14, createModifierItem(Material.ENDER_EYE, plugin.getLangManager().getRaw("gui.item.detection"), cfg.getGlobalFollowRangeMult()));
+        inv.setItem(15, createModifierItem(Material.SHIELD, plugin.getLangManager().getRaw("gui.item.knockback"), cfg.getGlobalKnockbackMult()));
 
         inv.setItem(22, createBackItem());
         player.openInventory(inv);
@@ -1246,10 +1246,10 @@ public class GuiManager {
         Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_bonus") + ": " + squadId));
         holder.setInventory(inv);
 
-        inv.setItem(10, createModifierItem(Material.APPLE, "&cBonus PV", sq.getBonusHealth()));
-        inv.setItem(11, createModifierItem(Material.IRON_SWORD, "&cBonus Dégâts", sq.getBonusDamage()));
-        inv.setItem(12, createModifierItem(Material.FEATHER, "&bBonus Vitesse", sq.getBonusSpeed()));
-        inv.setItem(13, createModifierItem(Material.GOLDEN_APPLE, "&aBonus Regen (HP/s)", sq.getBonusRegen()));
+        inv.setItem(10, createModifierItem(Material.APPLE, plugin.getLangManager().getRaw("gui.item.pv_sante"), sq.getBonusHealth()));
+        inv.setItem(11, createModifierItem(Material.IRON_SWORD, plugin.getLangManager().getRaw("gui.item.degats"), sq.getBonusDamage()));
+        inv.setItem(12, createModifierItem(Material.FEATHER, plugin.getLangManager().getRaw("gui.item.vitesse"), sq.getBonusSpeed()));
+        inv.setItem(13, createModifierItem(Material.GOLDEN_APPLE, plugin.getLangManager().getRaw("gui.item.regen"), sq.getBonusRegen()));
 
         inv.setItem(26, createBackItem());
         player.openInventory(inv);

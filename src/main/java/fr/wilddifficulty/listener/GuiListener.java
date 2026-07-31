@@ -260,7 +260,7 @@ public class GuiListener implements Listener {
                         gui.openMainMenu(player);
                         return;
                     }
-                    int[] langSlots = {10, 11, 12, 13, 14, 19, 20, 21, 22, 23};
+                    int[] langSlots = {11, 12, 13, 14, 15, 20, 21, 22, 23, 24};
                     int idx = -1;
                     for (int i = 0; i < langSlots.length; i++) {
                         if (langSlots[i] == slot) {
@@ -1745,6 +1745,10 @@ public class GuiListener implements Listener {
                 case "SQUAD_EDIT" -> {
                     MobSquad sq = varManager.getSquad(contextId);
                     if (sq == null) return;
+                    if (slot == 26) {
+                        gui.openSquadList(player);
+                        return;
+                    }
                     if (slot == 22) {
                         varManager.removeSquad(contextId);
                         varManager.save();
@@ -1767,6 +1771,10 @@ public class GuiListener implements Listener {
                     }
                 }
                 case "SQUAD_BONUSES_EDIT" -> {
+                    if (slot == 26) {
+                        gui.openSquadEditor(player, contextId);
+                        return;
+                    }
                     handleModifierClick(player, event, "squad", contextId, gui, varManager, zoneManager, mainCfg);
                 }
                 case "SQUAD_MEMBERS_EDIT" -> {
@@ -1833,7 +1841,7 @@ public class GuiListener implements Listener {
                     }
                     if (slot == 48) {
                         player.closeInventory();
-                        player.performCommand("wd zonetool");
+                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getZoneTool());
                         return;
                     }
                     if (slot == 51) {
@@ -1959,7 +1967,7 @@ public class GuiListener implements Listener {
                     } else if (slot == 23) {
                         plugin.getEditingZoneId().put(player.getUniqueId(), zone.getId());
                         player.closeInventory();
-                        player.performCommand("wd zone tool");
+                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getZoneTool());
                     } else if (slot == 20) {
                         gui.openZoneModifiers(player, contextId);
                     } else if (slot == 26) {
@@ -2817,11 +2825,11 @@ public class GuiListener implements Listener {
     private void applyModifier(String type, String contextId, int slot, double valOrDelta, boolean isSet, VariantManager varManager, ZoneManager zoneManager, MainConfigManager mainCfg) {
         if (type.equals("global")) {
             switch (slot) {
-                case 10 -> mainCfg.setGlobalHealthMult(isSet ? valOrDelta : mainCfg.getGlobalHealthMult() + valOrDelta);
-                case 11 -> mainCfg.setGlobalDamageMult(isSet ? valOrDelta : mainCfg.getGlobalDamageMult() + valOrDelta);
-                case 12 -> mainCfg.setGlobalSpeedMult(isSet ? valOrDelta : mainCfg.getGlobalSpeedMult() + valOrDelta);
-                case 13 -> mainCfg.setGlobalFollowRangeMult(isSet ? valOrDelta : mainCfg.getGlobalFollowRangeMult() + valOrDelta);
-                case 14 -> mainCfg.setGlobalKnockbackMult(isSet ? valOrDelta : mainCfg.getGlobalKnockbackMult() + valOrDelta);
+                case 11 -> mainCfg.setGlobalHealthMult(isSet ? valOrDelta : mainCfg.getGlobalHealthMult() + valOrDelta);
+                case 12 -> mainCfg.setGlobalDamageMult(isSet ? valOrDelta : mainCfg.getGlobalDamageMult() + valOrDelta);
+                case 13 -> mainCfg.setGlobalSpeedMult(isSet ? valOrDelta : mainCfg.getGlobalSpeedMult() + valOrDelta);
+                case 14 -> mainCfg.setGlobalFollowRangeMult(isSet ? valOrDelta : mainCfg.getGlobalFollowRangeMult() + valOrDelta);
+                case 15 -> mainCfg.setGlobalKnockbackMult(isSet ? valOrDelta : mainCfg.getGlobalKnockbackMult() + valOrDelta);
             }
             mainCfg.save();
         } else if (type.equals("variant")) {
