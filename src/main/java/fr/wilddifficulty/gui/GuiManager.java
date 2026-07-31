@@ -586,14 +586,14 @@ public class GuiManager {
         Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_stats") + ": " + variantId));
         holder.setInventory(inv);
 
-        inv.setItem(10, createModifierItem(Material.APPLE, "&cPV (Santé Absolue)", mods.getHealthValue()));
-        inv.setItem(11, createModifierItem(Material.IRON_SWORD, "&cDégâts Absolus", mods.getDamageValue()));
-        inv.setItem(12, createModifierItem(Material.FEATHER, "&bVitesse Absolue", mods.getSpeedValue()));
-        inv.setItem(13, createModifierItem(Material.ENDER_EYE, "&eDétection Absolue", mods.getFollowRangeValue()));
-        inv.setItem(14, createModifierItem(Material.SHIELD, "&7Knockback Absolu", mods.getKnockbackValue()));
+        inv.setItem(10, createModifierItem(Material.APPLE, plugin.getLangManager().getRaw("gui.item.pv_sante"), mods.getHealthValue()));
+        inv.setItem(11, createModifierItem(Material.IRON_SWORD, plugin.getLangManager().getRaw("gui.item.degats"), mods.getDamageValue()));
+        inv.setItem(12, createModifierItem(Material.FEATHER, plugin.getLangManager().getRaw("gui.item.vitesse"), mods.getSpeedValue()));
+        inv.setItem(13, createModifierItem(Material.ENDER_EYE, plugin.getLangManager().getRaw("gui.item.detection"), mods.getFollowRangeValue()));
+        inv.setItem(14, createModifierItem(Material.SHIELD, plugin.getLangManager().getRaw("gui.item.knockback"), mods.getKnockbackValue()));
 
         inv.setItem(15, createItem(Material.IRON_CHESTPLATE, plugin.getLangManager().getRaw("gui.item.équipement_armure"), plugin.getLangManager().getRaw("gui.item.tier") + mods.getEquipmentTier(), plugin.getLangManager().getRaw("gui.item.chance") + (mods.getEquipmentChance()*100) + "%", "", plugin.getLangManager().getRaw("gui.item.clic_pour_changer")));
-        inv.setItem(16, createModifierItem(Material.GOLDEN_APPLE, "&aRégénération Absolue", mods.getRegenerationValue()));
+        inv.setItem(16, createModifierItem(Material.GOLDEN_APPLE, plugin.getLangManager().getRaw("gui.item.regen"), mods.getRegenerationValue()));
 
         inv.setItem(26, createBackItem());
         player.openInventory(inv);
@@ -1468,14 +1468,14 @@ public class GuiManager {
         Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_zone_stats") + ": " + zoneId));
         holder.setInventory(inv);
 
-        inv.setItem(10, createModifierItem(Material.APPLE, "&cPV (Santé Absolue)", mods.getHealthValue()));
-        inv.setItem(11, createModifierItem(Material.IRON_SWORD, "&cDégâts Absolus", mods.getDamageValue()));
-        inv.setItem(12, createModifierItem(Material.FEATHER, "&bVitesse Absolue", mods.getSpeedValue()));
-        inv.setItem(13, createModifierItem(Material.ENDER_EYE, "&eDétection Absolue", mods.getFollowRangeValue()));
-        inv.setItem(14, createModifierItem(Material.SHIELD, "&7Knockback Absolu", mods.getKnockbackValue()));
+        inv.setItem(10, createModifierItem(Material.APPLE, plugin.getLangManager().getRaw("gui.item.pv_sante"), mods.getHealthValue()));
+        inv.setItem(11, createModifierItem(Material.IRON_SWORD, plugin.getLangManager().getRaw("gui.item.degats"), mods.getDamageValue()));
+        inv.setItem(12, createModifierItem(Material.FEATHER, plugin.getLangManager().getRaw("gui.item.vitesse"), mods.getSpeedValue()));
+        inv.setItem(13, createModifierItem(Material.ENDER_EYE, plugin.getLangManager().getRaw("gui.item.detection"), mods.getFollowRangeValue()));
+        inv.setItem(14, createModifierItem(Material.SHIELD, plugin.getLangManager().getRaw("gui.item.knockback"), mods.getKnockbackValue()));
 
         inv.setItem(15, createItem(Material.IRON_CHESTPLATE, plugin.getLangManager().getRaw("gui.item.équipement_armure"), plugin.getLangManager().getRaw("gui.item.tier") + mods.getEquipmentTier(), plugin.getLangManager().getRaw("gui.item.chance") + (mods.getEquipmentChance()*100) + "%", "", plugin.getLangManager().getRaw("gui.item.clic_pour_changer")));
-        inv.setItem(16, createModifierItem(Material.GOLDEN_APPLE, "&aRégénération Absolue", mods.getRegenerationValue()));
+        inv.setItem(16, createModifierItem(Material.GOLDEN_APPLE, plugin.getLangManager().getRaw("gui.item.regen"), mods.getRegenerationValue()));
 
         inv.setItem(26, createBackItem());
         player.openInventory(inv);

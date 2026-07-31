@@ -71,12 +71,12 @@ public class MobTickScheduler extends BukkitRunnable {
             runDaytimeSpawning();
         }
 
-        // Blood Moon time check
-        if (tickCount % 200 == 0) {
+        // Blood Moon time check (12500 to 23000 ticks)
+        if (tickCount % 20 == 0) {
             World world = plugin.getServer().getWorld(mainCfg.getDistanceWorld());
             if (world != null) {
                 long time = world.getTime();
-                boolean isNight = time >= 13000 && time < 23000;
+                boolean isNight = time >= 12500 && time < 23000;
                 boolean hasForced = world.hasMetadata("wd_bloodmoon_forced");
                 if (mainCfg.isBloodMoonEnabled() || hasForced) {
                     if (isNight) {

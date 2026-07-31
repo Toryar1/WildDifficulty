@@ -940,6 +940,10 @@ public class GuiListener implements Listener {
                     }
                 }
                 case "VARIANT_MODS" -> {
+                    if (slot == 26) {
+                        gui.openVariantEditor(player, contextId);
+                        return;
+                    }
                     if (slot == 15) {
                         gui.openEquipmentTierSelector(player, contextId, "variant");
                         return;
