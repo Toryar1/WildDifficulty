@@ -1,15 +1,15 @@
 # ============================================================
 #  WildDifficulty — mobs.yml
-#  Configuration individuelle par type de mob vanilla
+#  Individual configuration per vanilla mob type
 # ============================================================
 #
-#  Format général :
+#  General Format:
 #
-#  TYPE_MOB:                           # Clé = nom enum Bukkit EntityType (ex: ZOMBIE, SKELETON...)
-#    peut-spawner-de-jour: false       # true = peut spawner même en plein jour
-#    ignore-soleil: false              # true = ne brûle pas au soleil
-#    modificateurs:                    # (optionnel) Surcharges propres à ce type de mob
-#      multiplicateur-pv: 1.0         #   Appliqué EN PLUS des modificateurs biome/distance/zone
+#  MOB_TYPE:                           # Key = Bukkit EntityType enum name (e.g. ZOMBIE, SKELETON...)
+#    peut-spawner-de-jour: false       # true = can spawn during daylight
+#    ignore-soleil: false              # true = does not burn in sunlight
+#    modificateurs:                    # (optional) Specific overrides for this mob type
+#      multiplicateur-pv: 1.0         #   Applied IN ADDITION to biome/distance/zone modifiers
 #      multiplicateur-degats: 1.0
 #      multiplicateur-vitesse: 1.0
 #      multiplicateur-portee-detection: 1.0
@@ -18,37 +18,37 @@
 #      tier-equipement: "none"        # none | leather | iron | diamond | netherite
 #      chance-equipement: 0.0
 #
-#  Ordre de priorité des multiplicateurs :
-#  Globaux × Biome × Distance × Zone × Mob-Override = Final
+#  Multiplier Priority Order:
+#  Global × Biome × Distance × Zone × Mob-Override = Final
 # ============================================================
 
 # ─── Zombie ─────────────────────────────────────────────────
 ZOMBIE:
-  # Les zombies spawnent de jour et ne brûlent pas (rendu cohérent avec le lore "Wild")
+  # Zombies spawn during daylight and do not burn
   peut-spawner-de-jour: true
   ignore-soleil: true
 
-# ─── Squelette ──────────────────────────────────────────────
+# ─── Skeleton ───────────────────────────────────────────────
 SKELETON:
   peut-spawner-de-jour: true
   ignore-soleil: true
 
-# ─── Husk (zombie du désert) ────────────────────────────────
+# ─── Husk ───────────────────────────────────────────────────
 HUSK:
   peut-spawner-de-jour: true
   ignore-soleil: true
-  # Les husks ont naturellement un bonus de PV supplémentaire
+  # Husks have a bonus HP multiplier
   modificateurs:
     multiplicateur-pv: 1.10
 
-# ─── Stray (squelette des neiges) ───────────────────────────
+# ─── Stray ──────────────────────────────────────────────────
 STRAY:
   peut-spawner-de-jour: false
   ignore-soleil: false
   modificateurs:
-    multiplicateur-vitesse: 0.90  # Plus lent, mais tire des flèches de lenteur
+    multiplicateur-vitesse: 0.90  # Slower, but shoots slowness arrows
 
-# ─── Zombie piglin ──────────────────────────────────────────
+# ─── Zombified Piglin ───────────────────────────────────────
 ZOMBIFIED_PIGLIN:
   peut-spawner-de-jour: true
   ignore-soleil: true
@@ -56,98 +56,44 @@ ZOMBIFIED_PIGLIN:
     multiplicateur-pv: 1.15
     multiplicateur-degats: 1.10
 
-# ─── Sorcière ───────────────────────────────────────────────
+# ─── Witch ──────────────────────────────────────────────────
 WITCH:
-  peut-spawner-de-jour: false
-  ignore-soleil: false
+  peut-spawner-de-jour: true
+  ignore-soleil: true
   modificateurs:
     multiplicateur-pv: 1.20
-    multiplicateur-portee-detection: 1.15
+    multiplicateur-portee-detection: 1.5
+
+# ─── Spider ─────────────────────────────────────────────────
+SPIDER:
+  peut-spawner-de-jour: true
+  modificateurs:
+    multiplicateur-vitesse: 1.15
+
+# ─── Cave Spider ────────────────────────────────────────────
+CAVE_SPIDER:
+  modificateurs:
+    multiplicateur-vitesse: 1.20
+    multiplicateur-degats: 1.10
 
 # ─── Creeper ────────────────────────────────────────────────
 CREEPER:
   peut-spawner-de-jour: false
-  ignore-soleil: false
-
-# ─── Araignée ───────────────────────────────────────────────
-SPIDER:
-  # Les araignées hostiles la nuit, neutres le jour — on ne change pas ce comportement par défaut
-  peut-spawner-de-jour: false
-  ignore-soleil: false
   modificateurs:
+    multiplicateur-pv: 1.10
     multiplicateur-vitesse: 1.05
 
-# ─── Araignée des cavernes ──────────────────────────────────
-CAVE_SPIDER:
-  peut-spawner-de-jour: false
-  ignore-soleil: false
-  modificateurs:
-    multiplicateur-pv: 1.10
-    multiplicateur-vitesse: 1.10
-
-# ─── Blaze ──────────────────────────────────────────────────
-BLAZE:
+# ─── Enderman ───────────────────────────────────────────────
+ENDERMAN:
   peut-spawner-de-jour: true
-  ignore-soleil: true
-  modificateurs:
-    multiplicateur-pv: 1.20
-    multiplicateur-degats: 1.15
-    resistance-feu: true
-
-# ─── Ghast ──────────────────────────────────────────────────
-GHAST:
-  peut-spawner-de-jour: true
-  ignore-soleil: true
-  modificateurs:
-    multiplicateur-pv: 1.10
-    resistance-feu: true
-
-# ─── Squelette Wither ───────────────────────────────────────
-WITHER_SKELETON:
-  peut-spawner-de-jour: true
-  ignore-soleil: true
   modificateurs:
     multiplicateur-pv: 1.25
     multiplicateur-degats: 1.20
-    resistance-feu: true
-    tier-equipement: "iron"
-    chance-equipement: 0.4
-
-# ─── Pillard ────────────────────────────────────────────────
-PILLAGER:
-  peut-spawner-de-jour: false
-  ignore-soleil: false
-  modificateurs:
-    multiplicateur-pv: 1.10
-    multiplicateur-portee-detection: 1.20
-
-# ─── Vindicateur ────────────────────────────────────────────
-VINDICATOR:
-  peut-spawner-de-jour: false
-  ignore-soleil: false
-  modificateurs:
-    multiplicateur-pv: 1.15
-    multiplicateur-degats: 1.25
-
-# ─── Évocateur ──────────────────────────────────────────────
-EVOKER:
-  peut-spawner-de-jour: false
-  ignore-soleil: false
-  modificateurs:
-    multiplicateur-pv: 1.30
-    multiplicateur-portee-detection: 1.20
-
-# ─── Noyé (Drowned) ─────────────────────────────────────────
-DROWNED:
-  peut-spawner-de-jour: true
-  ignore-soleil: true  # Les noyés ne brûlent pas sous l'eau de toute façon
-  modificateurs:
-    multiplicateur-pv: 1.10
+    multiplicateur-portee-detection: 2.0
 
 # ─── Phantom ────────────────────────────────────────────────
 PHANTOM:
   peut-spawner-de-jour: false
-  ignore-soleil: false
   modificateurs:
-    multiplicateur-vitesse: 1.10
-    multiplicateur-degats: 1.05
+    multiplicateur-vitesse: 1.20
+    multiplicateur-degats: 1.15

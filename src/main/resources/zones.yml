@@ -1,20 +1,20 @@
 # ============================================================
 #  WildDifficulty — zones.yml
-#  Zones de difficulté personnalisées créées en jeu
+#  Custom in-game difficulty zones
 # ============================================================
 #
-#  Ce fichier est géré AUTOMATIQUEMENT par le plugin.
-#  Ne pas modifier manuellement sauf en cas de nécessité absolue.
-#  Utilisez les commandes /mobzone pour créer et modifier les zones.
+#  This file is AUTOMATICALLY managed by the plugin.
+#  Do not edit manually unless absolutely necessary.
+#  Use /wd zone commands to create and edit zones.
 #
-#  Format d'une zone (pour référence) :
+#  Zone Format (for reference):
 #
-#  nom-de-la-zone:
-#    type: CUBOID                      # CUBOID ou RADIUS
-#    monde: "world"                    # Nom du monde
-#    priorite: 0                       # Priorité (plus élevée = prioritaire en cas de chevauchement)
-#    zone-sure: false                  # true = désactive les spawns hostiles dans la zone
-#    ignorer-regles-biome: false       # true = ignore les modificateurs du biome
+#  zone-name:
+#    type: CUBOID                      # CUBOID or RADIUS
+#    monde: "world"                    # World name
+#    priorite: 0                       # Priority (higher = priority on overlap)
+#    zone-sure: false                  # true = disables hostile spawns in zone
+#    ignorer-regles-biome: false       # true = ignores biome modifiers
 #    modificateurs:
 #      multiplicateur-pv: 1.0
 #      multiplicateur-degats: 1.0
@@ -24,25 +24,9 @@
 #      resistance-feu: false
 #      tier-equipement: "none"
 #      chance-equipement: 0.0
-#    mobs-autorises: []                # Liste blanche de mobs (vide = tous autorisés)
-#    mobs-interdits: []                # Liste noire de mobs
-#    # Pour CUBOID :
-#    pos1:
-#      x: 0
-#      y: 0
-#      z: 0
-#    pos2:
-#      x: 100
-#      y: 255
-#      z: 100
-#    # Pour RADIUS :
-#    centre:
-#      x: 0
-#      y: 64
-#      z: 0
-#    rayon: 50.0
-#
+#    mobs-autorises: []                # Whitelist of mobs (empty = all allowed)
+#    mobs-interdits: []                # Blacklist of mobs
 # ============================================================
 
-# (Aucune zone définie par défaut — utilisez /mobzone create pour en créer)
+# (No zones defined by default — use /wd zone create to create one)
 zones: {}
