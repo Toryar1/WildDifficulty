@@ -3,143 +3,36 @@
 <img src="https://img.shields.io/badge/Paper-26.2-orange?style=for-the-badge&logo=minecraft" alt="Paper 26.2"/>
 <img src="https://img.shields.io/badge/Java-21-blue?style=for-the-badge&logo=openjdk" alt="Java 21"/>
 <img src="https://img.shields.io/badge/Version-1.0.0-green?style=for-the-badge" alt="Version 1.0.0"/>
-<img src="https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge" alt="Proprietary"/>
+<img src="https://img.shields.io/badge/Languages-10--Supported-purple?style=for-the-badge" alt="10 Languages"/>
 
 # 🐺 WildDifficulty
 
-**Un plugin de scaling de difficulté avancé pour serveurs Minecraft Paper**  
-**An advanced difficulty scaling plugin for Minecraft Paper servers**
+**An advanced difficulty scaling, mob variants, and survival plugin for Minecraft Paper 1.21.4 servers**  
+*Un plugin de scaling de difficulté avancé, variantes de mobs et survie pour serveurs Minecraft Paper 1.21.4*
 
 </div>
 
 ---
 
-## 🇫🇷 Français
+## 📸 Screenshots & Video Demos / Captures d'écran & Vidéos
 
-### 📖 Description
+> [!TIP]
+> Place your showcase images and video links below to demonstrate WildDifficulty in action!
 
-**WildDifficulty** est un plugin Minecraft conçu pour Paper 26.2 (1.21.4) qui enrichit profondément l'expérience de combat en rendant les mobs bien plus dangereux et variés. Il introduit un système de **variantes de mobs**, de **zones de difficulté**, de **biomes personnalisés**, de **survie avancée** et bien plus encore.
+### 🖼️ Gameplay & GUI Gallery
 
-### ✨ Fonctionnalités
+| Main Admin Menu (`/wd gui`) | Mob Inspector & Analysis |
+|:---------------------------:|:-----------------------:|
+| ![Admin Menu Placeholder](https://via.placeholder.com/600x350/1e1e2e/ffffff?text=Main+Admin+GUI+Menu) | ![Mob Inspector Placeholder](https://via.placeholder.com/600x350/1e1e2e/ffffff?text=Mob+Inspector+Tool) |
 
-#### 🦇 Système de Variantes de Mobs
-- Créez des variantes de mobs vanilla avec des statistiques personnalisées (PV, dégâts, vitesse, taille)
-- Appliquez des équipements, des auras de particules, des effets de potion et des nametags colorés
-- Support des skins personnalisés via tête de joueur ou URL de texture
-- Spawn de monstres "PLAYER" via **Citizens** (NPCs)
-- Spawn conditionnel par biome, zone, heure du jour (JOUR / NUIT / N'IMPORTE QUAND)
-- Mort spawner : invoque d'autres variantes à la mort d'un mob
+| Blood Moon Event | Thirst & Hardcore Systems |
+|:----------------:|:-------------------------:|
+| ![Blood Moon Placeholder](https://via.placeholder.com/600x350/1e1e2e/ffffff?text=Blood+Moon+Event) | ![Thirst HUD Placeholder](https://via.placeholder.com/600x350/1e1e2e/ffffff?text=Thirst+HUD+%26+Hardcore) |
 
-#### ⚔️ Escouades (Squads)
-- Définissez des groupes de monstres qui apparaissent ensemble
-- Multiplicateurs de PV, dégâts et vitesse par escouade
-- Spawn automatique lors d'événements naturels
+### 🎥 Video Demonstrations
 
-#### 🌍 Zones de Difficulté
-- Créez des zones géographiques avec des règles de spawn exclusives
-- Mode Safe Zone, effets de beacon, multiplicateurs par zone
-- Gestion des membres avec niveaux de permission (1 à 5)
-- Outil de zone interactif pour délimiter les zones en jeu
-
-#### 🌅 Lune de Sang (Blood Moon)
-- Événement nocturne spécial avec spawn multiplié
-- Effets visuels et sonores configurables
-- Activation automatique ou manuelle (`/wd bloodmoon`)
-
-#### 💧 Système de Soif (Thirst)
-- Jauge de soif à 10 bulles visible dans l'HUD
-- Déshydratation progressive selon l'environnement
-- Sources de chaleur (lave, feu, lave, feux de camp) qui accélèrent la déshydratation selon la proximité
-- Réinitialisation à la mort et au respawn
-- Configurable via GUI admin
-
-#### 💀 Mode Hardcore Personnel
-- Chaque joueur peut activer son propre mode hardcore
-- Dispawn instantané de l'équipement à la mort
-- Minuteur de despawn configurable
-
-#### 🗺️ Biomes Personnalisés
-- Configurez des règles de spawn par biome
-- Outil de biome interactif pour éditer les règles en jeu
-- Liste blanche et noire de variantes par biome
-
-#### 🧱 Spawners Personnalisés
-- Créez des spawners de variantes à des emplacements précis
-- Effets de particules et sons configurables
-- Plage et fréquence de spawn configurables
-
-#### 📊 Scoreboard de Debug
-- Affichage des stats en temps réel du mob ciblé
-- Activable/désactivable à la volée avec `/wd scoreboard`
-
-#### 🌐 Localisation Complète
-- Tous les messages sont dans un fichier `lang.yml` éditable
-- Support des codes couleur (`&a`, `&c`, etc.)
-- Placeholders dynamiques (`{zone}`, `{count}`, etc.)
-
-### ⚙️ Configuration
-
-| Fichier | Description |
-|---------|-------------|
-| `config.yml` | Configuration principale (difficulté, thirst, blood moon...) |
-| `lang.yml` | Tous les messages du plugin |
-| `mob-variants.yml` | Définition des variantes de mobs |
-| `biomes.yml` | Règles de spawn par biome |
-| `mobs.yml` | Règles globales par type de mob |
-| `zones.yml` | Sauvegarde des zones de difficulté |
-
-### 🎮 Commandes
-
-| Commande | Description | Permission |
-|----------|-------------|------------|
-| `/wd gui` | Ouvre le menu GUI principal | `wilddifficulty.admin` |
-| `/wd reload` | Recharge toutes les configurations | `wilddifficulty.admin` |
-| `/wd killall` | Supprime toutes les entités WD | `wilddifficulty.admin` |
-| `/wd spawn <variante> [normal]` | Fait apparaître une variante | `wilddifficulty.admin` |
-| `/wd spawnsquad <escouade>` | Fait apparaître une escouade | `wilddifficulty.admin` |
-| `/wd edit` | Édite la variante pointée | `wilddifficulty.admin` |
-| `/wd tp <zone>` | Téléporte à une zone | `wilddifficulty.admin` |
-| `/wd bloodmoon` | Planifie une Lune de Sang | `wilddifficulty.admin` |
-| `/wd biome_tool` | Donne l'outil de biome | `wilddifficulty.admin` |
-| `/wd spawner_tool` | Donne l'outil de spawner | `wilddifficulty.admin` |
-| `/wd zone_tool` | Donne l'outil de zone | `wilddifficulty.admin` |
-| `/wd inspector_tool` | Donne l'inspecteur de mobs | `wilddifficulty.admin` |
-| `/wd tools` | Donne tous les outils | `wilddifficulty.admin` |
-| `/wd scoreboard` | Active/désactive le scoreboard | `wilddifficulty.admin` |
-| `/wd debug` | Active/désactive les logs debug | `wilddifficulty.admin` |
-| `/wd settings` | Paramètres personnels du joueur | `wilddifficulty.player.settings` |
-| `/wd language [code]` | Change la langue du plugin (`fr`, `en`, `de`, `es`, ...) | `wilddifficulty.admin` |
-| `/wd zone <args>` | Gestion manuelle des zones | `wilddifficulty.admin` |
-| `/wd help` | Affiche l'aide | `wilddifficulty.admin` |
-
-### 🔑 Permissions
-
-| Permission | Description | Défaut |
-|-----------|-------------|--------|
-| `wilddifficulty.admin` | Accès à toutes les commandes admin | OP |
-| `wilddifficulty.player.settings` | Accès aux paramètres personnels | Tous |
-| `wilddifficulty.zone.manage` | Gestion de zone (niveau gestionnaire) | Tous |
-
-### 🔧 Dépendances
-
-| Plugin | Requis | Description |
-|--------|--------|-------------|
-| **Paper 26.2+** | ✅ Oui | Serveur de base |
-| **Citizens 2.x** | ❌ Optionnel | Support des NPCs joueurs |
-
-### 📥 Installation
-
-1. Téléchargez le fichier JAR depuis les [Releases](https://github.com/Toryar1/WildDifficulty/releases)
-2. Placez-le dans le dossier `plugins/` de votre serveur Paper
-3. Redémarrez le serveur
-4. Configurez les fichiers YAML dans `plugins/WildDifficulty/`
-5. Utilisez `/wd gui` pour accéder à l'interface graphique
-
-### 🐛 Signalement de Bugs & Support
-
-Pour tout signalement de bug, suggestion ou demande d'assistance :
-- **Discord** : Contactez **`Toryar`** sur Discord.
-- **GitHub Issues** : Ouvrez un ticket dans la section [Issues](https://github.com/Toryar1/WildDifficulty/issues).
+- 🎬 **Trailer & Feature Overview**: [Watch Demo Video (YouTube / Streamable / mp4)](https://your-video-link-here.com)
+- 🎥 **GUI Walkthrough & Configuration**: [Watch Tutorial Video](https://your-video-link-here.com)
 
 ---
 
@@ -147,146 +40,111 @@ Pour tout signalement de bug, suggestion ou demande d'assistance :
 
 ### 📖 Description
 
-**WildDifficulty** is a Minecraft plugin designed for Paper 26.2 (1.21.4) that deeply enhances the combat experience by making mobs much more dangerous and varied. It introduces a **mob variant system**, **difficulty zones**, **custom biomes**, **advanced survival mechanics**, and much more.
-
-### ✨ Features
-
-#### 🦇 Mob Variant System
-- Create vanilla mob variants with custom stats (HP, damage, speed, size)
-- Apply equipment, particle auras, potion effects, and colored nametags
-- Custom skin support via player head or texture URL
-- Spawn "PLAYER" monsters via **Citizens** (NPCs)
-- Conditional spawning by biome, zone, time of day (DAY / NIGHT / ANY)
-- Death spawner: summons other variants upon mob death
-
-#### ⚔️ Squads
-- Define groups of monsters that appear together
-- HP, damage, and speed multipliers per squad
-- Automatic spawning during natural events
-
-#### 🌍 Difficulty Zones
-- Create geographic zones with exclusive spawn rules
-- Safe Zone mode, beacon effects, per-zone multipliers
-- Member management with permission levels (1 to 5)
-- Interactive zone tool for delimiting zones in-game
-
-#### 🌅 Blood Moon
-- Special nighttime event with multiplied spawning
-- Configurable visual and sound effects
-- Automatic or manual activation (`/wd bloodmoon`)
-
-#### 💧 Thirst System
-- 10-bubble thirst gauge visible in the HUD
-- Progressive dehydration based on environment
-- Heat sources (lava, fire, campfires) accelerate dehydration based on proximity
-- Reset on death and respawn
-- Configurable via admin GUI
-
-#### 💀 Personal Hardcore Mode
-- Each player can activate their own hardcore mode
-- Instant equipment despawn on death
-- Configurable despawn timer
-
-#### 🗺️ Custom Biomes
-- Configure spawn rules per biome
-- Interactive biome tool to edit rules in-game
-- Allow/deny lists of variants per biome
-
-#### 🧱 Custom Spawners
-- Create variant spawners at precise locations
-- Configurable particle effects and sounds
-- Configurable spawn range and frequency
-
-#### 📊 Debug Scoreboard
-- Real-time stat display for targeted mob
-- Toggle on/off with `/wd scoreboard`
-
-#### 🌐 Full Localization
-- All messages are localized in `lang.yml` and auto-downloadable in 10 languages
-- Color code support (`&a`, `&c`, etc.)
-- Dynamic placeholders (`{zone}`, `{count}`, etc.)
-
-### ⚙️ Configuration
-
-| File | Description |
-|------|-------------|
-| `config.yml` | Main configuration (difficulty, thirst, blood moon...) |
-| `lang.yml` | All plugin messages |
-| `mob-variants.yml` | Mob variant definitions |
-| `biomes.yml` | Spawn rules per biome |
-| `mobs.yml` | Global rules per mob type |
-| `zones.yml` | Difficulty zone data |
-
-### 🎮 Commands
-
-| Command | Description | Permission |
-|---------|-------------|------------|
-| `/wd gui` | Opens the main GUI menu | `wilddifficulty.admin` |
-| `/wd reload` | Reloads all configurations | `wilddifficulty.admin` |
-| `/wd killall` | Removes all WD entities | `wilddifficulty.admin` |
-| `/wd spawn <variant> [normal]` | Spawns a variant | `wilddifficulty.admin` |
-| `/wd spawnsquad <squad>` | Spawns a squad | `wilddifficulty.admin` |
-| `/wd edit` | Edits the targeted variant | `wilddifficulty.admin` |
-| `/wd tp <zone>` | Teleports to a zone | `wilddifficulty.admin` |
-| `/wd bloodmoon` | Schedules a Blood Moon | `wilddifficulty.admin` |
-| `/wd biome_tool` | Gives the biome tool | `wilddifficulty.admin` |
-| `/wd spawner_tool` | Gives the spawner tool | `wilddifficulty.admin` |
-| `/wd zone_tool` | Gives the zone tool | `wilddifficulty.admin` |
-| `/wd inspector_tool` | Gives the mob inspector | `wilddifficulty.admin` |
-| `/wd tools` | Gives all tools | `wilddifficulty.admin` |
-| `/wd scoreboard` | Toggles the debug scoreboard | `wilddifficulty.admin` |
-| `/wd debug` | Toggles debug logging | `wilddifficulty.admin` |
-| `/wd settings` | Personal player settings | `wilddifficulty.player.settings` |
-| `/wd language [code]` | Changes the plugin language (`fr`, `en`, `de`, `es`, ...) | `wilddifficulty.admin` |
-| `/wd zone <args>` | Manual zone management | `wilddifficulty.admin` |
-| `/wd help` | Shows help | `wilddifficulty.admin` |
-
-### 🔑 Permissions
-
-| Permission | Description | Default |
-|-----------|-------------|---------|
-| `wilddifficulty.admin` | Full access to all admin commands | OP |
-| `wilddifficulty.player.settings` | Access to personal settings | Everyone |
-| `wilddifficulty.zone.manage` | Zone management (manager level) | Everyone |
-
-### 🔧 Dependencies
-
-| Plugin | Required | Description |
-|--------|----------|-------------|
-| **Paper 26.2+** | ✅ Yes | Base server |
-| **Citizens 2.x** | ❌ Optional | Player NPC support |
-
-### 📥 Installation
-
-1. Download the JAR from [Releases](https://github.com/Toryar1/WildDifficulty/releases)
-2. Place it in your Paper server's `plugins/` folder
-3. Restart the server
-4. Configure the YAML files in `plugins/WildDifficulty/`
-5. Use `/wd gui` to access the graphical interface
-
-### 🐛 Bug Reporting & Support
-
-For any bug reports, feature requests, or assistance:
-- **Discord**: Contact **`Toryar`** on Discord.
-- **GitHub Issues**: Open a ticket in the [Issues](https://github.com/Toryar1/WildDifficulty/issues) section.
+**WildDifficulty** is an all-in-one difficulty scaling and survival enhancement plugin designed for Paper 1.21.4 (Java 21). It transforms your server's combat dynamics by adding custom mob variants, geographic difficulty zones, environmental heat & thirst mechanics, Blood Moon events, custom mob spawners, and extensive in-game GUI editors.
 
 ---
 
-## ⚖️ Licence / License
+### ✨ Key Features
 
-Ce logiciel est protégé par une licence propriétaire.  
-This software is protected under a proprietary license.
+#### 🦇 Mob Variants & Custom Aesthetics
+- **Custom Attributes**: Customize health, damage, speed, follow range, knockback resistance, scale, and passive regen.
+- **Visual Equipment & Skins**: Equip custom armor, head textures (player heads or texture URLs), custom model data, and colored leather armor.
+- **Citizens NPC Support**: Spawn "PLAYER" type mob variants powered by Citizens NPCs.
+- **Death Spawners**: Trigger follow-up mob spawns when a variant dies.
+- **Particle & Sound Auras**: Attach permanent visual particle fields and sound effects to variants.
 
-**Toute reproduction, modification ou distribution sans autorisation écrite et compensation financière préalable est strictly interdite.**  
-**Any reproduction, modification, or distribution without prior written authorization and financial compensation is strictly prohibited.**
+#### ⚔️ Mob Squads
+- Define groups of monsters that spawn together with custom group multipliers.
+- Configure spawn triggers based on natural mob spawn events.
 
-Voir le fichier [LICENSE](LICENSE) pour les détails complets.  
-See the [LICENSE](LICENSE) file for full details.
+#### 🌍 Difficulty Zones & Distance Scaling
+- **Origin Distance Scaling**: Difficulty increases gradually as players venture further from the world origin.
+- **Cuboid, Radius & Polygon Zones**: Define custom geographic areas with exclusive spawn rules, safe-zone protections, beacon effect boosts, and member permission tiers.
+- **Interactive Zone Wand**: Draw and edit difficulty zone boundaries directly in-game with the Golden Hoe tool.
+
+#### 🩸 Blood Moon Event
+- Nighttime event with multiplied mob spawns, enraged mob behaviors, custom sounds, and particle visual effects.
+- Automatic night scheduling or instant admin trigger (`/wd bloodmoon`).
+
+#### 💧 Thirst & Heat Survival System
+- Custom 10-bubble thirst bar rendered in the action bar / HUD.
+- Heat dehydration: Lava, fire, and heat sources drain thirst faster based on proximity.
+- Configurable hydration restore points for water buckets, bottles, and cauldrons.
+
+#### 💀 Personal Hardcore Mode
+- Per-player optional hardcore toggle with instant item despawning on death.
+
+#### 🌐 10-Language i18n & Dynamic YML Comments
+- Fully translated into 10 languages: **English (`en`)**, **Français (`fr`)**, **Deutsch (`de`)**, **Español (`es`)**, **Português (`pt_BR`)**, **Nederlands (`nl`)**, **Polski (`pl`)**, **Русский (`ru`)**, **简体中文 (`zh_CN`)**, **Italiano (`it`)**.
+- Changing language via `/wd language <code>` dynamically updates in-game menus, chat messages, AND all inline YML configuration comments in real-time!
+
+---
+
+### 🎮 Commands & Permissions
+
+All admin commands require the `wilddifficulty.admin` permission.
+
+| Command | Description |
+|:--------|:------------|
+| `/wd gui` | Opens the main interactive administration GUI |
+| `/wd reload` | Reloads all configurations and language files |
+| `/wd killall` | Despawns all active WildDifficulty mob variants |
+| `/wd spawn <variant> [normal\|static]` | Spawns a custom mob variant |
+| `/wd spawnsquad <squadId>` | Spawns a mob squad |
+| `/wd edit` | Opens the GUI editor for the targeted mob variant |
+| `/wd tp <zone>` | Teleports to a difficulty zone |
+| `/wd zone <args>` | Manual commands for managing difficulty zones |
+| `/wd biome_tool` | Gives the interactive Biome Configuration Wand |
+| `/wd spawner_tool` | Gives the interactive Spawner Configuration Shovel |
+| `/wd zone_tool` | Gives the interactive Zone Configuration Hoe |
+| `/wd inspector_tool` | Gives the Mob Inspector analysis tool |
+| `/wd tools` | Gives all administration tools |
+| `/wd scoreboard` | Toggles the real-time mob analysis scoreboard |
+| `/wd debug` | Toggles console debug logging |
+| `/wd bloodmoon` | Forces a Blood Moon event for the upcoming night |
+| `/wd language <code` | Switches the plugin language dynamically |
+| `/wd help` | Displays the WildTimber-styled help menu |
+
+---
+
+### ⚙️ Configuration Files
+
+All configuration files are stored in `plugins/WildDifficulty/`:
+
+- `config.yml` — Main plugin configuration (distance scaling, thirst settings, debug).
+- `lang.yml` — Active language translation dictionary.
+- `mobs.yml` — Global per-mob vanilla overrides.
+- `biomes.yml` — Per-biome spawn rules and multipliers.
+- `mob-variants.yml` — Custom mob variants and squads definition.
+- `zones.yml` — Saved difficulty zones.
+- `spawners.yml` — Saved custom block spawners.
+
+---
+
+<details>
+<summary>🇫🇷 Cliquez ici pour la version française</summary>
+
+## 🇫🇷 Français
+
+### 📖 Description
+
+**WildDifficulty** est un plugin de scaling de difficulté et de survie complète conçu pour Paper 1.21.4 (Java 21). Il enrichit l'expérience de combat en ajoutant des variantes de monstres, des zones de difficulté géographiques, de la déshydratation liée à la chaleur, des événements de Lune de Sang et des interfaces d'édition en jeu.
+
+### ✨ Fonctionnalités Principales
+
+- **Variantes de Mobs** : Statistiques personnalisées (PV, dégâts, vitesse, knockback), équipements, têtes personnalisées (URLs/skins), auras de particules et NPCs Citizens.
+- **Escouades** : Invoquez des groupes de monstres coordonnés.
+- **Zones & Distance Scaling** : Zones cubiques, circulaires ou polygonales avec l'outil de zone interactif.
+- **Lune de Sang** : Événement nocturne configurable avec sons et effets visuels.
+- **Système de Soif & Chaleur** : Jauge de soif HUD et déshydratation près des sources de chaleur.
+- **Support 10 Langues** : Anglais, Français, Allemand, Espagnol, Portugais, Néerlandais, Polonais, Russe, Chinois, Italien avec traduction dynamique des commentaires YAML.
+
+</details>
 
 ---
 
 <div align="center">
 
-Made with ❤️ by **Toryar1**
+Made with ❤️ by **Toryar** | Discord: **Toryar**
 
 </div>
