@@ -47,7 +47,7 @@ public class GuiManager {
 
     /** Creates a Retour/Back barrier button tagged with PDC so all languages work */
     private ItemStack createBackItem() {
-        ItemStack item = createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.button_back"));
+        ItemStack item = createItem(Material.ARROW, plugin.getLangManager().getRaw("gui.button_back"));
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.getPersistentDataContainer().set(
