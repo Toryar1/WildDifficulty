@@ -195,7 +195,7 @@ public class GuiManager {
 
         String currentLang = plugin.getConfig().getString("plugin.language", "fr");
 
-        int[] slots = {10, 11, 12, 13, 14, 19, 20, 21, 22, 23};
+        int[] slots = {11, 12, 13, 14, 15, 20, 21, 22, 23, 24};
         int idx = 0;
 
         for (Map.Entry<String, String> entry : fr.wilddifficulty.config.LanguageSetup.getAvailableLanguages().entrySet()) {
@@ -207,7 +207,7 @@ public class GuiManager {
             Material mat = isCurrent ? Material.EMERALD_BLOCK : Material.PAPER;
             String statusLore = isCurrent ? "&a✔ Langue Actuelle" : "&eClic pour choisir";
 
-            ItemStack item = createItem(mat, plugin.getLangManager().getRaw("empty_3") + name + " &7(" + code + ")",
+            ItemStack item = createItem(mat, "&6&l" + name + " &7(" + code + ")",
                 plugin.getLangManager().getRaw("gui.item.code") + code,
                 "",
                 statusLore);
@@ -2198,7 +2198,7 @@ public class GuiManager {
 
     public void openThirstHardcoreAdminGui(Player player) {
         WDMenuHolder holder = new WDMenuHolder("ADMIN_THIRST_HARDCORE", "admin");
-        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("Soif, Hardcore & Mort"));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_thirst_hardcore")));
         holder.setInventory(inv);
 
         inv.setItem(10, createToggleItem(Material.POTION, plugin.getLangManager().getRaw("gui.item.activer_système_de_soif_globalement"), plugin.getMainConfigManager().isThirstEnabled()));
@@ -2212,7 +2212,7 @@ public class GuiManager {
                 plugin.getLangManager().getRaw("gui.item.clic_milieu_tchat_définir_multiplicateur")));
         inv.setItem(12, createItem(Material.WITHER_SKELETON_SKULL, plugin.getLangManager().getRaw("gui.item.configurer_le_mode_hardcore"),
                 plugin.getLangManager().getRaw("gui.item.statut_global") + (plugin.getMainConfigManager().isHardcoreEnabled() ? plugin.getLangManager().getRaw("gui.item.actif_1") : plugin.getLangManager().getRaw("gui.item.inactif_2")),
-                plugin.getLangManager().getRaw("gui.item.pas_de_régén") + (plugin.getMainConfigManager().isHardcoreNoRegen() ? plugin.getLangManager().getRaw("empty") : plugin.getLangManager().getRaw("empty_1")),
+                plugin.getLangManager().getRaw("gui.item.pas_de_régén") + (plugin.getMainConfigManager().isHardcoreNoRegen() ? plugin.getLangManager().getRaw("gui.item.active") : plugin.getLangManager().getRaw("gui.item.inactive")),
                 plugin.getLangManager().getRaw("gui.item.multiplicateur_dégâts_pris_1") + String.format(plugin.getLangManager().getRaw("gui.item.2fx"), plugin.getMainConfigManager().getHardcoreDamageTakenMult()),
                 plugin.getLangManager().getRaw("gui.item.multiplicateur_faim") + String.format(plugin.getLangManager().getRaw("gui.item.2fx"), plugin.getMainConfigManager().getHardcoreHungerDrainMult()),
                 "",
@@ -2246,7 +2246,7 @@ public class GuiManager {
 
     public void openThirstSourcesAdminGui(Player player) {
         WDMenuHolder holder = new WDMenuHolder("ADMIN_THIRST_SOURCES", "admin");
-        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("Restauration d'Eau par Source"));
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_thirst_sources")));
         holder.setInventory(inv);
 
         fillBorders(inv);

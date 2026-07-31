@@ -1,23 +1,25 @@
 # ============================================================
 #  WildDifficulty — config.yml
-#  Configuration principale du plugin
-#  Cible : Purpur 1.21.4 / Paper-API 1.21.4-R0.1-SNAPSHOT
+#  Main plugin configuration file
+#  Target: Purpur 1.21.4 / Paper-API 1.21.4-R0.1-SNAPSHOT
 # ============================================================
 
 # ─────────────────────────────────────────
-#  Paramètres généraux du plugin
+#  General Plugin Settings
 # ─────────────────────────────────────────
 plugin:
-  # Activer le mode debug (logs supplémentaires dans la console — à désactiver en production)
+  # Enable language code (fr, en, de, es, pt_BR, nl, pl, ru, zh_CN, it)
+  language: "en"
+
+  # Enable debug mode (extra logs in console — disable in production)
   debug: false
 
-  # Distance maximale (en blocs) par rapport au joueur au-delà de laquelle les mobs naturels ne spawnent pas (mettre -1 pour désactiver)
+  # Maximum spawn distance (in blocks) from player beyond which natural mobs do not spawn (-1 to disable)
   distance-spawn-max-joueur: 96
 
 # ─────────────────────────────────────────
-#  Modificateurs globaux de base
-#  Ces multiplicateurs s'appliquent à TOUS les mobs, quels que soient
-#  le biome, la distance ou la zone. Valeur 1.0 = neutre (aucun changement).
+#  Base Global Modifiers
+#  These multipliers apply to ALL mobs regardless of biome, distance or zone. 1.0 = neutral.
 # ─────────────────────────────────────────
 modificateurs-globaux:
   multiplicateur-pv: 1.0
@@ -27,111 +29,19 @@ modificateurs-globaux:
   multiplicateur-resistance-knockback: 1.0
 
 # ─────────────────────────────────────────
-#  Scaling par distance au point central
-#  La difficulté augmente progressivement à mesure qu'on s'éloigne
-#  du point central défini ci-dessous.
-#
-#  Formule :
-#  multiplicateur_distance = min(max-multiplicateur,
-#      1.0 + floor(distance / pas-blocs) * pourcent-par-pas)
-#
-#  Exemple avec pas-blocs=250 et pourcent-par-pas=0.08 :
-#    - À 250 blocs : ×1.08
-#    - À 500 blocs : ×1.16
-#    - À 1000 blocs : ×1.32
-#    - À 3000 blocs : ×3.0 (plafonné par max-multiplicateur)
+#  Distance Scaling
+#  Difficulty increases as players get further from the central origin point.
 # ─────────────────────────────────────────
 scaling-distance:
-  # Activer ou désactiver le scaling par distance
   actif: true
-
-  # Monde dans lequel le point central est défini (doit correspondre au nom exact du monde)
   monde: "world"
-
-  # Coordonnées du point central (Y n'est pas utilisé pour le calcul horizontal)
   x: 0
   y: 64
   z: 0
-
-  # Distance (en blocs) entre chaque "palier" de difficulté
   pas-blocs: 250
-
-  # Pourcentage d'augmentation des stats par palier (0.08 = +8%)
   pourcent-par-pas: 0.08
 
-  # Multiplicateur maximum (plafond du scaling de distance)
-  max-multiplicateur: 3.0
-
-  # Quelles stats sont affectées par le scaling de distance ?
-  appliquer-sur:
-    pv: true
-    degats: true
-    vitesse: false
-    portee-detection: false
-    resistance-knockback: false
-
 # ─────────────────────────────────────────
-#  Nametags (étiquettes de nom sur les mobs)
-#  Désactivé par défaut pour préserver les performances.
-#  Si activé, un nametag est affiché sur chaque mob modifié.
-#
-#  Placeholders disponibles dans le format :
-#    {nom}      — nom du mob
-#    {pv}       — PV actuels du mob (entier)
-#    {pv_max}   — PV maximum du mob (entier)
+#  Cap of variants per player
 # ─────────────────────────────────────────
-nametags:
-  # Activer les nametags sur les mobs modifiés
-  actif: false
-
-  # Format du nametag (codes couleur avec & supportés)
-  format: "&f{nom} &7({pv}/{pv_max}❤)"
-
-  # Afficher uniquement quand le joueur regarde le mob (false = toujours visible)
-  visible-seulement-au-regard: false
-
-# ─────────────────────────────────────────
-#  Comportement global envers la lumière du soleil
-#  Ces options s'appliquent à tous les mobs sauf surcharge dans mobs.yml
-# ─────────────────────────────────────────
-soleil:
-  # Désactiver la combustion au soleil pour TOUS les mobs configurés (surcharge globale)
-  desactiver-combustion-globalement: false
-
-  # Autoriser le spawn de jour pour TOUS les mobs hostiles (surcharge globale)
-  autoriser-spawn-de-jour-globalement: false
-
-# ─────────────────────────────────────────
-#  Lune de Sang (Blood Moon)
-# ─────────────────────────────────────────
-bloodmoon:
-  # Activer ou désactiver la Lune de Sang
-  actif: false
-
-  # Chance (entre 0.0 et 1.0) qu'une Lune de Sang se lève chaque nuit (0.1 = 10%)
-  chance: 0.1
-
-  # Multiplicateurs appliqués aux monstres pendant la Lune de Sang
-  multiplicateur-pv: 1.5
-  multiplicateur-degats: 1.5
-  multiplicateur-vitesse: 1.2
-  multiplicateur-drops: 2.0
-  multiplicateur-spawn: 1.5
-
-  # Messages diffusés au début et à la fin de la Lune de Sang
-  message-debut: "&cLa Lune de Sang se lève... Les monstres sont enragés !"
-  message-fin: "&aLa Lune de Sang se couche. Le calme revient..."
-
-  # Effets sonores (sons vanilla)
-  sound-debut: "ENTITY_WITHER_SPAWN"
-  sound-fin: "ENTITY_PLAYER_LEVELUP"
-
-  # Effets visuels (particules)
-  particule-debut: "FLASH"
-  particule-fin: "HAPPY_VILLAGER"
-
-  # Effets de potions appliqués aux joueurs [Type:Durée(ticks):Amplificateur]
-  effets-debut:
-    - "DARKNESS:100:0"
-  effets-fin:
-    - "REGENERATION:100:0"
+cap-variantes-joueur: 15

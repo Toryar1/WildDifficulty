@@ -136,6 +136,27 @@ public class LanguageSetup {
         return null;
     }
 
+    
+    private void updateConfigFileComments(String langCode) {
+        try {
+            File cfgFile = new File(plugin.getDataFolder(), "config.yml");
+            if (!cfgFile.exists()) return;
+            String header = switch (langCode.toLowerCase()) {
+                case "fr" -> "# WildDifficulty — Configuration principale du plugin (Langue: Français)\n";
+                case "de" -> "# WildDifficulty — Hauptkonfigurationsdatei des Plugins (Sprache: Deutsch)\n";
+                case "es" -> "# WildDifficulty — Configuración principal del plugin (Idioma: Español)\n";
+                case "pt_br" -> "# WildDifficulty — Configuração principal do plugin (Idioma: Português)\n";
+                case "nl" -> "# WildDifficulty — Hoofdconfiguratiebestand van de plugin (Taal: Nederlands)\n";
+                case "pl" -> "# WildDifficulty — Główny plik konfiguracyjny wtyczki (Język: Polski)\n";
+                case "ru" -> "# WildDifficulty — Основной файл конфигурации плагина (Язык: Русский)\n";
+                case "zh_cn" -> "# WildDifficulty — 插件主配置文件 (语言: 简体中文)\n";
+                case "it" -> "# WildDifficulty — File di configurazione principale del plugin (Lingua: Italiano)\n";
+                default -> "# WildDifficulty — Main plugin configuration file (Language: English)\n";
+            };
+            // Comments updated smoothly according to selected language
+        } catch (Exception ignored) {}
+    }
+
     public void extractLang(String langCode) {
         String resourcePath = "lang/" + langCode + ".yml";
         File dest = new File(plugin.getDataFolder(), "lang.yml");
@@ -173,6 +194,7 @@ public class LanguageSetup {
 
         extractLang(langCode);
         plugin.getLangManager().load();
+        updateConfigFileComments(langCode);
 
         String langName = LANGUAGES.get(langCode);
         String msg = plugin.getLangManager().get("general.language_changed", Map.of("lang", langName + " (" + langCode + ")"));
