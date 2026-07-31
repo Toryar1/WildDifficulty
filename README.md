@@ -1,5 +1,6 @@
 <div align="center">
 
+<a href="https://www.spigotmc.org/resources/wilddifficulty.137547/"><img src="https://img.shields.io/badge/SpigotMC-137547-yellow?style=for-the-badge&logo=spigotmc" alt="SpigotMC"/></a>
 <img src="https://img.shields.io/badge/Paper-26.2-orange?style=for-the-badge&logo=minecraft" alt="Paper 26.2"/>
 <img src="https://img.shields.io/badge/Java-21-blue?style=for-the-badge&logo=openjdk" alt="Java 21"/>
 <img src="https://img.shields.io/badge/Version-1.0.0-green?style=for-the-badge" alt="Version 1.0.0"/>
