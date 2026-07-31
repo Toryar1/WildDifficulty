@@ -832,7 +832,7 @@
 "gui.msg.wilddifficulty_skinvariante_réinitialisé_par_défaut": "§8[§6WildDifficulty§8] §aSkin/Variante réinitialisé par défaut."
 "gui.msg.zone_supprimée": "§cZone supprimée."
 "gui.prompt_cancelled": "&cAzione annullata."
-"gui.prompt_type_cancel": "&7(Digita \\"annulla\\" per annullare)"
+"gui.prompt_type_cancel": "&7(Digita \\\"annulla\\\" per annullare)"
 "gui.title_admin_tools": "WD - Strumenti di amministrazione"
 "gui.title_aesthetics": "Estetico"
 "gui.title_ai_behavior": "IA e comportamento"

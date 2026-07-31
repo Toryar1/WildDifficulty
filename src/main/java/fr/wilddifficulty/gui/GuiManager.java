@@ -351,7 +351,7 @@ public class GuiManager {
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_lactiver")));
 
-        inv.setItem(49, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(49, createBackItem());
         player.openInventory(inv);
     }
 
@@ -436,7 +436,7 @@ public class GuiManager {
                 plugin.getLangManager().getRaw("gui.item.hp_points_de_vie"),
                 plugin.getLangManager().getRaw("gui.item.dégâts_points_dattaque"),
                 plugin.getLangManager().getRaw("gui.item.vitesse_rapidité")));
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -569,7 +569,7 @@ public class GuiManager {
 
         inv.setItem(31, createItem(Material.LAVA_BUCKET, plugin.getLangManager().getRaw("gui.item.supprimer_la_variante"), plugin.getLangManager().getRaw("gui.item.attention_action_immédiate")));
         inv.setItem(32, createItem(Material.PAPER, plugin.getLangManager().getRaw("gui.item.copier_la_variante"), plugin.getLangManager().getRaw("gui.item.cloner_cette_variante_avec"), plugin.getLangManager().getRaw("gui.item.tous_ses_paramètres_sous"), plugin.getLangManager().getRaw("gui.item.un_nouvel_id"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_cloner")));
-        inv.setItem(35, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(35, createBackItem());
         player.openInventory(inv);
     }
 
@@ -595,7 +595,7 @@ public class GuiManager {
         inv.setItem(15, createItem(Material.IRON_CHESTPLATE, plugin.getLangManager().getRaw("gui.item.équipement_armure"), plugin.getLangManager().getRaw("gui.item.tier") + mods.getEquipmentTier(), plugin.getLangManager().getRaw("gui.item.chance") + (mods.getEquipmentChance()*100) + "%", "", plugin.getLangManager().getRaw("gui.item.clic_pour_changer")));
         inv.setItem(16, createModifierItem(Material.GOLDEN_APPLE, "&aRégénération Absolue", mods.getRegenerationValue()));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -678,7 +678,7 @@ public class GuiManager {
 
         inv.setItem(27, createToggleItem(Material.SCAFFOLDING, plugin.getLangManager().getRaw("gui.item.escalade_intelligente"), mods.isSmartClimb()));
 
-        inv.setItem(35, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(35, createBackItem());
         player.openInventory(inv);
     }
 
@@ -760,7 +760,7 @@ public class GuiManager {
         inv.setItem(23, createItem(Material.RED_DYE, plugin.getLangManager().getRaw("gui.item.bossbar_couleur"), plugin.getLangManager().getRaw("gui.item.couleur_1") + mods.getBossBarColor(), "", plugin.getLangManager().getRaw("gui.item.clic_pour_changer")));
         inv.setItem(24, createItem(Material.ANVIL, plugin.getLangManager().getRaw("gui.item.bossbar_style"), plugin.getLangManager().getRaw("gui.item.style") + mods.getBossBarStyle(), "", plugin.getLangManager().getRaw("gui.item.clic_pour_changer")));
 
-        inv.setItem(35, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(35, createBackItem());
         player.openInventory(inv);
     }
 
@@ -810,7 +810,7 @@ public class GuiManager {
             }
         }
 
-        inv.setItem(35, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour_1")));
+        inv.setItem(35, createBackItem());
         player.openInventory(inv);
     }
 
@@ -844,7 +844,7 @@ public class GuiManager {
         inv.setItem(22, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retirer_le_skin_de_tête"), plugin.getLangManager().getRaw("gui.item.remet_la_tête_par_défaut"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_réinitialiser_1")));
         inv.setItem(23, createItem(Material.CHEST, plugin.getLangManager().getRaw("gui.item.glisserdéposer_une_tête"), plugin.getLangManager().getRaw("gui.item.déposez_un_item_de_tête"), plugin.getLangManager().getRaw("gui.item.pour_copier_sa_texture_et"), plugin.getLangManager().getRaw("gui.item.à_cette_variante_elle_sera"), plugin.getLangManager().getRaw("gui.item.à_la_banque")));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -864,7 +864,7 @@ public class GuiManager {
         inv.setItem(14, createItem(Material.JUKEBOX, plugin.getLangManager().getRaw("gui.item.son_de_dégâtsaggro"), plugin.getLangManager().getRaw("gui.item.actuel_2") + getSoundKey(var, plugin.getLangManager().getRaw("gui.item.aggro")), "", plugin.getLangManager().getRaw("gui.item.clic_pour_changer")));
         inv.setItem(15, createItem(Material.JUKEBOX, plugin.getLangManager().getRaw("gui.item.son_de_mort"), plugin.getLangManager().getRaw("gui.item.actuel_2") + getSoundKey(var, plugin.getLangManager().getRaw("gui.item.death")), "", plugin.getLangManager().getRaw("gui.item.clic_pour_changer")));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -884,7 +884,7 @@ public class GuiManager {
         inv.setItem(14, createEquipmentSlotItem(mods.getMainHandItem(), mods.getMainHandChance(), "Main Principale", Material.IRON_SWORD));
         inv.setItem(15, createEquipmentSlotItem(mods.getOffHandItem(), mods.getOffHandChance(), "Main Secondaire", Material.SHIELD));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -919,7 +919,7 @@ public class GuiManager {
             inv.setItem(slot++, createItem(mat, plugin.getLangManager().getRaw("empty_4") + c, plugin.getLangManager().getRaw("gui.item.sélectionner_cet_objet"), plugin.getLangManager().getRaw("gui.item.ou_cliquez_sur_un_objet"), plugin.getLangManager().getRaw("gui.item.inventaire_pour_le_choisir")));
         }
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -947,7 +947,7 @@ public class GuiManager {
             Material mat = p.equals("NONE") ? Material.BARRIER : Material.GLOWSTONE_DUST;
             inv.setItem(slot++, createItem(mat, plugin.getLangManager().getRaw("empty_6") + p, plugin.getLangManager().getRaw("gui.item.sélectionner_cette_particule")));
         }
-        inv.setItem(17, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(17, createBackItem());
         player.openInventory(inv);
     }
 
@@ -971,7 +971,7 @@ public class GuiManager {
             };
             inv.setItem(slot++, createItem(mat, plugin.getLangManager().getRaw("empty_4") + c, plugin.getLangManager().getRaw("gui.item.sélectionner_cette_couleur")));
         }
-        inv.setItem(8, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(8, createBackItem());
         player.openInventory(inv);
     }
 
@@ -986,7 +986,7 @@ public class GuiManager {
         for (String s : styles) {
             inv.setItem(slot++, createItem(Material.ANVIL, plugin.getLangManager().getRaw("empty_4") + s, plugin.getLangManager().getRaw("gui.item.sélectionner_ce_style")));
         }
-        inv.setItem(8, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(8, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1009,7 +1009,7 @@ public class GuiManager {
                     plugin.getLangManager().getRaw("gui.item.statut") + (active ? plugin.getLangManager().getRaw("gui.item.activé") : plugin.getLangManager().getRaw("gui.item.désactivé_1")),
                     "", plugin.getLangManager().getRaw("gui.item.clic_pour_basculer")));
         }
-        inv.setItem(17, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(17, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1032,7 +1032,7 @@ public class GuiManager {
                     plugin.getLangManager().getRaw("gui.item.statut") + (active ? plugin.getLangManager().getRaw("gui.item.sélectionné_1") : plugin.getLangManager().getRaw("gui.item.désactivé_1")),
                     "", plugin.getLangManager().getRaw("gui.item.clic_pour_choisir")));
         }
-        inv.setItem(17, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(17, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1056,7 +1056,7 @@ public class GuiManager {
             Material mat = s.equals("none") ? Material.BARRIER : Material.JUKEBOX;
             inv.setItem(slot++, createItem(mat, plugin.getLangManager().getRaw("empty_8") + s, plugin.getLangManager().getRaw("gui.item.sélectionner_ce_son")));
         }
-        inv.setItem(17, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(17, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1080,7 +1080,7 @@ public class GuiManager {
             };
             inv.setItem(slot++, createItem(mat, plugin.getLangManager().getRaw("empty_4") + t, plugin.getLangManager().getRaw("gui.item.sélectionner_ce_tier")));
         }
-        inv.setItem(8, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(8, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1103,7 +1103,7 @@ public class GuiManager {
         }
 
         inv.setItem(49, createItem(Material.EMERALD, plugin.getLangManager().getRaw("gui.item.ajouter_un_nom"), plugin.getLangManager().getRaw("gui.item.ajouter_un_nom_conditionnel")));
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1130,7 +1130,7 @@ public class GuiManager {
         }
 
         inv.setItem(49, createItem(Material.EMERALD, plugin.getLangManager().getRaw("gui.item.ajouter_un_drop"), plugin.getLangManager().getRaw("gui.item.ajouter_un_drop_par_liste")));
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1150,7 +1150,7 @@ public class GuiManager {
         for (Material m : drops) {
             inv.setItem(slot++, createItem(m, plugin.getLangManager().getRaw("empty_8") + m.name(), plugin.getLangManager().getRaw("gui.item.sélectionner_cet_objet")));
         }
-        inv.setItem(17, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(17, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1202,7 +1202,7 @@ public class GuiManager {
         }
         
         inv.setItem(49, createItem(Material.EMERALD, plugin.getLangManager().getRaw("gui.item.nouvelle_escouade"), plugin.getLangManager().getRaw("gui.item.créer_une_nouvelle_escouade")));
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1234,7 +1234,7 @@ public class GuiManager {
         inv.setItem(16, createItem(Material.SKELETON_SPAWN_EGG, plugin.getLangManager().getRaw("gui.item.faire_apparaître"), plugin.getLangManager().getRaw("gui.item.invoque_cette_escouade_devant_vous")));
 
         inv.setItem(22, createItem(Material.LAVA_BUCKET, plugin.getLangManager().getRaw("gui.item.supprimer_lescouade"), plugin.getLangManager().getRaw("gui.item.attention_action_immédiate")));
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1251,7 +1251,7 @@ public class GuiManager {
         inv.setItem(12, createModifierItem(Material.FEATHER, "&bBonus Vitesse", sq.getBonusSpeed()));
         inv.setItem(13, createModifierItem(Material.GOLDEN_APPLE, "&aBonus Regen (HP/s)", sq.getBonusRegen()));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1286,7 +1286,7 @@ public class GuiManager {
             }
         }
 
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1315,7 +1315,7 @@ public class GuiManager {
                     "", plugin.getLangManager().getRaw("gui.item.clic_pour_basculer")));
         }
 
-        inv.setItem(35, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(35, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1338,7 +1338,7 @@ public class GuiManager {
         inv.setItem(48, createItem(Material.GOLDEN_HOE, plugin.getLangManager().getRaw("gui.item.ouvrir_loutil_de_création_houe"), plugin.getLangManager().getRaw("gui.item.obtenir_loutil_de_zone_en"), plugin.getLangManager().getRaw("gui.item.dessiner_les_points_du_polygone"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
         inv.setItem(49, createItem(Material.EMERALD, plugin.getLangManager().getRaw("gui.item.nouvelle_zone"), plugin.getLangManager().getRaw("gui.item.créer_une_nouvelle_zone_de")));
         inv.setItem(51, createToggleItem(Material.GLOWSTONE_DUST, plugin.getLangManager().getRaw("gui.item.particules_bordure_zone"), plugin.getMainConfigManager().isZoneBorderParticles()));
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1431,7 +1431,7 @@ public class GuiManager {
         inv.setItem(29, createItem(Material.MAP, plugin.getLangManager().getRaw("gui.item.soussections_multisections"), plugin.getLangManager().getRaw("gui.item.sections_additionnelles") + zone.getSubSections().size(), "", plugin.getLangManager().getRaw("gui.item.clic_pour_fusionner_et_étendre")));
 
         inv.setItem(31, createItem(Material.LAVA_BUCKET, plugin.getLangManager().getRaw("gui.item.supprimer_la_zone"), plugin.getLangManager().getRaw("gui.item.attention_action_immédiate")));
-        inv.setItem(35, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(35, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1451,7 +1451,7 @@ public class GuiManager {
             Material mat = p.equals("NONE") ? Material.BARRIER : Material.GLOWSTONE_DUST;
             inv.setItem(slot++, createItem(mat, plugin.getLangManager().getRaw("empty_6") + p, plugin.getLangManager().getRaw("gui.item.sélectionner_cette_particule")));
         }
-        inv.setItem(17, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(17, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1477,7 +1477,7 @@ public class GuiManager {
         inv.setItem(15, createItem(Material.IRON_CHESTPLATE, plugin.getLangManager().getRaw("gui.item.équipement_armure"), plugin.getLangManager().getRaw("gui.item.tier") + mods.getEquipmentTier(), plugin.getLangManager().getRaw("gui.item.chance") + (mods.getEquipmentChance()*100) + "%", "", plugin.getLangManager().getRaw("gui.item.clic_pour_changer")));
         inv.setItem(16, createModifierItem(Material.GOLDEN_APPLE, "&aRégénération Absolue", mods.getRegenerationValue()));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1572,7 +1572,7 @@ public class GuiManager {
                     plugin.getLangManager().getRaw("gui.item.clic_pour_basculer_lautorisation")));
         }
 
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1622,7 +1622,7 @@ public class GuiManager {
             inv.setItem(slot++, createItem(Material.PAPER, plugin.getLangManager().getRaw("empty_4") + biome, "", plugin.getLangManager().getRaw("gui.item.clic_pour_retirer_ce_biome")));
         }
 
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1700,7 +1700,7 @@ public class GuiManager {
             inv.setItem(50, createItem(Material.ARROW, plugin.getLangManager().getRaw("gui.item.page_suivante") + (page + 2) + ")"));
         }
 
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1733,7 +1733,7 @@ public class GuiManager {
             inv.setItem(i, createItem(item, plugin.getLangManager().getRaw("gui.item.couleur_2") + colors[i], "", plugin.getLangManager().getRaw("gui.item.clic_pour_sélectionner_cette_couleur")));
         }
 
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1879,7 +1879,7 @@ public class GuiManager {
             }
         }
 
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1897,7 +1897,7 @@ public class GuiManager {
         }
 
         inv.setItem(49, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retirer_le_renfort"), plugin.getLangManager().getRaw("gui.item.aucun_monstre_ne_spawneront_à")));
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1927,7 +1927,7 @@ public class GuiManager {
 
         inv.setItem(18, createItem(Material.EMERALD, plugin.getLangManager().getRaw("gui.item.valeur_personnalisée_tchat"), plugin.getLangManager().getRaw("gui.item.saisir_un_identifiant_cmd_précis")));
         inv.setItem(22, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.réinitialiser_0"), plugin.getLangManager().getRaw("gui.item.retirer_le_custommodeldata")));
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1951,7 +1951,7 @@ public class GuiManager {
             inv.setItem(slot++, createItem(mat, plugin.getLangManager().getRaw("empty_4") + t, plugin.getLangManager().getRaw("gui.item.sélectionner_comme_projectile")));
         }
 
-        inv.setItem(17, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour")));
+        inv.setItem(17, createBackItem());
         player.openInventory(inv);
     }
 
@@ -2048,7 +2048,7 @@ public class GuiManager {
                 plugin.getLangManager().getRaw("gui.item.pv") + String.format(plugin.getLangManager().getRaw("gui.item.0f_1"), hpPct)  + "%",
                 plugin.getLangManager().getRaw("gui.item.dégâts") + String.format(plugin.getLangManager().getRaw("gui.item.0f_1"), dmgPct) + "%",
                 plugin.getLangManager().getRaw("gui.item.vitesse") + String.format(plugin.getLangManager().getRaw("gui.item.0f_1"), spdPct) + "%"));
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour_1")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -2080,7 +2080,7 @@ public class GuiManager {
             inv.setItem(slot++, head);
         }
 
-        inv.setItem(53, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour_1")));
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 
@@ -2106,7 +2106,7 @@ public class GuiManager {
                     plugin.getLangManager().getRaw("gui.item.clic_droit_désactiver_leffet")));
         }
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour_1")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -2122,7 +2122,7 @@ public class GuiManager {
         inv.setItem(12, createItem(Material.REDSTONE, plugin.getLangManager().getRaw("gui.item.boost_spawn_rate"), plugin.getLangManager().getRaw("gui.item.multiplicateur") + zone.getNestSpawnBoost() + "x", "", plugin.getLangManager().getRaw("gui.item.clic_gauche_05_clic_droit")));
         inv.setItem(14, createItem(Material.DIAMOND_SWORD, plugin.getLangManager().getRaw("gui.item.modifier_stats_nest_pv_dégâts"), plugin.getLangManager().getRaw("gui.item.stats_additionnelles_appliquées_aux_entités")));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour_1")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -2142,7 +2142,7 @@ public class GuiManager {
             inv.setItem(slot++, createItem(Material.MAP, plugin.getLangManager().getRaw("gui.item.soussection") + sec.getId(), plugin.getLangManager().getRaw("gui.item.type_2") + sec.getType().name(), "", plugin.getLangManager().getRaw("gui.item.clic_pour_supprimer_cette_soussection")));
         }
 
-        inv.setItem(35, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour_1")));
+        inv.setItem(35, createBackItem());
         player.openInventory(inv);
     }
 
@@ -2192,7 +2192,7 @@ public class GuiManager {
         inv.setItem(14, createToggleItem(Material.BEACON, plugin.getLangManager().getRaw("gui.item.autoriser_régén_zones_sûres"), pd.isHardcoreAllowSafezoneRegen()));
         inv.setItem(15, createToggleItem(Material.LAVA_BUCKET, plugin.getLangManager().getRaw("gui.item.despawn_immédiat_du_stuff_mort"), pd.isHardcoreInstantDeathDespawn()));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour_1")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -2240,7 +2240,7 @@ public class GuiManager {
                 plugin.getLangManager().getRaw("gui.item.clic_droit_025x_multiplicateur"),
                 plugin.getLangManager().getRaw("gui.item.clic_milieu_tchat_définir_précis_1")));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour_1")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 
@@ -2288,7 +2288,7 @@ public class GuiManager {
                 plugin.getLangManager().getRaw("gui.item.restauration") + mainCfg.getThirstRestoreApple() + plugin.getLangManager().getRaw("gui.item.pts"),
                 "", plugin.getLangManager().getRaw("gui.item.clic_gauche_1_pt_clic"), plugin.getLangManager().getRaw("gui.item.clic_milieu_tchat_définir_précis_1")));
 
-        inv.setItem(35, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour_1")));
+        inv.setItem(35, createBackItem());
         player.openInventory(inv);
     }
 
@@ -2347,7 +2347,7 @@ public class GuiManager {
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_gauche_025x_clic_droit")));
 
-        inv.setItem(26, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.retour_1")));
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 }

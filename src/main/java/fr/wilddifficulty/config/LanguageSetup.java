@@ -59,8 +59,8 @@ public class LanguageSetup {
             String selectedCode = resolveChoice(choice);
 
             if (selectedCode == null) {
-                logger.warning(ConsoleColor.WARN_PREFIX + "Choix invalide. Langue par défaut : Français (fr)");
-                selectedCode = "fr";
+                logger.warning(ConsoleColor.WARN_PREFIX + "Choix invalide. Default language: English (en)");
+                selectedCode = "en";
             }
 
             plugin.getConfig().set("plugin.language", selectedCode);
@@ -81,9 +81,9 @@ public class LanguageSetup {
         // lang.yml existe mais pas de langue configurée : on garde le fichier existant
         // et on détermine la langue par défaut (fr)
         if (langFile.exists()) {
-            plugin.getConfig().set("plugin.language", "fr");
+            plugin.getConfig().set("plugin.language", "en");
             plugin.saveConfig();
-            logger.info(ConsoleColor.INFO_PREFIX + "Langue non configurée. Langue par défaut : Français (fr)");
+            logger.info(ConsoleColor.INFO_PREFIX + "Langue non configurée. Default language: English (en)");
         }
     }
 
