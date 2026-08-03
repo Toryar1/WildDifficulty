@@ -1,7 +1,7 @@
 @echo off
 REM ============================================================
 REM  WildDifficulty — Multi-Version Release Build Script
-REM  Compiles .jar files from Minecraft 1.19 up to Paper 26.2
+REM  Compiles versioned JARs for Paper / Spigot 1.19 up to 26.2
 REM ============================================================
 
 SET JAVA_HOME=C:\Program Files\Amazon Corretto\jdk25.0.3_9
@@ -15,27 +15,27 @@ IF NOT EXIST "%MVN%" (
 
 IF NOT EXIST "releases" mkdir releases
 
-echo [1/6] Building WildDifficulty for Paper 26.2...
+echo [1/6] Building WildDifficulty paper-26.2...
 "%MVN%" clean package -P v26_2 -DskipTests -q
 
-echo [2/6] Building WildDifficulty for Paper / Spigot 1.21...
+echo [2/6] Building WildDifficulty paper-26.1...
+"%MVN%" package -P v26_1 -DskipTests -q
+
+echo [3/6] Building WildDifficulty paper-1.21...
 "%MVN%" package -P v1_21 -DskipTests -q
 
-echo [3/6] Building WildDifficulty for Paper / Spigot 1.20.6...
+echo [4/6] Building WildDifficulty paper-1.20.6...
 "%MVN%" package -P v1_20_6 -DskipTests -q
 
-echo [4/6] Building WildDifficulty for Paper / Spigot 1.20...
+echo [5/6] Building WildDifficulty paper-1.20...
 "%MVN%" package -P v1_20 -DskipTests -q
 
-echo [5/6] Building WildDifficulty for Paper / Spigot 1.19...
+echo [6/6] Building WildDifficulty paper-1.19...
 "%MVN%" package -P v1_19 -DskipTests -q
-
-echo [6/6] Building WildDifficulty Universal (1.19 - 26.2)...
-"%MVN%" package -P universal -DskipTests -q
 
 echo.
 echo [COPYING ALL JARS TO releases/ DIRECTORY...]
-copy /Y "target\WildDifficulty-*.jar" "releases\"
+copy /Y "target\WildDifficulty-paper-*.jar" "releases\"
 
 echo.
 echo ============================================================

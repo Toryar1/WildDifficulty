@@ -18,7 +18,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Valeurs par défaut — surchargées par les profils -->
         <paper.api.version>26.2.build.0</paper.api.version>
-        <jar.classifier>Paper26.2</jar.classifier>
+        <jar.classifier>paper-26.2</jar.classifier>
     </properties>
 
     <!-- ═══════════════════════════════════════════════════════
@@ -32,7 +32,7 @@
             <activation><activeByDefault>true</activeByDefault></activation>
             <properties>
                 <paper.api.version>[26.2.build.0,)</paper.api.version>
-                <jar.classifier>Paper26.2</jar.classifier>
+                <jar.classifier>paper-26.2</jar.classifier>
             </properties>
         </profile>
 
@@ -41,7 +41,7 @@
             <id>v26_1</id>
             <properties>
                 <paper.api.version>1.21.4-R0.1-SNAPSHOT</paper.api.version>
-                <jar.classifier>Paper26.1</jar.classifier>
+                <jar.classifier>paper-26.1</jar.classifier>
             </properties>
         </profile>
 
@@ -50,7 +50,7 @@
             <id>v1_21</id>
             <properties>
                 <paper.api.version>1.21.4-R0.1-SNAPSHOT</paper.api.version>
-                <jar.classifier>1.21</jar.classifier>
+                <jar.classifier>paper-1.21</jar.classifier>
             </properties>
         </profile>
 
@@ -59,7 +59,7 @@
             <id>v1_20_6</id>
             <properties>
                 <paper.api.version>1.20.6-R0.1-SNAPSHOT</paper.api.version>
-                <jar.classifier>1.20.6</jar.classifier>
+                <jar.classifier>paper-1.20.6</jar.classifier>
             </properties>
         </profile>
 
@@ -68,7 +68,7 @@
             <id>v1_20</id>
             <properties>
                 <paper.api.version>1.20.4-R0.1-SNAPSHOT</paper.api.version>
-                <jar.classifier>1.20</jar.classifier>
+                <jar.classifier>paper-1.20</jar.classifier>
             </properties>
         </profile>
 
@@ -77,7 +77,7 @@
             <id>v1_19</id>
             <properties>
                 <paper.api.version>1.19.4-R0.1-SNAPSHOT</paper.api.version>
-                <jar.classifier>1.19</jar.classifier>
+                <jar.classifier>paper-1.19</jar.classifier>
             </properties>
         </profile>
 

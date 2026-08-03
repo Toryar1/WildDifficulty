@@ -22,7 +22,7 @@ echo [INFO] Compilation de WildDifficulty...
 IF %ERRORLEVEL% EQU 0 (
     echo.
     echo [OK] Compilation réussie !
-    echo JAR disponible dans : target\WildDifficulty-Paper26.2-1.0.0.jar
+    echo JAR disponible dans : target\WildDifficulty-paper-26.2-1.0.0.jar
     echo Copiez ce fichier dans le dossier plugins\ de votre serveur.
 ) ELSE (
     echo.

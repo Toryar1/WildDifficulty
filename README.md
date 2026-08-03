@@ -122,6 +122,19 @@ All configuration files are stored in `plugins/WildDifficulty/`:
 
 ---
 
+## 📦 Downloads & Version Builds / Téléchargements
+
+| File / Fichier | Compatible Server Version / Version Serveur |
+|:---|:---|
+| 📦 `WildDifficulty-paper-1.19-1.0.0.jar` | Compatible Paper / Spigot **1.19.4** |
+| 📦 `WildDifficulty-paper-1.20-1.0.0.jar` | Compatible Paper / Spigot **1.20** |
+| 📦 `WildDifficulty-paper-1.20.6-1.0.0.jar` | Compatible Paper / Spigot **1.20.6** |
+| 📦 `WildDifficulty-paper-1.21-1.0.0.jar` | Compatible Paper / Spigot **1.21.1 / 1.21.3** |
+| 📦 `WildDifficulty-paper-26.1-1.0.0.jar` | Compatible Paper / Purpur **26.1** |
+| 📦 `WildDifficulty-paper-26.2-1.0.0.jar` | Compatible Paper / Purpur **26.2** *(Déployé sur serveur de test)* |
+
+---
+
 <details>
 <summary>🇫🇷 Cliquez ici pour la version française</summary>
 
