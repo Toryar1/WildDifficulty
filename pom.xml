@@ -81,6 +81,15 @@
             </properties>
         </profile>
 
+        <!-- ── Universal (1.19 à 26.2 Cross-Compatible) ── -->
+        <profile>
+            <id>universal</id>
+            <properties>
+                <paper.api.version>1.19.4-R0.1-SNAPSHOT</paper.api.version>
+                <jar.classifier>1.19-26.2-Universal</jar.classifier>
+            </properties>
+        </profile>
+
     </profiles>
 
     <repositories>

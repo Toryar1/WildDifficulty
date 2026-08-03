@@ -1,7 +1,7 @@
 name: WildDifficulty
 version: '${project.version}'
 main: fr.wilddifficulty.WildDifficultyPlugin
-api-version: '1.21'
+api-version: '1.19'
 description: Advanced mob difficulty scaling plugin — variants, zones, blood moon, thirst & more.
 authors: [Toryar1]
 website: 'https://www.spigotmc.org/resources/wilddifficulty'
