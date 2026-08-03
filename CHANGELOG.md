@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 🔗 **SpigotMC Resource**: [WildDifficulty on SpigotMC (Resource 137547)](https://www.spigotmc.org/resources/wilddifficulty.137547/)
 
+## 📌 [1.1.0] - Planned / Work in Progress (TODO)
+
+### 🛠️ Planned Fixes
+- **GUI Back Buttons**: Fix back button navigation for:
+  - Spawn Conditions GUI (`VARIANT_SPAWN_CONDITIONS`)
+  - Equipment GUI (`VARIANT_EQUIPMENT`)
+  - Drops GUI (`VARIANT_DROPS`)
+  - Sounds GUI (`VARIANT_SOUNDS`)
+
 ---
 
 ## 🚀 [1.0.0] - 2026-07-30 — Initial Release on SpigotMC
