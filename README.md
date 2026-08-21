@@ -408,11 +408,11 @@ Créez et personnalisez des variantes de monstres avec statistiques, apparences,
 <summary><b>📊 1. Statistiques & Modificateurs d'Attributs</b></summary>
 
 - **Santé Maximale (PV)** : Points de vie personnalisés avec synchronisation automatique.
-- **Dégâts d'Attaque** : Dégâts infligés au joueur.
-- **Vitesse de Déplacement** : Vélocité de marche/course du mob.
+- **Dégâts d'Attaque** : Dégâts infligés au corps-à-corps ou par projectile.
+- **Vitesse de Déplacement** : Vélocité de marche et de sprint du mob.
 - **Portée de Détection (Follow Range)** : Distance de repérage des cibles (jusqu'à 100+ blocs).
-- **Résistance au Recul (Knockback)** : Pourcentage de résistance aux coups subis.
-- **Taille / Échelle (Scale)** : Redimensionnement dynamique du modèle 3D du mob.
+- **Résistance au Recul (Knockback)** : Pourcentage de résistance aux coups et projections subis.
+- **Taille / Échelle (Scale)** : Redimensionnement dynamique du modèle 3D du mob (Minecraft 1.20.5+ / 1.21+).
 - **Régénération Passive** : Récupération naturelle de vie au fil du temps.
 
 </details>
@@ -421,14 +421,14 @@ Créez et personnalisez des variantes de monstres avec statistiques, apparences,
 <summary><b>⚔️ 2. Comportements Spéciaux & IA</b></summary>
 
 - **Immunité au Soleil** : Empêche les zombies/squelettes de brûler à la lumière du jour.
-- **Mode d'Agressivité** : Configuration de l'hostilité (Toujours hostile, Nuit uniquement, Riposte).
-- **Ignorer les Protections** : Permet au mob de poursuivre les joueurs dans les claims/zones sûres.
-- **Explosion à la Mort (Suicide)** : Déclenche une explosion configurable lorsque le monstre meurt.
+- **Mode d'Agressivité** : Configuration de l'hostilité (Toujours hostile, Nuit uniquement, Riposte uniquement).
+- **Ignorer les Protections** : Permet au mob de poursuivre et attaquer les joueurs dans les claims/zones sûres.
+- **Explosion à la Mort (Attaque Suicide)** : Déclenche une explosion personnalisée lorsque le monstre meurt.
 - **Effets de Potion à l'Impact (On-Hit)** : Inflige des malus aux joueurs touchés (Lenteur, Poison, Wither, Cécité, Nausée, Obscurité).
 - **Aura de Potions Permanente** : Buffs continus sur le monstre (Vitesse, Force, Résistance, Invisibilité, Résistance au feu).
-- **BossBar Personnalisée** : Barre de vie affichée aux joueurs proches avec couleur et style segmenté au choix.
+- **BossBar Personnalisée** : Barre de vie affichée aux joueurs proches avec couleur et style segmenté au choix (Pleine, 6, 10, 12, 20 segments).
 - **Tirs de Projectiles à Distance** : Permet aux monstres au corps-à-corps de tirer des flèches, boules de feu ou crânes de wither.
-- **Spawners de Mort (Renforts)** : Invoque automatiquement des sbires à la mort du monstre parent.
+- **Spawners de Mort (Renforts)** : Invoque automatiquement des sbires personnalisés à la mort du monstre parent.
 
 </details>
 
@@ -437,8 +437,8 @@ Créez et personnalisez des variantes de monstres avec statistiques, apparences,
 
 - **Nametags Dynamiques** : Formatage du texte au-dessus du monstre avec placeholders `{name}`, `{hp}`, `{max_hp}` et `{level}`.
 - **Têtes & Skins Personnalisés** : Sélection parmi la banque de têtes intégrée, pseudo de joueur ou URL de texture Base64.
-- **Aura de Particules Permanente** : Champ visuel autour du mob (Flammes, Feu d'Âmes, Redstone, Portail, Fumée, Sorcière, etc.).
-- **CustomModelData** : Assignation d'un ID de CustomModelData pour intégration avec vos packs de ressources.
+- **Aura de Particules Permanente** : Champ visuel autour du mob (Flammes, Feu d'Âmes, Redstone, Portail, Fumée, Sorcière, Enchantements, etc.).
+- **CustomModelData** : Assignation d'un ID de modèle personnalisé pour l'intégration de resource packs serveur.
 
 </details>
 
@@ -456,7 +456,7 @@ Créez et personnalisez des variantes de monstres avec statistiques, apparences,
 <summary><b>🌲 5. Conditions de Spawn & Biomes</b></summary>
 
 - **Sélecteur de Biomes Interactif** : Menu multi-pages pour autoriser/interdire les biomes avec filtre de recherche.
-- **Plage d'Altitude Y** : Restreint l'apparition entre une altitude minimale et maximale.
+- **Plage d'Altitude Y** : Restreint l'apparition entre une altitude minimale et maximale (ex: grottes d'abîme uniquement).
 - **Niveau de Lumière** : Seuils de luminosité requis pour le spawn.
 - **Moment de Spawn** : Jour, Nuit ou Tout le temps.
 - **Monde Assigné** : Liste blanche de mondes (Overworld, Nether, End ou mondes custom).
@@ -473,13 +473,22 @@ Créez et personnalisez des variantes de monstres avec statistiques, apparences,
 
 </details>
 
+<details>
+<summary><b>🏷️ 7. Noms Conditionnels</b></summary>
+
+- Configuration de nametags adaptatifs évoluant selon la santé du monstre ou la distance du joueur.
+
+</details>
+
 </details>
 
 <details>
 <summary><b>⚔️ Gestionnaire des Escouades (<code>/wd gui</code> ➔ Escouades)</b></summary>
 
+Créez des groupes de monstres coordonnés qui apparaissent ensemble pour défier les joueurs :
+
 - 👥 **Composition du Groupe** : Ajoutez plusieurs variantes et déterminez le nombre de monstres par membre.
-- 👑 **Leader d'Escouade** : Désignez un chef de groupe.
+- 👑 **Leader d'Escouade** : Désignez un chef de groupe qui guide la meute.
 - 📈 **Bonus d'Équipe** : Multiplicateurs collectifs de PV, de dégâts et de vitesse de déplacement.
 - ⚡ **Déclencheurs d'Apparition** : Pourcentage de chance de remplacer un spawn vanilla naturel par l'escouade.
 - 📍 **Rayon de Dispersion** : Définition de la distance de dispersion des monstres autour du point d'apparition.
@@ -489,57 +498,180 @@ Créez et personnalisez des variantes de monstres avec statistiques, apparences,
 <details>
 <summary><b>🌍 Gestionnaire des Zones de Difficulté (<code>/wd gui</code> ➔ Zones)</b></summary>
 
-- 📐 **Formes Géométriques** : Zones cubiques (Cuboid), circulaires (Radius) et polygonales personnalisées tracées avec la Houe en Or.
-- 🛡️ **Protections & Safe-Zones** : Désactivation des spawns hostiles, protection contre le cassage/pose de blocs et sécurisation des conteneurs.
-- 📊 **Multiplicateurs de Zone** : Multiplicateurs locaux pour la santé, les dégâts, la vitesse et la portée de détection.
-- 📈 **Scaling par Distance** : Augmentation progressive de la difficulté par paliers de distance (`step`, `multPerStep`, `maxMult`).
-- 🏛️ **Effets de Balise (Beacon)** : Effets de potion bénéfiques accordés aux joueurs dans la zone.
-- 👥 **Rôles de Membres** : Gestion des accès (Niveau 1: Visiteur, Niveau 2: Constructeur, Niveau 3: Gestionnaire).
-- ✨ **Particules de Bordure** : Visualisation animée des contours de la zone.
+Délimitez des zones géographiques avec des règles de difficulté et protections dédiées :
+
+<details>
+<summary><b>📐 1. Formes Géométriques & Tracé de Frontières</b></summary>
+
+- **Zones Cubiques (Cuboid)** : Définition par Position 1 et Position 2.
+- **Zones Circulaires (Radius)** : Définition par point central et rayon en blocs.
+- **Zones Polygonales (Polygon)** : Tracé 2D multi-points libre à l'aide de l'Outil Houe en Or.
+
+</details>
+
+<details>
+<summary><b>🛡️ 2. Protections de Zone & Safe-Zones</b></summary>
+
+- **Mode Safe-Zone** : Désactivation totale du spawn des monstres hostiles dans l'enceinte de la zone.
+- **Protection Anti-Grief** : Interdiction de destruction et de placement de blocs pour les non-membres.
+- **Protection des Coffres** : Sécurisation des conteneurs, coffres et tonneaux.
+
+</details>
+
+<details>
+<summary><b>📊 3. Modificateurs de Zone & Scaling par Distance</b></summary>
+
+- **Multiplicateurs d'Attributs** : Multiplicateurs locaux pour la santé, les dégâts, la vitesse, la détection et le knockback.
+- **Scaling Progressif par Distance** : Augmentation de la difficulté par paliers de distance (`step`, `multPerStep`, `maxMult`).
+- **Règles de Biomes Exclusives** : Surcharge des règles globales de biome à l'intérieur de la zone.
+
+</details>
+
+<details>
+<summary><b>🏛️ 4. Effets de Balise (Beacon), Rôles de Membres & Particules</b></summary>
+
+- **Effets de Balise (Beacon)** : Effets de potion bénéfiques accordés aux joueurs présents dans la zone.
+- **Gestion des Rôles** : Rôles d'accès pour les joueurs (Niveau 1: Visiteur, Niveau 2: Constructeur, Niveau 3: Gestionnaire de zone).
+- **Particules de Bordure** : Visualisation animée des contours de la zone (Dust, Flammes, End Rod, etc.).
+- **Nids de Danger (Danger Nests)** : Création de sous-zones de danger extrême au sein d'une grande région.
+
+</details>
 
 </details>
 
 <details>
 <summary><b>🩸 Événement de la Lune de Sang (<code>/wd gui</code> ➔ Lune de Sang)</b></summary>
 
-- **Planification** : Probabilité d'apparition par nuit (0% à 100%) ou déclenchement forcé immédiat (`/wd bloodmoon`).
+Configurez l'événement nocturne apocalyptique :
+
+- **Planification & Fréquence** : Probabilité d'apparition par nuit (0% à 100%) ou déclenchement forcé immédiat (`/wd bloodmoon`).
 - **Plage Temporelle Précise** : Début à 12 500 ticks (crépuscule) et fin à 23 000 ticks (aube).
 - **Multiplicateurs d'Événement** : Augmentation des PV, dégâts, vitesse, taux de drops et taux de spawn nocturnes.
 - **Ambiance Visuelle & Sonore** : Messages diffusés sur le serveur, sons d'alerte et tempête de particules rouges.
-- **Buffs de Potions Globaux** : Octroi d'effets de potion aux monstres pendant la nuit.
+- **Buffs de Potions Globaux** : Octroi d'effets de potion (Force, Résistance, Vitesse) aux monstres pendant la nuit.
 
 </details>
 
 <details>
-<summary><b>💧 Système de Soif, Chaleur & Hardcore (<code>/wd gui</code> ➔ Configuration Générale ➔ Soif & Hardcore)</b></summary>
+<summary><b>💧 Système de Soif, Chaleur & Hardcore (<code>/wd gui</code> ➔ Soif & Hardcore)</b></summary>
 
-- 💧 **Barre de Soif HUD** : Affichage 10 bulles dans l'action bar avec dégradation dynamique selon les mouvements (marche/course).
-- ☀️ **Déshydratation par Chaleur** : Perte d'eau accélérée à proximité de la lave, du feu et des feux de camp.
-- 🍶 **Sources d'Hydratation** : Points de restauration configurables pour seaux d'eau, bouteilles, potions, chaudrons, lait, miel, melons et pommes.
-- 💀 **Mode Hardcore (Global & Personnel)** : Désactivation de la régénération naturelle (UHC), règles de régénération par pommes d'or/potions, et perte immédiate d'équipement à la mort.
+Mécaniques de survie immersives pour un gameplay hardcore :
+
+<details>
+<summary><b>💧 1. Barre de Soif HUD & Dégradation Dynamique</b></summary>
+
+- **Affichage HUD** : Jauge 10 bulles dans l'action bar du joueur.
+- **Dégradation Dynamique** : Consommation d'eau adaptée selon les actions (immobile, marche, sprint).
+- **Seuil Critique** : Dégâts progressifs de déshydratation lorsque la jauge atteint zéro.
+
+</details>
+
+<details>
+<summary><b>☀️ 2. Déshydratation par Chaleur & Proximité</b></summary>
+
+- **Détection des Sources Chaudes** : La proximité de lave, feu ou feux de camp accélère la déshydratation.
+- **Multiplicateur Configurable** : Ajustement de la sensibilité et du rayon d'action de la chaleur.
+
+</details>
+
+<details>
+<summary><b>🍶 3. Sources de Restauration d'Hydratation</b></summary>
+
+Points de restauration configurables pour chaque boisson et aliment :
+- Seau d'eau, Bouteille d'eau, Potions, Chaudrons d'eau, Blocs d'eau ouverte, Seaux de lait, Fioles de miel, Tranches de melon et Pommes.
+
+</details>
+
+<details>
+<summary><b>💀 4. Mode Hardcore (Global & Profil Personnel /wd settings)</b></summary>
+
+- **Désactivation de la Régénération Naturelle** : Mode Ultra Hardcore (UHC) sans régénération passive de cœurs.
+- **Exceptions de Régénération** : Autorisation/blocage de la régénération via Pommes Dorées, Potions, Balises ou Safe-Zones.
+- **Pénalité de Mort** : Timer de disparition d'équipement configurable ou suppression immédiate du stuff à la mort.
+- **Hardcore Personnel** : Chaque joueur peut activer son propre profil hardcore via la commande `/wd settings`.
+
+</details>
 
 </details>
 
 <details>
 <summary><b>⛏️ Spawners de Blocs Personnalisés (Outil de Spawner)</b></summary>
 
+Transformez n'importe quel bloc spawner en générateur de variantes avancées :
+
 - **Pool de Variantes** : Assignez plusieurs variantes personnalisées avec un poids de tirage individuel sur chaque spawner.
 - **Intervalles & Variances** : Fréquence d'apparition en secondes et marge aléatoire.
 - **Rayon & Limite de Mobs** : Portée d'activation et plafond de monstres vivants simultanés.
 - **Outil Copier/Coller** : Répliquez la configuration d'un spawner sur d'autres blocs en un clic.
+- **Visuels & Audio** : Particules d'activation et sons de déclenchement personnalisés.
 
 </details>
 
 <details>
 <summary><b>🧰 Outils d'Administration & Scoreboard de Debug (<code>/wd tools</code>)</b></summary>
 
-- 🌾 **Houe de Zone** : Positionnement des points et sommets de polygones de zone.
-- ⛏️ **Pelle de Spawner** : Éditeur direct de blocs spawners.
-- 🧭 **Boussole de Biome** : Configuration des spawns du biome courant.
-- 🪄 **Bâton d'Inspecteur** : Clic droit sur une créature pour afficher ses statistiques en temps réel, sa variante et ses tags d'IA.
-- 📋 **Scoreboard Latéral** : Analyse en temps réel des créatures actives, du TPS, et de la zone active.
+Objets interactifs pour la gestion du serveur en jeu :
+
+- 🌾 **Houe de Zone (Golden Hoe)** : Clic gauche et droit pour placer des points de repère et tracer des polygones.
+- ⛏️ **Pelle de Spawner (Netherite Shovel)** : Clic droit sur un spawner pour éditer ses pools et délais.
+- 🧭 **Boussole de Biome (Compass)** : Clic droit pour ouvrir l'éditeur de spawn du biome actuel.
+- 🪄 **Bâton d'Inspecteur (Inspector Stick)** : Clic droit sur un monstre pour afficher ses statistiques en temps réel, sa variante et ses tags d'IA.
+- 📋 **Scoreboard Latéral de Debug** : Affiche le nombre de variantes actives, les monstres proches, le TPS du serveur et le nom de la zone active.
 
 </details>
+
+---
+
+### ✨ Aperçu des Fonctionnalités Clés
+
+- **Variantes de Mobs** : Statistiques personnalisées (PV, dégâts, vitesse, knockback), équipements, têtes personnalisées (URLs/skins), auras de particules et intégration NPCs Citizens.
+- **Escouades** : Groupes de monstres coordonnés avec multiplicateurs d'équipe partagés.
+- **Zones & Scaling par Distance** : Zones géographiques (Cuboid, Rayon, Polygone) avec protections, effets de balise et difficulté progressive.
+- **Lune de Sang** : Événement nocturne paramétrable avec monstres enragés, sons immersifs et tempête visuelle.
+- **Système de Soif & Chaleur** : Jauge de soif dans l'action bar, déshydratation près des sources de chaleur et restauration d'eau personnalisable.
+- **Spawners Personnalisés** : Outil pelle pour créer des générateurs de variantes avec délais et rayons sur-mesure.
+- **Support 10 Langues & Commentaires Dynamiques** : Traduction intégrale en 10 langues avec mise à jour en temps réel des commentaires dans les fichiers YAML.
+
+---
+
+### 🎮 Commandes & Permissions
+
+Toutes les commandes d'administration nécessitent la permission `wilddifficulty.admin`.
+
+| Commande | Description |
+|:---------|:------------|
+| `/wd gui` | Ouvre le menu d'administration principal interactif |
+| `/wd reload` | Recharge l'ensemble des configurations et fichiers de langue |
+| `/wd killall` | Supprime toutes les créatures de variantes actives |
+| `/wd spawn <variante> [normal\|static]` | Fait apparaître une variante de monstre personnalisée |
+| `/wd spawnsquad <idEscouade>` | Fait apparaître une escouade de monstres |
+| `/wd edit` | Ouvre l'éditeur GUI de la variante pointée |
+| `/wd tp <zone>` | Téléporte le joueur à une zone de difficulté |
+| `/wd zone <args>` | Commandes manuelles de gestion des zones |
+| `/wd biome_tool` | Donne la boussole de gestion des biomes |
+| `/wd spawner_tool` | Donne la pelle de gestion des spawners |
+| `/wd zone_tool` | Donne la houe de traçage des zones |
+| `/wd inspector_tool` | Donne l'outil d'analyse (Inspecteur de Mobs) |
+| `/wd tools` | Donne tous les outils d'administration d'un coup |
+| `/wd scoreboard` | Active ou désactive le scoreboard de debug en temps réel |
+| `/wd debug` | Active ou désactive les logs de debug dans la console |
+| `/wd bloodmoon` | Planifie ou force une Lune de Sang |
+| `/wd language <code>` | Change dynamiquement la langue du plugin et des commentaires YAML |
+| `/wd help` | Affiche l'interface d'aide styled WildTimber |
+
+---
+
+### ⚙️ Fichiers de Configuration YAML
+
+Tous les fichiers de configuration se trouvent dans `plugins/WildDifficulty/` :
+
+- `config.yml` — Configuration principale du plugin (scaling par distance, système de soif, debug).
+- `lang.yml` — Dictionnaire de traduction de la langue active.
+- `mobs.yml` — Surcharges globales pour les monstres vanilla.
+- `biomes.yml` — Règles d'apparition et multiplicateurs par biome.
+- `mob-variants.yml` — Définition des variantes de monstres et des escouades.
+- `zones.yml` — Sauvegarde des zones de difficulté géographiques.
+- `spawners.yml` — Sauvegarde des blocs spawners personnalisés.
 
 </details>
 
