@@ -49,6 +49,17 @@ public final class WildDifficultyPlugin extends JavaPlugin {
 
     private fr.wilddifficulty.player.PlayerSettingsManager playerSettingsManager;
 
+    // Hooks & Encounters v1.1
+    private fr.wilddifficulty.hook.WorldGuardHook worldGuardHook;
+    private fr.wilddifficulty.hook.IrisHook irisHook;
+    private fr.wilddifficulty.hook.BetonQuestHook betonQuestHook;
+    private fr.wilddifficulty.encounter.EncounterManager encounterManager;
+
+    public fr.wilddifficulty.hook.WorldGuardHook getWorldGuardHook() { return worldGuardHook; }
+    public fr.wilddifficulty.hook.IrisHook getIrisHook() { return irisHook; }
+    public fr.wilddifficulty.hook.BetonQuestHook getBetonQuestHook() { return betonQuestHook; }
+    public fr.wilddifficulty.encounter.EncounterManager getEncounterManager() { return encounterManager; }
+
     public fr.wilddifficulty.player.PlayerSettingsManager getPlayerSettingsManager() {
         return playerSettingsManager;
     }
@@ -113,6 +124,12 @@ public final class WildDifficultyPlugin extends JavaPlugin {
         variantManager.load();
         spawnerManager.load();
 
+        // Initialisation des Hooks & Encounters v1.1
+        worldGuardHook = new fr.wilddifficulty.hook.WorldGuardHook(this);
+        irisHook = new fr.wilddifficulty.hook.IrisHook(this);
+        betonQuestHook = new fr.wilddifficulty.hook.BetonQuestHook(this);
+        encounterManager = new fr.wilddifficulty.encounter.EncounterManager(this);
+
         // Initialisation des clés d'attributs
         AttributeUtil.init(this);
 
@@ -129,6 +146,7 @@ public final class WildDifficultyPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new fr.wilddifficulty.listener.ZoneProtectionListener(this), this);
         getServer().getPluginManager().registerEvents(new fr.wilddifficulty.listener.ThirstListener(this), this);
         getServer().getPluginManager().registerEvents(new fr.wilddifficulty.listener.HardcoreDeathListener(this), this);
+        getServer().getPluginManager().registerEvents(new fr.wilddifficulty.listener.EncounterListener(this), this);
 
         // Enregistrement des commandes
         WDGuiCommand wdCmd = new WDGuiCommand(this);
@@ -166,13 +184,16 @@ public final class WildDifficultyPlugin extends JavaPlugin {
         // ─── bStats Métriques ───
         fr.wilddifficulty.util.BStatsMetrics.register(this);
 
-        getLogger().info("WildDifficulty activé avec succès !");
+        getLogger().info("WildDifficulty v1.1 activé avec succès !");
     }
 
     @Override
     public void onDisable() {
         if (tickScheduler != null) {
             tickScheduler.cancel();
+        }
+        if (encounterManager != null) {
+            encounterManager.shutdown();
         }
         if (spawnerManager != null) {
             spawnerManager.save();
@@ -192,6 +213,15 @@ public final class WildDifficultyPlugin extends JavaPlugin {
         variantManager.load();
         if (spawnerManager != null) {
             spawnerManager.load();
+        }
+        if (worldGuardHook != null) {
+            worldGuardHook.checkAvailability();
+        }
+        if (irisHook != null) {
+            irisHook.checkAvailability();
+        }
+        if (betonQuestHook != null) {
+            betonQuestHook.checkAvailability();
         }
         // Régénérer le resource pack au reload
         fr.wilddifficulty.util.ResourcePackGenerator.generate(this);

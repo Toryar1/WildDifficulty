@@ -163,6 +163,11 @@ public class ZoneManager {
      * @param y         coordonnée Y
      * @param z         coordonnée Z
      */
+    public DifficultyZone getZoneAt(org.bukkit.Location loc) {
+        if (loc == null || loc.getWorld() == null) return null;
+        return getZoneAt(loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ());
+    }
+
     public DifficultyZone getZoneAt(String worldName, double x, double y, double z) {
         int chunkX = (int) Math.floor(x / 16);
         int chunkZ = (int) Math.floor(z / 16);
@@ -367,6 +372,77 @@ public class ZoneManager {
             if (nm.getSpeedValue() > 0) nestMod.set("vitesse", nm.getSpeedValue());
         }
 
+        // WorldGuard region link & Encounters v1.1
+        if (zone.getWorldGuardRegion() != null && !zone.getWorldGuardRegion().isEmpty()) {
+            section.set("worldguard-region", zone.getWorldGuardRegion());
+        }
+
+        if (zone.getEncounterConfig() != null && zone.getEncounterConfig().getType() != fr.wilddifficulty.encounter.EncounterType.NONE) {
+            ConfigurationSection encSec = section.createSection("encounter");
+            fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+            encSec.set("type", enc.getType().name());
+            encSec.set("enabled", enc.isEnabled());
+            encSec.set("cooldown", enc.getCooldownSeconds());
+            encSec.set("min-players", enc.getMinPlayers());
+            encSec.set("max-players", enc.getMaxPlayers());
+            encSec.set("raid-mode", enc.getRaidMode());
+            encSec.set("raid-waves-count", enc.getRaidWaveCount());
+            encSec.set("protect-npc", enc.isProtectNpc());
+            encSec.set("protect-npc-name", enc.getProtectNpcName());
+            encSec.set("trial-mode", enc.getTrialMode());
+            encSec.set("trial-activation-radius", enc.getTrialActivationRadius());
+            encSec.set("trial-mob-cap", enc.getTrialMobCap());
+            encSec.set("trial-total-mobs", enc.getTrialTotalMobs());
+            encSec.set("trial-scaling-player", enc.getTrialScalingPerPlayer());
+            encSec.set("outpost-patrol-interval", enc.getOutpostPatrolIntervalSeconds());
+            encSec.set("outpost-lingering-time", enc.getOutpostLingeringInvasionTimeSeconds());
+            encSec.set("outpost-captain-chance", enc.getOutpostCaptainChance());
+            encSec.set("ruins-trigger-radius", enc.getRuinsTriggerRadius());
+            encSec.set("ruins-trigger-chest", enc.isRuinsTriggerOnChestOpen());
+            encSec.set("bossbar-enabled", enc.isBossBarEnabled());
+            encSec.set("bossbar-color", enc.getBossBarColor());
+            encSec.set("bossbar-style", enc.getBossBarStyle());
+
+            if (!enc.getWaves().isEmpty()) {
+                ConfigurationSection wavesSec = encSec.createSection("waves");
+                for (int i = 0; i < enc.getWaves().size(); i++) {
+                    fr.wilddifficulty.encounter.EncounterWave w = enc.getWaves().get(i);
+                    ConfigurationSection wSec = wavesSec.createSection("wave_" + (i + 1));
+                    wSec.set("delay", w.getDelaySeconds());
+                    wSec.set("sound", w.getSoundEffect());
+                    wSec.set("particle", w.getParticleEffect());
+                    wSec.set("spawn-distrib", w.getSpawnDistribution());
+                    if (!w.getVariantSpawns().isEmpty()) {
+                        wSec.set("variants", w.getVariantSpawns());
+                    }
+                    if (!w.getSquadSpawns().isEmpty()) {
+                        wSec.set("squads", w.getSquadSpawns());
+                    }
+                }
+            }
+
+            if (enc.getRewards() != null) {
+                ConfigurationSection rewSec = encSec.createSection("rewards");
+                rewSec.set("xp", enc.getRewards().getXpAmount());
+                rewSec.set("money", enc.getRewards().getMoneyAmount());
+                if (!enc.getRewards().getConsoleCommands().isEmpty()) {
+                    rewSec.set("commands", enc.getRewards().getConsoleCommands());
+                }
+                if (!enc.getRewards().getItems().isEmpty()) {
+                    List<Map<String, Object>> itemsList = new ArrayList<>();
+                    for (fr.wilddifficulty.encounter.EncounterReward.RewardItem ri : enc.getRewards().getItems()) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("material", ri.getMaterialName());
+                        map.put("amount", ri.getAmount());
+                        map.put("chance", ri.getChance());
+                        if (ri.getCustomName() != null) map.put("name", ri.getCustomName());
+                        itemsList.add(map);
+                    }
+                    rewSec.set("items", itemsList);
+                }
+            }
+        }
+
         // Géométrie
         if (zone.getType() == DifficultyZone.ZoneType.CUBOID) {
             ConfigurationSection pos1 = section.createSection("pos1");
@@ -527,6 +603,88 @@ public class ZoneManager {
             zone.setMinY(section.getDouble("min-y", -64.0));
             zone.setMaxY(section.getDouble("max-y", 320.0));
             zone.finalizePolygon();
+        }
+
+        // WorldGuard region link & Encounters v1.1
+        zone.setWorldGuardRegion(section.getString("worldguard-region", null));
+
+        ConfigurationSection encSec = section.getConfigurationSection("encounter");
+        if (encSec != null) {
+            String encTypeStr = encSec.getString("type", "NONE");
+            fr.wilddifficulty.encounter.EncounterType encType = fr.wilddifficulty.encounter.EncounterType.fromString(encTypeStr);
+            fr.wilddifficulty.encounter.EncounterConfig enc = new fr.wilddifficulty.encounter.EncounterConfig(encType);
+            enc.setEnabled(encSec.getBoolean("enabled", true));
+            enc.setCooldownSeconds(encSec.getInt("cooldown", 1800));
+            enc.setMinPlayers(encSec.getInt("min-players", 1));
+            enc.setMaxPlayers(encSec.getInt("max-players", 10));
+            enc.setRaidMode(encSec.getString("raid-mode", "CUSTOM_RAID_MODE"));
+            enc.setRaidWaveCount(encSec.getInt("raid-waves-count", 5));
+            enc.setProtectNpc(encSec.getBoolean("protect-npc", false));
+            enc.setProtectNpcName(encSec.getString("protect-npc-name", "Village Elder"));
+            enc.setTrialMode(encSec.getString("trial-mode", "INTERNAL_SIMULATION"));
+            enc.setTrialActivationRadius(encSec.getDouble("trial-activation-radius", 14.0));
+            enc.setTrialMobCap(encSec.getInt("trial-mob-cap", 8));
+            enc.setTrialTotalMobs(encSec.getInt("trial-total-mobs", 20));
+            enc.setTrialScalingPerPlayer(encSec.getDouble("trial-scaling-player", 0.5));
+            enc.setOutpostPatrolIntervalSeconds(encSec.getDouble("outpost-patrol-interval", 60.0));
+            enc.setOutpostLingeringInvasionTimeSeconds(encSec.getDouble("outpost-lingering-time", 120.0));
+            enc.setOutpostCaptainChance(encSec.getDouble("outpost-captain-chance", 0.50));
+            enc.setRuinsTriggerRadius(encSec.getDouble("ruins-trigger-radius", 12.0));
+            enc.setRuinsTriggerOnChestOpen(encSec.getBoolean("ruins-trigger-chest", true));
+            enc.setBossBarEnabled(encSec.getBoolean("bossbar-enabled", true));
+            enc.setBossBarColor(encSec.getString("bossbar-color", "RED"));
+            enc.setBossBarStyle(encSec.getString("bossbar-style", "NOTCHED_10"));
+
+            ConfigurationSection wavesSec = encSec.getConfigurationSection("waves");
+            if (wavesSec != null) {
+                List<fr.wilddifficulty.encounter.EncounterWave> waves = new ArrayList<>();
+                for (String wKey : wavesSec.getKeys(false)) {
+                    ConfigurationSection wSec = wavesSec.getConfigurationSection(wKey);
+                    if (wSec == null) continue;
+                    fr.wilddifficulty.encounter.EncounterWave wave = new fr.wilddifficulty.encounter.EncounterWave();
+                    wave.setDelaySeconds(wSec.getInt("delay", 5));
+                    wave.setSoundEffect(wSec.getString("sound", "entity.wither.spawn"));
+                    wave.setParticleEffect(wSec.getString("particle", "FLAME"));
+                    wave.setSpawnDistribution(wSec.getString("spawn-distrib", "AROUND_CENTER"));
+
+                    ConfigurationSection varSec = wSec.getConfigurationSection("variants");
+                    if (varSec != null) {
+                        for (String vId : varSec.getKeys(false)) {
+                            wave.addVariant(vId, varSec.getInt(vId, 1));
+                        }
+                    }
+
+                    ConfigurationSection sqSec = wSec.getConfigurationSection("squads");
+                    if (sqSec != null) {
+                        for (String sqId : sqSec.getKeys(false)) {
+                            wave.addSquad(sqId, sqSec.getInt(sqId, 1));
+                        }
+                    }
+                    waves.add(wave);
+                }
+                enc.setWaves(waves);
+            }
+
+            ConfigurationSection rewSec = encSec.getConfigurationSection("rewards");
+            if (rewSec != null) {
+                fr.wilddifficulty.encounter.EncounterReward rew = new fr.wilddifficulty.encounter.EncounterReward();
+                rew.setXpAmount(rewSec.getInt("xp", 50));
+                rew.setMoneyAmount(rewSec.getDouble("money", 0.0));
+                rew.setConsoleCommands(rewSec.getStringList("commands"));
+
+                if (rewSec.isList("items")) {
+                    for (Map<?, ?> itemMap : rewSec.getMapList("items")) {
+                        String mat = (String) itemMap.get("material");
+                        int amt = itemMap.containsKey("amount") ? ((Number) itemMap.get("amount")).intValue() : 1;
+                        double chance = itemMap.containsKey("chance") ? ((Number) itemMap.get("chance")).doubleValue() : 1.0;
+                        String customName = (String) itemMap.get("name");
+                        rew.addItem(mat, amt, chance, customName);
+                    }
+                }
+                enc.setRewards(rew);
+            }
+
+            zone.setEncounterConfig(enc);
         }
 
         return zone;

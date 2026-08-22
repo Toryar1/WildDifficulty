@@ -6,7 +6,13 @@ import fr.wilddifficulty.config.StatModifiers;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.persistence.PersistentDataType;
+import fr.wilddifficulty.listener.MobSpawnListener;
 
 import java.io.File;
 import java.util.*;
@@ -640,5 +646,54 @@ public class VariantManager {
         } catch (Exception e) {
             plugin.getLogger().severe("Impossible de sauvegarder custom-heads.yml: " + e.getMessage());
         }
+    }
+
+    public LivingEntity spawnVariantMob(MobVariant var, Location loc) {
+        if (var == null || loc == null || loc.getWorld() == null) return null;
+        Class<? extends Entity> eClass = var.getType().getEntityClass();
+        if (eClass == null || !LivingEntity.class.isAssignableFrom(eClass)) return null;
+
+        Location safeLoc = MobSpawnListener.ensureSafeLocation(loc);
+        if (safeLoc == null) safeLoc = loc;
+
+        try {
+            Entity spawned = loc.getWorld().spawn(safeLoc, eClass, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
+                entity.getPersistentDataContainer().set(MobSpawnListener.KEY_SQUAD_SPAWNED, PersistentDataType.BYTE, (byte) 1);
+                entity.getPersistentDataContainer().set(MobSpawnListener.KEY_VARIANT_ID, PersistentDataType.STRING, var.getId());
+            });
+            if (spawned instanceof LivingEntity le) {
+                return le;
+            }
+        } catch (Throwable t) {
+            plugin.getLogger().warning("[VariantManager] Erreur lors du spawn de " + var.getId() + " : " + t.getMessage());
+        }
+        return null;
+    }
+
+    public List<LivingEntity> spawnSquad(String squadId, Location loc) {
+        List<LivingEntity> spawnedList = new ArrayList<>();
+        MobSquad squad = getSquad(squadId);
+        if (squad == null || loc == null || loc.getWorld() == null || squad.getMembers() == null) return spawnedList;
+
+        for (Map.Entry<String, MobSquad.SquadMemberRange> entry : squad.getMembers().entrySet()) {
+            String varId = entry.getKey();
+            MobSquad.SquadMemberRange range = entry.getValue();
+            int count = range.getMin();
+            if (range.getMax() > range.getMin()) {
+                count += random.nextInt(range.getMax() - range.getMin() + 1);
+            }
+            MobVariant var = getVariant(varId);
+            if (var != null) {
+                for (int i = 0; i < count; i++) {
+                    Location spawnLoc = loc.clone().add((Math.random() - 0.5) * 4, 0, (Math.random() - 0.5) * 4);
+                    LivingEntity mob = spawnVariantMob(var, spawnLoc);
+                    if (mob != null) {
+                        mob.getPersistentDataContainer().set(MobSpawnListener.KEY_SQUAD_ID, PersistentDataType.STRING, squadId);
+                        spawnedList.add(mob);
+                    }
+                }
+            }
+        }
+        return spawnedList;
     }
 }

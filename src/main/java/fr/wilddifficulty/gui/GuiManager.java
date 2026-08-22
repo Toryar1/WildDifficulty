@@ -15,6 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.Location;
+import org.bukkit.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1430,8 +1431,263 @@ public class GuiManager {
         inv.setItem(28, createItem(Material.NETHER_STAR, plugin.getLangManager().getRaw("gui.item.nid_dennemis_danger_nest"), plugin.getLangManager().getRaw("gui.item.statut_1") + nestBadge, "", plugin.getLangManager().getRaw("gui.item.clic_pour_configurer_le_mode")));
         inv.setItem(29, createItem(Material.MAP, plugin.getLangManager().getRaw("gui.item.soussections_multisections"), plugin.getLangManager().getRaw("gui.item.sections_additionnelles") + zone.getSubSections().size(), "", plugin.getLangManager().getRaw("gui.item.clic_pour_fusionner_et_étendre")));
 
-        inv.setItem(31, createItem(Material.LAVA_BUCKET, plugin.getLangManager().getRaw("gui.item.supprimer_la_zone"), plugin.getLangManager().getRaw("gui.item.attention_action_immédiate")));
-        inv.setItem(35, createBackItem());
+        // Nouveaux boutons v1.1 Encounter Engine, WorldGuard & Iris (slots 30, 31, 32)
+        fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+        String encStatus = (enc != null && enc.getType() != fr.wilddifficulty.encounter.EncounterType.NONE && enc.isEnabled()) ? "§a✔ " + enc.getType().getDisplayName() : "§7✖ Aucun";
+        inv.setItem(30, createItem(Material.TARGET, "&6⚔ Configuration d'Encounter (v1.1)",
+                "&7Type actuel : " + encStatus,
+                "&7Gère les raids, trial bunkers, avant-postes et ruines.",
+                "",
+                "&e➜ Clic pour ouvrir l'éditeur d'Encounter"));
+
+        String wgStatus = zone.isWorldGuardLinked() ? "§a✔ " + zone.getWorldGuardRegion() : "§7✖ Géométrie interne";
+        inv.setItem(31, createItem(Material.SHIELD, "&9🛡 Liaison Région WorldGuard",
+                "&7Région liée : " + wgStatus,
+                "&7Utilise les limites d'une région WorldGuard",
+                "&7pour éviter les calculs de zone en doublon.",
+                "",
+                "&e➜ Clic pour sélectionner une région WorldGuard"));
+
+        String irisStatus = plugin.getIrisHook().isAvailable() ? "§a✔ Prêt" : "§7✖ Non détecté";
+        inv.setItem(32, createItem(Material.GRASS_BLOCK, "&2🌲 Import Structure Iris",
+                "&7Statut Iris : " + irisStatus,
+                "&7Détecte la structure ou le biome Iris à votre position",
+                "&7pour centrer la zone d'Encounter.",
+                "",
+                "&e➜ Clic pour importer depuis votre position"));
+
+        inv.setItem(40, createItem(Material.LAVA_BUCKET, plugin.getLangManager().getRaw("gui.item.supprimer_la_zone"), plugin.getLangManager().getRaw("gui.item.attention_action_immédiate")));
+        inv.setItem(44, createBackItem());
+        player.openInventory(inv);
+    }
+
+    public void openZoneEncounterMenu(Player player, String zoneId) {
+        DifficultyZone zone = plugin.getZoneManager().getZone(zoneId);
+        if (zone == null) return;
+        fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+        if (enc == null) {
+            enc = new fr.wilddifficulty.encounter.EncounterConfig();
+            zone.setEncounterConfig(enc);
+        }
+
+        WDMenuHolder holder = new WDMenuHolder("ZONE_ENCOUNTER_EDIT", zoneId);
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("⚔ Encounter: " + zoneId));
+        holder.setInventory(inv);
+
+        inv.setItem(10, createToggleItem(Material.REDSTONE_TORCH, "&eActiver l'Encounter", enc.isEnabled()));
+        inv.setItem(11, createItem(Material.BEACON, "&6Type d'Encounter",
+                "&7Type actuel : &e" + enc.getType().getDisplayName(),
+                "",
+                "&7Types disponibles :",
+                "&8- &fBASE_RAID &7(Invasion de camp / Raid)",
+                "&8- &fTRIAL_BUNKER &7(Trial Chamber 14 blocs)",
+                "&8- &fOUTPOST &7(Avant-poste & patrouilles)",
+                "&8- &fRUINS &7(Ruines & gardiens anciens)",
+                "",
+                "&e➜ Clic pour changer de type"));
+
+        inv.setItem(12, createItem(Material.CLOCK, "&eTemps de Recharge (Cooldown)",
+                "&7Durée actuelle : &a" + (enc.getCooldownSeconds() / 60) + " min &7(" + enc.getCooldownSeconds() + "s)",
+                "",
+                "&7Clic gauche : &a+1 min",
+                "&7Clic droit : &c-1 min",
+                "&7Shift-Clic : &a±5 min",
+                "&7Clic milieu : Définir via le tchat"));
+
+        inv.setItem(13, createItem(Material.PLAYER_HEAD, "&bJoueurs Requis",
+                "&7Min joueurs : &e" + enc.getMinPlayers(),
+                "&7Max joueurs : &e" + enc.getMaxPlayers(),
+                "",
+                "&7Clic gauche : &a+1 Min",
+                "&7Clic droit : &c-1 Min",
+                "&7Shift-Clic gauche : &a+1 Max",
+                "&7Shift-Clic droit : &c-1 Max"));
+
+        inv.setItem(14, createItem(Material.ZOMBIE_HEAD, "&c⚔ Configuration des Vagues",
+                "&7Nombre de vagues configurées : &e" + enc.getWaves().size(),
+                "&7Personnalisez les variantes et escouades de chaque vague.",
+                "",
+                "&e➜ Clic pour éditer les vagues"));
+
+        inv.setItem(15, createItem(Material.CHEST, "&6🎁 Récompenses de Victoire",
+                "&7XP : &e" + enc.getRewards().getXpAmount() + " XP",
+                "&7Items configurés : &e" + enc.getRewards().getItems().size(),
+                "&7Commandes : &e" + enc.getRewards().getConsoleCommands().size(),
+                "",
+                "&e➜ Clic pour configurer les récompenses"));
+
+        // Options spécifiques selon le type d'Encounter
+        if (enc.getType() == fr.wilddifficulty.encounter.EncounterType.BASE_RAID) {
+            inv.setItem(16, createItem(Material.CROSSBOW, "&c⚔ Mode de Raid",
+                    "&7Mode actuel : &e" + enc.getRaidMode(),
+                    "&8- &fCUSTOM_RAID_MODE &7: Vagues simulées",
+                    "&8- &fVANILLA_RAID_MODE &7: Bad Omen & Raid naturel",
+                    "",
+                    "&e➜ Clic pour basculer le mode"));
+        } else if (enc.getType() == fr.wilddifficulty.encounter.EncounterType.TRIAL_BUNKER) {
+            inv.setItem(16, createItem(Material.TRIAL_KEY, "&6⚔ Paramètres Trial Bunker",
+                    "&7Rayon d'activation : &e" + enc.getTrialActivationRadius() + " blocs",
+                    "&7Cap mobs simultanés : &e" + enc.getTrialMobCap(),
+                    "&7Total mobs : &e" + enc.getTrialTotalMobs(),
+                    "&7Scaling par joueur : &e+" + (int)(enc.getTrialScalingPerPlayer() * 100) + "%",
+                    "",
+                    "&e➜ Clic pour ajuster"));
+        } else if (enc.getType() == fr.wilddifficulty.encounter.EncounterType.OUTPOST) {
+            inv.setItem(16, createItem(Material.IRON_SWORD, "&4⚔ Paramètres Avant-Poste",
+                    "&7Temps de présence avant invasion : &e" + (int) enc.getOutpostLingeringInvasionTimeSeconds() + "s",
+                    "&7Chance de Capitaine : &e" + (int)(enc.getOutpostCaptainChance() * 100) + "%",
+                    "",
+                    "&e➜ Clic pour ajuster"));
+        } else if (enc.getType() == fr.wilddifficulty.encounter.EncounterType.RUINS) {
+            inv.setItem(16, createItem(Material.SCULK_SENSOR, "&3🏛 Paramètres Ruines Anciennes",
+                    "&7Rayon de déclenchement : &e" + enc.getRuinsTriggerRadius() + " blocs",
+                    "&7Déclenchement à l'ouverture de coffre : " + (enc.isRuinsTriggerOnChestOpen() ? "§aOui" : "§cNon"),
+                    "",
+                    "&e➜ Clic pour basculer"));
+        }
+
+        inv.setItem(19, createToggleItem(Material.DRAGON_HEAD, "&dBossBar de Progression", enc.isBossBarEnabled()));
+
+        // Bouton de Test / Démarrage Forcé
+        boolean isActive = plugin.getEncounterManager().isEncounterActive(zoneId);
+        long cd = plugin.getEncounterManager().getRemainingCooldownSeconds(zoneId);
+        String triggerLore = isActive ? "&cEncounter déjà en cours !" : (cd > 0 ? "&cEn recharge (" + cd + "s)" : "&aPrêt à démarrer");
+        inv.setItem(22, createItem(Material.NETHER_STAR, "&a⚡ Déclencher l'Encounter (Test)",
+                "&7Statut : " + triggerLore,
+                "",
+                "&e➜ Clic pour forcer le démarrage"));
+
+        inv.setItem(31, createBackItem());
+        player.openInventory(inv);
+    }
+
+    public void openEncounterWavesMenu(Player player, String zoneId) {
+        DifficultyZone zone = plugin.getZoneManager().getZone(zoneId);
+        if (zone == null) return;
+        fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+
+        WDMenuHolder holder = new WDMenuHolder("ENCOUNTER_WAVES_EDIT", zoneId);
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("⚔ Vagues: " + zoneId));
+        holder.setInventory(inv);
+
+        List<fr.wilddifficulty.encounter.EncounterWave> waves = enc.getWaves();
+        for (int i = 0; i < Math.min(waves.size(), 18); i++) {
+            fr.wilddifficulty.encounter.EncounterWave w = waves.get(i);
+            inv.setItem(i, createItem(Material.ZOMBIE_HEAD, "&c⚔ Vague #" + (i + 1),
+                    "&7Délai : &e" + w.getDelaySeconds() + "s",
+                    "&7Variantes : &f" + w.getVariantSpawns().size(),
+                    "&7Escouades : &f" + w.getSquadSpawns().size(),
+                    "",
+                    "&e➜ Clic pour éditer cette vague",
+                    "&c➜ Clic droit pour supprimer"));
+        }
+
+        inv.setItem(21, createItem(Material.EMERALD, "&a+ Ajouter une Vague", "&7Ajoute une nouvelle vague successive."));
+        inv.setItem(26, createBackItem());
+        player.openInventory(inv);
+    }
+
+    public void openEncounterRewardsMenu(Player player, String zoneId) {
+        DifficultyZone zone = plugin.getZoneManager().getZone(zoneId);
+        if (zone == null) return;
+        fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+        fr.wilddifficulty.encounter.EncounterReward reward = enc.getRewards();
+
+        WDMenuHolder holder = new WDMenuHolder("ENCOUNTER_REWARDS_EDIT", zoneId);
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("🎁 Récompenses: " + zoneId));
+        holder.setInventory(inv);
+
+        inv.setItem(10, createItem(Material.EXPERIENCE_BOTTLE, "&aExpérience (XP)",
+                "&7Quantité : &e" + reward.getXpAmount() + " XP",
+                "",
+                "&7Clic gauche : &a+10 XP",
+                "&7Clic droit : &c-10 XP",
+                "&7Shift-Clic : &a±50 XP",
+                "&7Clic milieu : Définir via le tchat"));
+
+        inv.setItem(12, createItem(Material.CHEST, "&6Items de Récompense",
+                "&7Nombre d'items configurés : &e" + reward.getItems().size(),
+                "",
+                "&e➜ Clic avec un item en main pour l'ajouter"));
+
+        inv.setItem(14, createItem(Material.COMMAND_BLOCK, "&bCommandes Console",
+                "&7Commandes exécutées : &e" + reward.getConsoleCommands().size(),
+                "&7Placeholders : &f%player%",
+                "",
+                "&e➜ Clic pour ajouter une commande"));
+
+        inv.setItem(26, createBackItem());
+        player.openInventory(inv);
+    }
+
+    public void openWorldGuardRegionSelect(Player player, String zoneId, int page) {
+        DifficultyZone zone = plugin.getZoneManager().getZone(zoneId);
+        if (zone == null) return;
+
+        World world = Bukkit.getWorld(zone.getWorld());
+        List<String> regions = plugin.getWorldGuardHook().getRegionsInWorld(world);
+
+        WDMenuHolder holder = new WDMenuHolder("WG_REGION_SELECT", zoneId + ":" + page);
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("🛡 Régions WorldGuard (" + (world != null ? world.getName() : "Monde") + ")"));
+        holder.setInventory(inv);
+
+        int perPage = 45;
+        int startIndex = (page - 1) * perPage;
+        int endIndex = Math.min(startIndex + perPage, regions.size());
+
+        int slot = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            String rName = regions.get(i);
+            boolean isLinked = rName.equalsIgnoreCase(zone.getWorldGuardRegion());
+            Material mat = isLinked ? Material.EMERALD_BLOCK : Material.IRON_BLOCK;
+            String prefix = isLinked ? "&a✔ " : "&7";
+            inv.setItem(slot++, createItem(mat, prefix + rName,
+                    "&7Monde : &f" + (world != null ? world.getName() : ""),
+                    isLinked ? "&aRégion actuellement liée à cette zone" : "&7Clic pour lier cette région",
+                    "",
+                    "&e➜ Clic pour sélectionner"));
+        }
+
+        if (zone.isWorldGuardLinked()) {
+            inv.setItem(48, createItem(Material.BARRIER, "&cDissocier la région WorldGuard", "&7Revient au calcul géométrique interne."));
+        }
+
+        if (page > 1) {
+            inv.setItem(45, createItem(Material.ARROW, "&e◀ Page Précédente"));
+        }
+        if (endIndex < regions.size()) {
+            inv.setItem(53, createItem(Material.ARROW, "&ePage Suivante ▶"));
+        }
+
+        inv.setItem(49, createBackItem());
+        player.openInventory(inv);
+    }
+
+    public void openIrisStructureImport(Player player, String zoneId) {
+        DifficultyZone zone = plugin.getZoneManager().getZone(zoneId);
+        if (zone == null) return;
+
+        Location loc = player.getLocation();
+        String biomeOrStruct = plugin.getIrisHook().getIrisBiomeOrStructure(loc);
+        boolean isIris = plugin.getIrisHook().isIrisWorld(loc.getWorld());
+
+        WDMenuHolder holder = new WDMenuHolder("IRIS_IMPORT", zoneId);
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text("🌲 Import Iris: " + zoneId));
+        holder.setInventory(inv);
+
+        inv.setItem(11, createItem(Material.COMPASS, "&2Position Actuelle",
+                "&7Monde : &f" + loc.getWorld().getName(),
+                "&7Générateur Iris : " + (isIris ? "§aOui" : "§eStandard/Inconnu"),
+                "&7Biome/Structure : &b" + biomeOrStruct,
+                "&7Coordonnées : &e" + loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ()));
+
+        inv.setItem(15, createItem(Material.EMERALD, "&aCentrer la Zone sur cette Structure",
+                "&7Définit le centre de la zone d'Encounter",
+                "&7sur votre position actuelle.",
+                "",
+                "&e➜ Clic pour appliquer"));
+
+        inv.setItem(26, createBackItem());
         player.openInventory(inv);
     }
 

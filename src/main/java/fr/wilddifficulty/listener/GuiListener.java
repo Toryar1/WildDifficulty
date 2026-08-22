@@ -1307,6 +1307,10 @@ public class GuiListener implements Listener {
                     }
                 }
                 case "VARIANT_DROPS_AUDIO" -> {
+                    if (slot == 26 || slot == 35) {
+                        gui.openVariantEditor(player, contextId);
+                        return;
+                    }
                     if (slot == 10) {
                         gui.openVariantEquipmentEditor(player, contextId);
                     } else if (slot == 11) {
@@ -1323,6 +1327,11 @@ public class GuiListener implements Listener {
                     MobVariant var = varManager.getVariant(contextId);
                     if (var == null) return;
                     StatModifiers m = var.getModifiers();
+
+                    if (slot == 26 || slot == 35) {
+                        gui.openVariantDropsAudio(player, contextId);
+                        return;
+                    }
 
                     if (slot >= 10 && slot <= 15) {
                         if (event.isLeftClick()) {
@@ -1534,6 +1543,10 @@ public class GuiListener implements Listener {
                 case "SPAWN_CONDITIONS" -> {
                     MobVariant var = varManager.getVariant(contextId);
                     if (var == null) return;
+                    if (slot == 53 || slot == 26) {
+                        gui.openVariantEditor(player, contextId);
+                        return;
+                    }
                     if (slot == 10) {
                         String current = var.getSpawnWeather();
                         String next = switch (current.toUpperCase()) {
@@ -1681,6 +1694,10 @@ public class GuiListener implements Listener {
                 case "CUSTOM_DROPS" -> {
                     MobVariant var = varManager.getVariant(contextId);
                     if (var == null) return;
+                    if (slot == 53 || slot == 26) {
+                        gui.openVariantDropsAudio(player, contextId);
+                        return;
+                    }
                     if (slot == 49) {
                         gui.openDropMaterialSelector(player, contextId);
                         return;
@@ -1982,8 +1999,236 @@ public class GuiListener implements Listener {
                         gui.openZoneDangerNestConfig(player, contextId);
                     } else if (slot == 29) {
                         gui.openZoneSubsectionsConfig(player, contextId);
-                    } else if (slot == 35) {
+                    } else if (slot == 30) {
+                        gui.openZoneEncounterMenu(player, contextId);
+                    } else if (slot == 31) {
+                        gui.openWorldGuardRegionSelect(player, contextId, 1);
+                    } else if (slot == 32) {
+                        gui.openIrisStructureImport(player, contextId);
+                    } else if (slot == 40) {
+                        zoneManager.removeZone(contextId);
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.zone_supprimée"));
                         gui.openZoneList(player);
+                    } else if (slot == 35 || slot == 44) {
+                        if (player.hasPermission("wilddifficulty.admin")) {
+                            gui.openZoneList(player);
+                        } else {
+                            gui.openPlayerEditableZonesGui(player);
+                        }
+                    }
+                }
+                case "ZONE_ENCOUNTER_EDIT" -> {
+                    DifficultyZone zone = zoneManager.getZone(contextId);
+                    if (zone == null) return;
+                    fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+                    if (enc == null) return;
+
+                    if (slot == 31 || slot == 35) {
+                        gui.openZoneEditor(player, contextId);
+                        return;
+                    }
+                    if (slot == 10) {
+                        enc.setEnabled(!enc.isEnabled());
+                        zoneManager.save();
+                        gui.openZoneEncounterMenu(player, contextId);
+                    } else if (slot == 11) {
+                        fr.wilddifficulty.encounter.EncounterType[] types = fr.wilddifficulty.encounter.EncounterType.values();
+                        int nextIdx = (enc.getType().ordinal() + 1) % types.length;
+                        enc.setType(types[nextIdx]);
+                        zoneManager.save();
+                        gui.openZoneEncounterMenu(player, contextId);
+                    } else if (slot == 12) {
+                        if (event.getClick() == ClickType.MIDDLE) {
+                            ChatPromptUtil.prompt(plugin, player, "§eEntrez le cooldown en secondes (ex: 1800) :", input -> {
+                                try {
+                                    int val = Integer.parseInt(input);
+                                    enc.setCooldownSeconds(Math.max(0, val));
+                                    zoneManager.save();
+                                    player.sendMessage("§aCooldown défini sur " + val + " secondes.");
+                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                plugin.getServer().getScheduler().runTask(plugin, () -> gui.openZoneEncounterMenu(player, contextId));
+                            });
+                            return;
+                        }
+                        int delta = event.isShiftClick() ? 300 : 60;
+                        if (event.isRightClick()) delta = -delta;
+                        enc.setCooldownSeconds(Math.max(0, enc.getCooldownSeconds() + delta));
+                        zoneManager.save();
+                        gui.openZoneEncounterMenu(player, contextId);
+                    } else if (slot == 13) {
+                        if (event.isShiftClick()) {
+                            int delta = event.isRightClick() ? -1 : 1;
+                            enc.setMaxPlayers(Math.max(1, enc.getMaxPlayers() + delta));
+                        } else {
+                            int delta = event.isRightClick() ? -1 : 1;
+                            enc.setMinPlayers(Math.max(1, enc.getMinPlayers() + delta));
+                        }
+                        zoneManager.save();
+                        gui.openZoneEncounterMenu(player, contextId);
+                    } else if (slot == 14) {
+                        gui.openEncounterWavesMenu(player, contextId);
+                    } else if (slot == 15) {
+                        gui.openEncounterRewardsMenu(player, contextId);
+                    } else if (slot == 16) {
+                        if (enc.getType() == fr.wilddifficulty.encounter.EncounterType.BASE_RAID) {
+                            enc.setRaidMode(enc.getRaidMode().equalsIgnoreCase("CUSTOM_RAID_MODE") ? "VANILLA_RAID_MODE" : "CUSTOM_RAID_MODE");
+                        } else if (enc.getType() == fr.wilddifficulty.encounter.EncounterType.TRIAL_BUNKER) {
+                            enc.setTrialMobCap(enc.getTrialMobCap() >= 20 ? 4 : enc.getTrialMobCap() + 4);
+                        } else if (enc.getType() == fr.wilddifficulty.encounter.EncounterType.OUTPOST) {
+                            enc.setOutpostLingeringInvasionTimeSeconds(enc.getOutpostLingeringInvasionTimeSeconds() >= 300 ? 60 : enc.getOutpostLingeringInvasionTimeSeconds() + 60);
+                        } else if (enc.getType() == fr.wilddifficulty.encounter.EncounterType.RUINS) {
+                            enc.setRuinsTriggerOnChestOpen(!enc.isRuinsTriggerOnChestOpen());
+                        }
+                        zoneManager.save();
+                        gui.openZoneEncounterMenu(player, contextId);
+                    } else if (slot == 19) {
+                        enc.setBossBarEnabled(!enc.isBossBarEnabled());
+                        zoneManager.save();
+                        gui.openZoneEncounterMenu(player, contextId);
+                    } else if (slot == 22) {
+                        boolean started = plugin.getEncounterManager().forceStartEncounter(contextId);
+                        if (started) {
+                            player.sendMessage("§a[Encounter] Lancement forcé réussi pour la zone " + contextId + " !");
+                        } else {
+                            player.sendMessage("§c[Encounter] Impossible de démarrer (type NONE ou déjà actif).");
+                        }
+                        player.closeInventory();
+                    }
+                }
+                case "ENCOUNTER_WAVES_EDIT" -> {
+                    DifficultyZone zone = zoneManager.getZone(contextId);
+                    if (zone == null) return;
+                    fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+                    if (enc == null) return;
+
+                    if (slot == 26) {
+                        gui.openZoneEncounterMenu(player, contextId);
+                        return;
+                    }
+                    if (slot == 21) {
+                        fr.wilddifficulty.encounter.EncounterWave wave = new fr.wilddifficulty.encounter.EncounterWave();
+                        if (!varManager.getAllVariants().isEmpty()) {
+                            wave.addVariant(varManager.getAllVariants().iterator().next().getId(), 3);
+                        }
+                        enc.getWaves().add(wave);
+                        zoneManager.save();
+                        player.sendMessage("§aNouvelle vague ajoutée.");
+                        gui.openEncounterWavesMenu(player, contextId);
+                        return;
+                    }
+                    if (slot < enc.getWaves().size()) {
+                        if (event.isRightClick()) {
+                            enc.getWaves().remove(slot);
+                            zoneManager.save();
+                            player.sendMessage("§cVague supprimée.");
+                            gui.openEncounterWavesMenu(player, contextId);
+                        } else {
+                            fr.wilddifficulty.encounter.EncounterWave wave = enc.getWaves().get(slot);
+                            int nextDelay = (wave.getDelaySeconds() % 30) + 5;
+                            wave.setDelaySeconds(nextDelay);
+                            zoneManager.save();
+                            gui.openEncounterWavesMenu(player, contextId);
+                        }
+                    }
+                }
+                case "ENCOUNTER_REWARDS_EDIT" -> {
+                    DifficultyZone zone = zoneManager.getZone(contextId);
+                    if (zone == null) return;
+                    fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+                    if (enc == null) return;
+                    fr.wilddifficulty.encounter.EncounterReward reward = enc.getRewards();
+
+                    if (slot == 26) {
+                        gui.openZoneEncounterMenu(player, contextId);
+                        return;
+                    }
+                    if (slot == 10) {
+                        if (event.getClick() == ClickType.MIDDLE) {
+                            ChatPromptUtil.prompt(plugin, player, "§eEntrez le montant d'XP :", input -> {
+                                try {
+                                    int val = Integer.parseInt(input);
+                                    reward.setXpAmount(Math.max(0, val));
+                                    zoneManager.save();
+                                    player.sendMessage("§aXP définie à " + val);
+                                } catch (Exception e) { player.sendMessage("§cNombre invalide."); }
+                                plugin.getServer().getScheduler().runTask(plugin, () -> gui.openEncounterRewardsMenu(player, contextId));
+                            });
+                            return;
+                        }
+                        int delta = event.isShiftClick() ? 50 : 10;
+                        if (event.isRightClick()) delta = -delta;
+                        reward.setXpAmount(Math.max(0, reward.getXpAmount() + delta));
+                        zoneManager.save();
+                        gui.openEncounterRewardsMenu(player, contextId);
+                    } else if (slot == 12) {
+                        ItemStack inHand = player.getInventory().getItemInMainHand();
+                        if (inHand != null && inHand.getType() != Material.AIR) {
+                            reward.addItem(inHand.getType().name(), inHand.getAmount(), 1.0, inHand.hasItemMeta() && inHand.getItemMeta().hasDisplayName() ? inHand.getItemMeta().getDisplayName() : null);
+                            zoneManager.save();
+                            player.sendMessage("§aItem " + inHand.getType().name() + " ajouté aux récompenses !");
+                        } else {
+                            player.sendMessage("§cPrenez un item dans votre main principale puis cliquez sur ce bouton.");
+                        }
+                        gui.openEncounterRewardsMenu(player, contextId);
+                    } else if (slot == 14) {
+                        ChatPromptUtil.prompt(plugin, player, "§eEntrez la commande console sans / (placeholder %player%) :", input -> {
+                            reward.getConsoleCommands().add(input.trim());
+                            zoneManager.save();
+                            player.sendMessage("§aCommande ajoutée : " + input.trim());
+                            plugin.getServer().getScheduler().runTask(plugin, () -> gui.openEncounterRewardsMenu(player, contextId));
+                        });
+                    }
+                }
+                case "WG_REGION_SELECT" -> {
+                    String[] parts = contextId.split(":");
+                    String zoneId = parts[0];
+                    int page = parts.length > 1 ? Integer.parseInt(parts[1]) : 1;
+                    DifficultyZone zone = zoneManager.getZone(zoneId);
+                    if (zone == null) return;
+
+                    if (slot == 49) {
+                        gui.openZoneEditor(player, zoneId);
+                        return;
+                    }
+                    if (slot == 48) {
+                        zone.setWorldGuardRegion(null);
+                        zoneManager.save();
+                        player.sendMessage("§aRégion WorldGuard dissociée.");
+                        gui.openZoneEditor(player, zoneId);
+                        return;
+                    }
+                    if (slot == 45 && page > 1) {
+                        gui.openWorldGuardRegionSelect(player, zoneId, page - 1);
+                        return;
+                    }
+                    if (slot == 53) {
+                        gui.openWorldGuardRegionSelect(player, zoneId, page + 1);
+                        return;
+                    }
+
+                    if (event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() && event.getCurrentItem().getItemMeta().hasDisplayName()) {
+                        String rName = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()).replace("✔ ", "").trim();
+                        zone.setWorldGuardRegion(rName);
+                        zoneManager.save();
+                        player.sendMessage("§aZone " + zoneId + " liée avec succès à la région WorldGuard '" + rName + "' !");
+                        gui.openZoneEditor(player, zoneId);
+                    }
+                }
+                case "IRIS_IMPORT" -> {
+                    DifficultyZone zone = zoneManager.getZone(contextId);
+                    if (zone == null) return;
+
+                    if (slot == 26) {
+                        gui.openZoneEditor(player, contextId);
+                        return;
+                    }
+                    if (slot == 15) {
+                        Location loc = player.getLocation();
+                        zone.setCenter(loc.getX(), loc.getY(), loc.getZ());
+                        zone.setWorld(loc.getWorld().getName());
+                        zoneManager.save();
+                        player.sendMessage("§aPosition et monde de la zone " + contextId + " alignés sur votre position Iris !");
+                        gui.openZoneEditor(player, contextId);
                     }
                 }
                 case "ZONE_MEMBERS" -> {
@@ -2487,6 +2732,10 @@ public class GuiListener implements Listener {
                             gui.openVariantAesthetics(player, contextId);
                         }
                     } else if (menuType.startsWith("SELECT_SOUND_")) {
+                        if (slot == 17 || slot == 26) {
+                            gui.openVariantDropsAudio(player, contextId);
+                            return;
+                        }
                         String sType = menuType.substring(13).toLowerCase();
                         MobVariant var = varManager.getVariant(contextId);
                         if (var != null) {
@@ -2692,6 +2941,13 @@ public class GuiListener implements Listener {
         } else if (menuType.equals("SELECT_LEATHER_COLOR")) {
             String[] parts = contextId.split(":");
             gui.openVariantEquipmentEditor(player, parts[0]);
+        } else if (menuType.equals("ZONE_ENCOUNTER_EDIT") || menuType.equals("IRIS_IMPORT")) {
+            gui.openZoneEditor(player, contextId);
+        } else if (menuType.equals("ENCOUNTER_WAVES_EDIT") || menuType.equals("ENCOUNTER_REWARDS_EDIT")) {
+            gui.openZoneEncounterMenu(player, contextId);
+        } else if (menuType.equals("WG_REGION_SELECT")) {
+            String zoneId = contextId.contains(":") ? contextId.split(":")[0] : contextId;
+            gui.openZoneEditor(player, zoneId);
         }
     }
 

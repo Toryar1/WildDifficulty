@@ -53,6 +53,10 @@ public class DifficultyZone {
     private StatModifiers nestModifiers = new StatModifiers();
     private double nestSpawnBoost = 1.0;
 
+    // Intégration WorldGuard & Moteur d'Encounters v1.1
+    private String worldGuardRegion = null;
+    private fr.wilddifficulty.encounter.EncounterConfig encounterConfig = new fr.wilddifficulty.encounter.EncounterConfig();
+
     private Set<String> allowedMobs = new HashSet<>(), deniedMobs = new HashSet<>();
     private List<String> allowedVariants = new ArrayList<>(), deniedVariants = new ArrayList<>();
     private List<String> allowedSquads = new ArrayList<>(), deniedSquads = new ArrayList<>();
@@ -115,8 +119,20 @@ public class DifficultyZone {
         radius = Math.sqrt(dx * dx + dz * dz) / 2.0;
     }
 
+    public boolean contains(org.bukkit.Location loc) {
+        if (loc == null || loc.getWorld() == null) return false;
+        if (!this.world.equalsIgnoreCase(loc.getWorld().getName())) return false;
+        if (isWorldGuardLinked() && fr.wilddifficulty.WildDifficultyPlugin.getInstance() != null) {
+            fr.wilddifficulty.hook.WorldGuardHook wg = fr.wilddifficulty.WildDifficultyPlugin.getInstance().getWorldGuardHook();
+            if (wg != null && wg.isAvailable()) {
+                return wg.isLocationInRegion(loc, worldGuardRegion);
+            }
+        }
+        return contains(loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ());
+    }
+
     public boolean contains(String worldName, double x, double y, double z) {
-        if (!this.world.equals(worldName)) return false;
+        if (!this.world.equalsIgnoreCase(worldName)) return false;
 
         boolean insideMain = switch (type) {
             case CUBOID -> x >= minX && x <= maxX
@@ -437,4 +453,12 @@ public class DifficultyZone {
     public void setNestModifiers(StatModifiers nestModifiers) { this.nestModifiers = nestModifiers; }
     public double getNestSpawnBoost() { return nestSpawnBoost; }
     public void setNestSpawnBoost(double nestSpawnBoost) { this.nestSpawnBoost = nestSpawnBoost; }
+
+    // WorldGuard & Encounter v1.1
+    public String getWorldGuardRegion() { return worldGuardRegion; }
+    public void setWorldGuardRegion(String r) { this.worldGuardRegion = r; }
+    public boolean isWorldGuardLinked() { return worldGuardRegion != null && !worldGuardRegion.isEmpty(); }
+
+    public fr.wilddifficulty.encounter.EncounterConfig getEncounterConfig() { return encounterConfig; }
+    public void setEncounterConfig(fr.wilddifficulty.encounter.EncounterConfig c) { this.encounterConfig = c; }
 }
