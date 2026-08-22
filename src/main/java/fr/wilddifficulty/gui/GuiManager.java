@@ -1348,7 +1348,7 @@ public class GuiManager {
         if (zone == null) return;
 
         WDMenuHolder holder = new WDMenuHolder("ZONE_EDIT", zoneId);
-        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_zone") + ": " + zoneId));
+        Inventory inv = Bukkit.createInventory(holder, 45, Component.text(plugin.getLangManager().getRaw("gui.title_zone") + ": " + zoneId));
         holder.setInventory(inv);
 
         inv.setItem(10, createToggleItem(Material.SHIELD, plugin.getLangManager().getRaw("gui.item.zone_sûre_safe_zone"), zone.isSafeZone()));

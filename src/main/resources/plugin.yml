@@ -9,6 +9,9 @@ website: 'https://www.spigotmc.org/resources/wilddifficulty'
 softdepend:
   - Citizens
   - PlaceholderAPI
+  - WorldGuard
+  - BetonQuest
+  - Iris
 
 commands:
   wd:

@@ -6,11 +6,11 @@
 
     <groupId>fr.wilddifficulty</groupId>
     <artifactId>WildDifficulty</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
     <name>WildDifficulty</name>
-    <description>Plugin de scaling de difficulté pour mobs vanilla selon biome, distance et zones.</description>
+    <description>Plugin de scaling de difficulté pour mobs vanilla selon biome, distance et zones, et moteur d'encounters.</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
