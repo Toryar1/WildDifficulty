@@ -1015,4 +1015,11 @@
 "gui.wave.deleted_msg": "&cOleada eliminada."
 "gui.wave.prompt_variant_count": "&eIntroduce la cantidad de monstruos para la variante"
 "gui.wave.prompt_squad_count": "&eIntroduce la cantidad de apariciones para el escuadrón"
+"encounter.stopped": "&a[Encounter] ¡El evento activo en la zona &e{zone} &ase detuvo con éxito!"
+"encounter.none_active": "&c[Encounter] No hay ningún evento activo en esta zona."
+"encounter.marker_added": "&a[Encounter] Marcador de aparición añadido en X: {x}, Y: {y}, Z: {z}."
+"encounter.markers_cleared": "&c[Encounter] Se han borrado todos los marcadores de aparición para esta zona."
+"encounter.marker_removed": "&c[Encounter] Marcador de aparición eliminado."
+"encounter.marker_teleported": "&a[Encounter] Teletransportado al marcador de aparición."
+
 

@@ -41,11 +41,22 @@ public class EncounterConfig {
     private String bossBarColor = "RED"; // BLUE, GREEN, PINK, PURPLE, RED, WHITE, YELLOW
     private String bossBarStyle = "NOTCHED_10"; // PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20
 
-    // Vagues & Récompenses
+    // Vagues & Récompenses & Marqueurs
     private List<EncounterWave> waves = new ArrayList<>();
     private EncounterReward rewards = new EncounterReward();
+    private List<double[]> spawnMarkers = new ArrayList<>();
 
     public EncounterConfig() {}
+
+    public List<double[]> getSpawnMarkers() { return spawnMarkers; }
+    public void setSpawnMarkers(List<double[]> spawnMarkers) { this.spawnMarkers = spawnMarkers; }
+    public void addSpawnMarker(double x, double y, double z) { this.spawnMarkers.add(new double[]{x, y, z}); }
+    public void removeSpawnMarker(int index) {
+        if (index >= 0 && index < spawnMarkers.size()) {
+            spawnMarkers.remove(index);
+        }
+    }
+    public void clearSpawnMarkers() { this.spawnMarkers.clear(); }
 
     public EncounterConfig(EncounterType type) {
         this.type = type;

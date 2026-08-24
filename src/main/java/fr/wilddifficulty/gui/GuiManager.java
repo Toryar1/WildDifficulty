@@ -112,7 +112,7 @@ public class GuiManager {
 
     public void openGeneralConfig(Player player) {
         WDMenuHolder holder = new WDMenuHolder("GENERAL_CONFIG", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_general_config")));
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_general_config")));
         holder.setInventory(inv);
         MainConfigManager cfg = plugin.getMainConfigManager();
 
@@ -132,10 +132,12 @@ public class GuiManager {
                 plugin.getLangManager().getRaw("gui.item.bannir_entites_naturelles_desc3")));
 
         // Soif, Hardcore & Mort (Slot 12)
+        String thirstStatus = cfg.isThirstEnabled() ? "§a✔ Actif" : "§c✖ Inactif";
+        String hardcoreStatus = cfg.isHardcoreEnabled() ? "§c✔ Actif" : "§7✖ Inactif";
         inv.setItem(12, createItem(Material.POTION, plugin.getLangManager().getRaw("gui.item.soif_hardcore_mort"),
-                plugin.getLangManager().getRaw("gui.item.soif_globale") + (cfg.isThirstEnabled() ? plugin.getLangManager().getRaw("empty") : plugin.getLangManager().getRaw("empty_1")),
-                plugin.getLangManager().getRaw("gui.item.hardcore_global") + (cfg.isHardcoreEnabled() ? plugin.getLangManager().getRaw("empty_2") : "§7✖"),
-                plugin.getLangManager().getRaw("gui.item.despawn_mort") + cfg.getDeathItemDespawnSeconds() + "s",
+                "&7Soif : " + thirstStatus,
+                "&7Hardcore : " + hardcoreStatus,
+                "&7Despawn mort : &e" + cfg.getDeathItemDespawnSeconds() + "s",
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_configurer_1")));
 
@@ -163,11 +165,11 @@ public class GuiManager {
         // Allow day spawn globally (Slot 19)
         inv.setItem(19, createToggleItem(Material.SUNFLOWER, plugin.getLangManager().getRaw("gui.item.spawns_de_jour_globaux"), cfg.isAllowDaySpawnGlobally()));
 
-        // Nametags status (Slot 21)
-        inv.setItem(21, createToggleItem(Material.NAME_TAG, plugin.getLangManager().getRaw("gui.item.activer_nametags"), cfg.isNametagsEnabled()));
+        // Nametags status (Slot 20)
+        inv.setItem(20, createToggleItem(Material.NAME_TAG, plugin.getLangManager().getRaw("gui.item.activer_nametags"), cfg.isNametagsEnabled()));
 
-        // Nametag format (Slot 22)
-        inv.setItem(22, createItem(Material.WRITABLE_BOOK, plugin.getLangManager().getRaw("gui.item.format_des_nametags"),
+        // Nametag format (Slot 21)
+        inv.setItem(21, createItem(Material.WRITABLE_BOOK, plugin.getLangManager().getRaw("gui.item.format_des_nametags"),
                 plugin.getLangManager().getRaw("gui.item.format_actuel") + cfg.getNametagFormat(),
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_définir_via_le")));
@@ -180,13 +182,13 @@ public class GuiManager {
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_choisir_la_langue")));
 
-        // Recharger config (Slot 25)
-        inv.setItem(25, createItem(Material.COMMAND_BLOCK, plugin.getLangManager().getRaw("gui.item.recharger_config"), plugin.getLangManager().getRaw("gui.item.recharge_les_fichiers_yaml"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_recharger")));
+        // Recharger config (Slot 24)
+        inv.setItem(24, createItem(Material.COMMAND_BLOCK, plugin.getLangManager().getRaw("gui.item.recharger_config"), plugin.getLangManager().getRaw("gui.item.recharge_les_fichiers_yaml"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_recharger")));
 
-        // Mode Debug (Slot 28)
-        inv.setItem(28, createToggleItem(Material.REDSTONE_TORCH, plugin.getLangManager().getRaw("gui.item.mode_debug"), cfg.isDebug()));
+        // Mode Debug (Slot 25)
+        inv.setItem(25, createToggleItem(Material.REDSTONE_TORCH, plugin.getLangManager().getRaw("gui.item.mode_debug"), cfg.isDebug()));
 
-        inv.setItem(49, createBackItem());
+        inv.setItem(31, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1652,13 +1654,82 @@ public class GuiManager {
                     "&7Délai : &e" + w.getDelaySeconds() + "s",
                     "&7Variantes : &f" + w.getVariantSpawns().size(),
                     "&7Escouades : &f" + w.getSquadSpawns().size(),
+                    "&7Distribution : &e" + w.getSpawnDistribution(),
                     "",
                     "&e➜ Clic pour éditer cette vague",
                     "&c➜ Clic droit pour supprimer"));
         }
 
-        inv.setItem(21, createItem(Material.EMERALD, "&a+ Ajouter une Vague", "&7Ajoute une nouvelle vague successive."));
+        // Arrêter l'encounter en cours (Slot 18)
+        boolean isActive = plugin.getEncounterManager().isEncounterActive(zoneId);
+        if (isActive) {
+            inv.setItem(18, createItem(Material.RED_CONCRETE, "&c⏹ &lArrêter l'Encounter en cours",
+                    "&7Un événement est actif dans cette zone.",
+                    "&7Arrête le raid, nettoie les monstres restants",
+                    "&7et réinitialise la BossBar.",
+                    "",
+                    "&c➜ Clic pour forcer l'arrêt"));
+        } else {
+            inv.setItem(18, createItem(Material.GRAY_DYE, "&7⏹ Arrêter l'Encounter",
+                    "&7Aucun événement en cours dans cette zone."));
+        }
+
+        // Marqueurs de spawn (Slot 20)
+        inv.setItem(20, createItem(Material.TARGET, "&e🎯 Marqueurs de Spawn",
+                "&7Marqueurs définis : &e" + enc.getSpawnMarkers().size(),
+                "&7Permet de définir des positions de spawn",
+                "&7fixes pour le mode de distribution MARKERS.",
+                "",
+                "&e➜ Clic pour gérer les marqueurs"));
+
+        // Ajouter une vague (Slot 22)
+        inv.setItem(22, createItem(Material.EMERALD, "&a+ Ajouter une Vague", "&7Ajoute une nouvelle vague successive."));
+
         inv.setItem(26, createBackItem());
+        player.openInventory(inv);
+    }
+
+    public void openEncounterSpawnMarkersMenu(Player player, String zoneId) {
+        DifficultyZone zone = plugin.getZoneManager().getZone(zoneId);
+        if (zone == null) return;
+        fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+
+        WDMenuHolder holder = new WDMenuHolder("ENCOUNTER_SPAWN_MARKERS", zoneId);
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("🎯 Marqueurs: " + zoneId));
+        holder.setInventory(inv);
+
+        fillBorders(inv);
+
+        List<double[]> markers = enc.getSpawnMarkers();
+        int[] availableSlots = {10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25};
+        for (int i = 0; i < Math.min(markers.size(), availableSlots.length); i++) {
+            double[] m = markers.get(i);
+            inv.setItem(availableSlots[i], createItem(Material.LODESTONE, "&e🎯 Marqueur #" + (i + 1),
+                    "&7X: &f" + String.format("%.1f", m[0]) + " &7Y: &f" + String.format("%.1f", m[1]) + " &7Z: &f" + String.format("%.1f", m[2]),
+                    "",
+                    "&a➜ Clic gauche : Se téléporter",
+                    "&c➜ Clic droit : Supprimer"));
+        }
+
+        // Ajouter ma position (Slot 29)
+        inv.setItem(29, createItem(Material.EMERALD, "&a+ Ajouter ma position",
+                "&7Enregistre vos coordonnées actuelles",
+                "&7comme point d'apparition (Marqueur).",
+                "",
+                "&a➜ Clic pour ajouter"));
+
+        // Retour (Slot 31)
+        inv.setItem(31, createBackItem());
+
+        // Tout supprimer (Slot 33)
+        if (!markers.isEmpty()) {
+            inv.setItem(33, createItem(Material.BARRIER, "&c✖ Tout supprimer",
+                    "&7Supprime tous les marqueurs de spawn",
+                    "&7enregistrés pour cette zone.",
+                    "",
+                    "&c➜ Clic pour tout effacer"));
+        }
+
         player.openInventory(inv);
     }
 
@@ -1731,8 +1802,17 @@ public class GuiManager {
         // Distribution du spawn (Slot 16)
         inv.setItem(16, createItem(Material.COMPASS, plugin.getLangManager().getRaw("gui.wave.distribution_title"),
                 "&7Mode actuel : &e" + wave.getSpawnDistribution(),
+                "&8- &fAROUND_CENTER &7: Autour du centre",
+                "&8- &fRANDOM_ZONE &7: Aléatoire dans la zone",
+                "&8- &fMARKERS &7: Marqueurs fixes (" + enc.getSpawnMarkers().size() + " définis)",
                 "",
                 plugin.getLangManager().getRaw("gui.wave.distribution_click_cycle")));
+
+        // Marqueurs de spawn raccourci (Slot 17)
+        inv.setItem(17, createItem(Material.TARGET, "&e🎯 Marqueurs de Spawn",
+                "&7Marqueurs définis : &e" + enc.getSpawnMarkers().size(),
+                "",
+                "&e➜ Clic pour gérer les marqueurs"));
 
         // Supprimer cette vague (Slot 22)
         inv.setItem(22, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.wave.delete_title"),
@@ -2034,6 +2114,7 @@ public class GuiManager {
                 }
             }
             meta.lore(lore);
+            meta.addItemFlags(org.bukkit.inventory.ItemFlag.values());
             item.setItemMeta(meta);
         }
         return item;
@@ -2053,6 +2134,7 @@ public class GuiManager {
                 }
             }
             meta.lore(lore);
+            meta.addItemFlags(org.bukkit.inventory.ItemFlag.values());
             item.setItemMeta(meta);
         }
         return item;

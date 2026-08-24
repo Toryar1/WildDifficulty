@@ -1015,4 +1015,11 @@
 "gui.wave.deleted_msg": "&cGolf verwijderd."
 "gui.wave.prompt_variant_count": "&eVoer het aantal monsters in voor de variant"
 "gui.wave.prompt_squad_count": "&eVoer het aantal spawns in voor de squad"
+"encounter.stopped": "&a[Encounter] Actief evenement in zone &e{zone} &ais succesvol gestopt!"
+"encounter.none_active": "&c[Encounter] Geen actief evenement in deze zone."
+"encounter.marker_added": "&a[Encounter] Spawn-markering toegevoegd op X: {x}, Y: {y}, Z: {z}."
+"encounter.markers_cleared": "&c[Encounter] Alle spawn-markeringen voor deze zone gewist."
+"encounter.marker_removed": "&c[Encounter] Spawn-markering verwijderd."
+"encounter.marker_teleported": "&a[Encounter] Geteleporteerd naar spawn-markering."
+
 

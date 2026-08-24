@@ -1015,4 +1015,11 @@
 "gui.wave.deleted_msg": "&cFala usunięta."
 "gui.wave.prompt_variant_count": "&eWprowadź liczbę potworów dla wariantu"
 "gui.wave.prompt_squad_count": "&eWprowadź liczbę spawnów dla drużyny"
+"encounter.stopped": "&a[Encounter] Aktywne wydarzenie w strefie &e{zone} &azostało pomyślnie zatrzymane!"
+"encounter.none_active": "&c[Encounter] Brak aktywnego wydarzenia w tej strefie."
+"encounter.marker_added": "&a[Encounter] Znacznik spawnu dodany w X: {x}, Y: {y}, Z: {z}."
+"encounter.markers_cleared": "&c[Encounter] Wszystkie znaczniki spawnu zostały usunięte dla tej strefy."
+"encounter.marker_removed": "&c[Encounter] Znacznik spawnu usunięty."
+"encounter.marker_teleported": "&a[Encounter] Przeteleportowano do znacznika spawnu."
+
 

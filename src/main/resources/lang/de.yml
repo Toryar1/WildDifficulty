@@ -1015,4 +1015,11 @@
 "gui.wave.deleted_msg": "&cWelle gelöscht."
 "gui.wave.prompt_variant_count": "&eMonsteranzahl für Variante eingeben"
 "gui.wave.prompt_squad_count": "&eSpawnanzahl für Gruppe eingeben"
+"encounter.stopped": "&a[Encounter] Aktives Event in Zone &e{zone} &aerfolgreich gestoppt!"
+"encounter.none_active": "&c[Encounter] Kein aktives Event in dieser Zone."
+"encounter.marker_added": "&a[Encounter] Spawn-Markierung hinzugefügt bei X: {x}, Y: {y}, Z: {z}."
+"encounter.markers_cleared": "&c[Encounter] Alle Spawn-Markierungen für diese Zone gelöscht."
+"encounter.marker_removed": "&c[Encounter] Spawn-Markierung entfernt."
+"encounter.marker_teleported": "&a[Encounter] Zur Spawn-Markierung teleportiert."
+
 

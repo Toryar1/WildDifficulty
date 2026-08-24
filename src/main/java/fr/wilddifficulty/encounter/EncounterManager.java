@@ -185,11 +185,22 @@ public class EncounterManager {
         EncounterSession session = activeSessions.get(zoneId);
         if (session == null) return false;
 
+        // Suppression de tous les monstres trackés dans cette session
+        for (UUID mobUuid : new HashSet<>(session.getAliveMobUuids())) {
+            org.bukkit.entity.Entity ent = Bukkit.getEntity(mobUuid);
+            if (ent != null && ent.isValid()) {
+                ent.remove();
+            }
+        }
+        session.getAliveMobUuids().clear();
+
         EncounterMechanic mechanic = mechanics.get(session.getConfig().getType());
         if (mechanic != null) {
             mechanic.end(session.getZone(), session, success);
         }
+        session.cleanup();
         activeSessions.remove(zoneId);
+        zoneCooldowns.remove(zoneId);
         return true;
     }
 

@@ -441,6 +441,14 @@ public class ZoneManager {
                     rewSec.set("items", itemsList);
                 }
             }
+
+            if (!enc.getSpawnMarkers().isEmpty()) {
+                List<String> markersList = new ArrayList<>();
+                for (double[] sm : enc.getSpawnMarkers()) {
+                    markersList.add(sm[0] + "," + sm[1] + "," + sm[2]);
+                }
+                encSec.set("spawn-markers", markersList);
+            }
         }
 
         // Géométrie
@@ -682,6 +690,18 @@ public class ZoneManager {
                     }
                 }
                 enc.setRewards(rew);
+            }
+
+            List<String> markersList = encSec.getStringList("spawn-markers");
+            if (markersList != null) {
+                for (String s : markersList) {
+                    String[] p = s.split(",");
+                    if (p.length >= 3) {
+                        try {
+                            enc.addSpawnMarker(Double.parseDouble(p[0]), Double.parseDouble(p[1]), Double.parseDouble(p[2]));
+                        } catch (Exception ignored) {}
+                    }
+                }
             }
 
             zone.setEncounterConfig(enc);

@@ -127,6 +127,11 @@ public class WDGuiCommand implements CommandExecutor, TabCompleter {
                     }
                 } catch (Throwable ignored) {}
             }
+            if (plugin.getEncounterManager() != null) {
+                for (String zoneId : new ArrayList<>(plugin.getEncounterManager().getActiveSessions().keySet())) {
+                    plugin.getEncounterManager().forceEndEncounter(zoneId, false);
+                }
+            }
             for (org.bukkit.World world : plugin.getServer().getWorlds()) {
                 for (Entity entity : world.getEntities()) {
                     if (entity.getPersistentDataContainer().has(MobSpawnListener.KEY_VARIANT_ID, PersistentDataType.STRING)) {

@@ -1015,4 +1015,11 @@
 "gui.wave.deleted_msg": "&c已删除波次。"
 "gui.wave.prompt_variant_count": "&e请输入该变体的生成怪物数量"
 "gui.wave.prompt_squad_count": "&e请输入该小队的生成召唤次数"
+"encounter.stopped": "&a[Encounter] 区域 &e{zone} &a的进行中事件已成功停止！"
+"encounter.none_active": "&c[Encounter] 该区域当前没有正在进行的事件。"
+"encounter.marker_added": "&a[Encounter] 已在 X: {x}, Y: {y}, Z: {z} 添加生成标记点。"
+"encounter.markers_cleared": "&c[Encounter] 已清除该区域的所有生成标记点。"
+"encounter.marker_removed": "&c[Encounter] 生成标记点已删除。"
+"encounter.marker_teleported": "&a[Encounter] 已传送至生成标记点。"
+
 

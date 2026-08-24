@@ -1015,4 +1015,11 @@
 "gui.wave.deleted_msg": "&cWave deleted."
 "gui.wave.prompt_variant_count": "&eEnter monster count for variant"
 "gui.wave.prompt_squad_count": "&eEnter spawn count for squad"
+"encounter.stopped": "&a[Encounter] Active event in zone &e{zone} &awas stopped successfully!"
+"encounter.none_active": "&c[Encounter] No active event in this zone."
+"encounter.marker_added": "&a[Encounter] Spawn marker added at X: {x}, Y: {y}, Z: {z}."
+"encounter.markers_cleared": "&c[Encounter] All spawn markers cleared for this zone."
+"encounter.marker_removed": "&c[Encounter] Spawn marker removed."
+"encounter.marker_teleported": "&a[Encounter] Teleported to spawn marker."
+
 

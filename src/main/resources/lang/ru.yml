@@ -1015,4 +1015,11 @@
 "gui.wave.deleted_msg": "&cВолна удалена."
 "gui.wave.prompt_variant_count": "&eВведите количество монстров для варианта"
 "gui.wave.prompt_squad_count": "&eВведите количество призывов для отряда"
+"encounter.stopped": "&a[Encounter] Активное событие в зоне &e{zone} &aуспешно остановлено!"
+"encounter.none_active": "&c[Encounter] Нет активных событий в этой зоне."
+"encounter.marker_added": "&a[Encounter] Маркер спавна добавлен в X: {x}, Y: {y}, Z: {z}."
+"encounter.markers_cleared": "&c[Encounter] Все маркеры спавна удалены для этой зоны."
+"encounter.marker_removed": "&c[Encounter] Маркер спавна удален."
+"encounter.marker_teleported": "&a[Encounter] Телепортирован к маркеру спавна."
+
 

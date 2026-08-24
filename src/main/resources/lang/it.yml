@@ -1015,4 +1015,11 @@
 "gui.wave.deleted_msg": "&cOndata eliminata."
 "gui.wave.prompt_variant_count": "&eInserisci il numero di mostri per la variante"
 "gui.wave.prompt_squad_count": "&eInserisci il numero di evocazioni per la squadra"
+"encounter.stopped": "&a[Encounter] L'evento attivo nella zona &e{zone} &aè stato interrotto con successo!"
+"encounter.none_active": "&c[Encounter] Nessun evento attivo in questa zona."
+"encounter.marker_added": "&a[Encounter] Marcatore di spawn aggiunto in X: {x}, Y: {y}, Z: {z}."
+"encounter.markers_cleared": "&c[Encounter] Tutti i marcatori di spawn per questa zona sono stati cancellati."
+"encounter.marker_removed": "&c[Encounter] Marcatore di spawn rimosso."
+"encounter.marker_teleported": "&a[Encounter] Teletrasportato al marcatore di spawn."
+
 

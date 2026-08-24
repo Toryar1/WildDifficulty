@@ -177,7 +177,7 @@ public class BaseRaidMechanic implements EncounterMechanic {
                 int count = (int) Math.ceil(entry.getValue() * bonusScale);
                 MobVariant variant = plugin.getVariantManager().getVariant(varId);
                 for (int i = 0; i < count; i++) {
-                    Location loc = getRandomSpawnLocation(zone, center);
+                    Location loc = getRandomSpawnLocation(zone, center, wave, config);
                     if (variant != null) {
                         LivingEntity mob = plugin.getVariantManager().spawnVariantMob(variant, loc);
                         if (mob != null) {
@@ -192,7 +192,7 @@ public class BaseRaidMechanic implements EncounterMechanic {
                 String squadId = entry.getKey();
                 int count = (int) Math.ceil(entry.getValue() * bonusScale);
                 for (int i = 0; i < count; i++) {
-                    Location loc = getRandomSpawnLocation(zone, center);
+                    Location loc = getRandomSpawnLocation(zone, center, wave, config);
                     List<LivingEntity> squadMobs = plugin.getVariantManager().spawnSquad(squadId, loc);
                     for (LivingEntity m : squadMobs) {
                         session.getAliveMobUuids().add(m.getUniqueId());
@@ -203,7 +203,7 @@ public class BaseRaidMechanic implements EncounterMechanic {
             // Vague de raid par défaut si non définie
             int mobCount = 4 + (waveIdx * 3);
             for (int i = 0; i < mobCount; i++) {
-                Location loc = getRandomSpawnLocation(zone, center);
+                Location loc = getRandomSpawnLocation(zone, center, null, config);
                 LivingEntity pillager = (LivingEntity) world.spawnEntity(loc, EntityType.PILLAGER);
                 session.getAliveMobUuids().add(pillager.getUniqueId());
             }
@@ -213,8 +213,18 @@ public class BaseRaidMechanic implements EncounterMechanic {
         world.playSound(center, Sound.EVENT_RAID_HORN, 2.0f, 1.0f);
     }
 
-    private Location getRandomSpawnLocation(DifficultyZone zone, Location center) {
+    private Location getRandomSpawnLocation(DifficultyZone zone, Location center, EncounterWave wave, EncounterConfig config) {
         World w = center.getWorld();
+        if (wave != null && "MARKERS".equalsIgnoreCase(wave.getSpawnDistribution()) && config != null && !config.getSpawnMarkers().isEmpty()) {
+            double[] chosen = config.getSpawnMarkers().get(random.nextInt(config.getSpawnMarkers().size()));
+            return new Location(w, chosen[0], chosen[1], chosen[2]);
+        }
+        if (wave != null && "RANDOM_ZONE".equalsIgnoreCase(wave.getSpawnDistribution())) {
+            double rx = zone.getMinX() + random.nextDouble() * Math.max(1.0, zone.getMaxX() - zone.getMinX());
+            double rz = zone.getMinZ() + random.nextDouble() * Math.max(1.0, zone.getMaxZ() - zone.getMinZ());
+            int ry = w.getHighestBlockYAt((int) rx, (int) rz) + 1;
+            return new Location(w, rx, ry, rz);
+        }
         double angle = random.nextDouble() * 2 * Math.PI;
         double dist = 8 + random.nextDouble() * 12;
         double x = center.getX() + Math.cos(angle) * dist;
