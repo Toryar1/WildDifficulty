@@ -76,47 +76,36 @@ public class GuiManager {
     // ================= MAIN MENU =================
     public void openMainMenu(Player player) {
         WDMenuHolder holder = new WDMenuHolder("MAIN", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_main")));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_main")));
         holder.setInventory(inv);
 
         fillBorders(inv);
 
         // Core Management (Row 2)
-        inv.setItem(20, createItem(Material.ZOMBIE_HEAD, plugin.getLangManager().getRaw("gui.item.variantes"), plugin.getLangManager().getRaw("gui.item.gérer_les_variantes_de_mobs")));
-        inv.setItem(22, createItem(Material.SKELETON_SKULL, plugin.getLangManager().getRaw("gui.item.escouades"), plugin.getLangManager().getRaw("gui.item.gérer_les_escouades")));
-        inv.setItem(24, createItem(Material.MAP, plugin.getLangManager().getRaw("gui.item.zones"), plugin.getLangManager().getRaw("gui.item.gérer_les_zones_de_difficulté")));
+        inv.setItem(10, createItem(Material.ZOMBIE_HEAD, plugin.getLangManager().getRaw("gui.item.variantes"), plugin.getLangManager().getRaw("gui.item.gérer_les_variantes_de_mobs")));
+        inv.setItem(11, createItem(Material.SKELETON_SKULL, plugin.getLangManager().getRaw("gui.item.escouades"), plugin.getLangManager().getRaw("gui.item.gérer_les_escouades")));
+        inv.setItem(12, createItem(Material.MAP, plugin.getLangManager().getRaw("gui.item.zones"), plugin.getLangManager().getRaw("gui.item.gérer_les_zones_de_difficulté")));
 
-        // Events & Configs (Row 3)
-        inv.setItem(29, createItem(Material.REDSTONE, plugin.getLangManager().getRaw("gui.item.configuration_lune_de_sang"), 
+        inv.setItem(14, createItem(Material.REDSTONE, plugin.getLangManager().getRaw("gui.item.configuration_lune_de_sang"), 
                 plugin.getLangManager().getRaw("gui.item.gérer_le_taux_dapparition_multiplicateurs"), 
                 plugin.getLangManager().getRaw("gui.item.et_bonus_lors_des_nuits"), 
                 "", 
                 plugin.getLangManager().getRaw("gui.item.clic_pour_configurer")));
         
-        inv.setItem(31, createItem(Material.COMPARATOR, plugin.getLangManager().getRaw("gui.item.configuration_générale"),
+        inv.setItem(15, createItem(Material.COMPARATOR, plugin.getLangManager().getRaw("gui.item.configuration_générale"),
                 plugin.getLangManager().getRaw("gui.item.configurer_le_cap_de_mobs"),
                 plugin.getLangManager().getRaw("gui.item.de_spawn_max_la_langue"),
                 plugin.getLangManager().getRaw("gui.item.les_nametags_et_paramètres_généraux"),
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_configurer")));
 
-        inv.setItem(33, createItem(Material.CHEST_MINECART, plugin.getLangManager().getRaw("gui.item.outils_dadministration"), 
+        inv.setItem(16, createItem(Material.CHEST_MINECART, plugin.getLangManager().getRaw("gui.item.outils_dadministration"), 
                 plugin.getLangManager().getRaw("gui.item.obtenir_individuellement_ou_tous_les"), 
                 plugin.getLangManager().getRaw("gui.item.de_configuration_et_danalyse"), 
                 "", 
                 plugin.getLangManager().getRaw("gui.item.clic_pour_ouvrir")));
 
-        // Language & Reload (Row 4)
-        String currentLangCode = plugin.getConfig().getString("plugin.language", "fr");
-        String currentLangName = fr.wilddifficulty.config.LanguageSetup.getAvailableLanguages().getOrDefault(currentLangCode, "Français");
-        inv.setItem(38, createItem(Material.BOOK, plugin.getLangManager().getRaw("gui.item.langue_du_plugin"),
-                plugin.getLangManager().getRaw("gui.item.langue_actuelle") + currentLangName + " (" + currentLangCode + ")",
-                "",
-                plugin.getLangManager().getRaw("gui.item.clic_pour_changer_la_langue")));
-
-        inv.setItem(42, createItem(Material.COMMAND_BLOCK, plugin.getLangManager().getRaw("gui.item.recharger_config"), plugin.getLangManager().getRaw("gui.item.recharge_les_fichiers_yaml"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_recharger")));
-
-        inv.setItem(49, createCloseItem());
+        inv.setItem(22, createCloseItem());
 
         player.openInventory(inv);
     }
@@ -142,8 +131,13 @@ public class GuiManager {
                 "",
                 plugin.getLangManager().getRaw("gui.item.bannir_entites_naturelles_desc3")));
 
-        // Debug mode (Slot 12)
-        inv.setItem(12, createToggleItem(Material.REDSTONE_TORCH, plugin.getLangManager().getRaw("gui.item.mode_debug"), cfg.isDebug()));
+        // Soif, Hardcore & Mort (Slot 12)
+        inv.setItem(12, createItem(Material.POTION, plugin.getLangManager().getRaw("gui.item.soif_hardcore_mort"),
+                plugin.getLangManager().getRaw("gui.item.soif_globale") + (cfg.isThirstEnabled() ? plugin.getLangManager().getRaw("empty") : plugin.getLangManager().getRaw("empty_1")),
+                plugin.getLangManager().getRaw("gui.item.hardcore_global") + (cfg.isHardcoreEnabled() ? plugin.getLangManager().getRaw("empty_2") : "§7✖"),
+                plugin.getLangManager().getRaw("gui.item.despawn_mort") + cfg.getDeathItemDespawnSeconds() + "s",
+                "",
+                plugin.getLangManager().getRaw("gui.item.clic_pour_configurer_1")));
 
         // Max spawn distance (Slot 14)
         inv.setItem(14, createItem(Material.CLOCK, plugin.getLangManager().getRaw("gui.item.distance_de_spawn_max"),
@@ -178,21 +172,19 @@ public class GuiManager {
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_définir_via_le")));
 
-        // Soif, Hardcore & Mort (Slot 23)
-        inv.setItem(23, createItem(Material.POTION, plugin.getLangManager().getRaw("gui.item.soif_hardcore_mort"),
-                plugin.getLangManager().getRaw("gui.item.soif_globale") + (cfg.isThirstEnabled() ? plugin.getLangManager().getRaw("empty") : plugin.getLangManager().getRaw("empty_1")),
-                plugin.getLangManager().getRaw("gui.item.hardcore_global") + (cfg.isHardcoreEnabled() ? plugin.getLangManager().getRaw("empty_2") : "§7✖"),
-                plugin.getLangManager().getRaw("gui.item.despawn_mort") + cfg.getDeathItemDespawnSeconds() + "s",
-                "",
-                plugin.getLangManager().getRaw("gui.item.clic_pour_configurer_1")));
-
-        // Langue du plugin (Slot 25)
+        // Langue du plugin (Slot 23)
         String currentLangCode = plugin.getConfig().getString("plugin.language", "fr");
         String currentLangName = fr.wilddifficulty.config.LanguageSetup.getAvailableLanguages().getOrDefault(currentLangCode, "Français");
-        inv.setItem(25, createItem(Material.BOOK, plugin.getLangManager().getRaw("gui.item.langue_du_plugin"),
+        inv.setItem(23, createItem(Material.BOOK, plugin.getLangManager().getRaw("gui.item.langue_du_plugin"),
                 plugin.getLangManager().getRaw("gui.item.langue_actuelle") + currentLangName + " (" + currentLangCode + ")",
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_choisir_la_langue")));
+
+        // Recharger config (Slot 25)
+        inv.setItem(25, createItem(Material.COMMAND_BLOCK, plugin.getLangManager().getRaw("gui.item.recharger_config"), plugin.getLangManager().getRaw("gui.item.recharge_les_fichiers_yaml"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_recharger")));
+
+        // Mode Debug (Slot 28)
+        inv.setItem(28, createToggleItem(Material.REDSTONE_TORCH, plugin.getLangManager().getRaw("gui.item.mode_debug"), cfg.isDebug()));
 
         inv.setItem(49, createBackItem());
         player.openInventory(inv);
@@ -1667,6 +1659,197 @@ public class GuiManager {
 
         inv.setItem(21, createItem(Material.EMERALD, "&a+ Ajouter une Vague", "&7Ajoute une nouvelle vague successive."));
         inv.setItem(26, createBackItem());
+        player.openInventory(inv);
+    }
+
+    public void openConfirmDeleteMenu(Player player, String type, String id) {
+        WDMenuHolder holder = new WDMenuHolder("CONFIRM_DELETE", type + ":" + id);
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_confirm_delete")));
+        holder.setInventory(inv);
+
+        fillBorders(inv);
+
+        // Confirmer (Slot 11)
+        inv.setItem(11, createItem(Material.LIME_CONCRETE, plugin.getLangManager().getRaw("gui.confirm_delete.btn_confirm"),
+                plugin.getLangManager().getRaw("gui.confirm_delete.btn_confirm_lore") + " &e" + id,
+                "",
+                plugin.getLangManager().getRaw("gui.confirm_delete.click_to_confirm")));
+
+        // Info Avertissement (Slot 13)
+        inv.setItem(13, createItem(Material.TNT, plugin.getLangManager().getRaw("gui.confirm_delete.info_title"),
+                "&7Type : &f" + type,
+                "&7Cible : &e" + id,
+                "",
+                plugin.getLangManager().getRaw("gui.confirm_delete.info_warning")));
+
+        // Annuler (Slot 15)
+        inv.setItem(15, createItem(Material.RED_CONCRETE, plugin.getLangManager().getRaw("gui.confirm_delete.btn_cancel"),
+                plugin.getLangManager().getRaw("gui.confirm_delete.btn_cancel_lore"),
+                "",
+                plugin.getLangManager().getRaw("gui.confirm_delete.click_to_cancel")));
+
+        player.openInventory(inv);
+    }
+
+    public void openEncounterSingleWaveMenu(Player player, String zoneId, int waveIndex) {
+        DifficultyZone zone = plugin.getZoneManager().getZone(zoneId);
+        if (zone == null) return;
+        fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+        if (enc == null || waveIndex < 0 || waveIndex >= enc.getWaves().size()) return;
+
+        fr.wilddifficulty.encounter.EncounterWave wave = enc.getWaves().get(waveIndex);
+        WDMenuHolder holder = new WDMenuHolder("ENCOUNTER_SINGLE_WAVE_EDIT", zoneId + ":" + waveIndex);
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text("⚔ Vague #" + (waveIndex + 1) + " - " + zoneId));
+        holder.setInventory(inv);
+
+        fillBorders(inv);
+
+        // Délai de vague (Slot 10)
+        inv.setItem(10, createItem(Material.CLOCK, plugin.getLangManager().getRaw("gui.wave.delay_title"),
+                plugin.getLangManager().getRaw("gui.wave.delay_current") + " &e" + wave.getDelaySeconds() + "s",
+                "",
+                plugin.getLangManager().getRaw("gui.wave.delay_lore1"),
+                plugin.getLangManager().getRaw("gui.wave.delay_lore2"),
+                plugin.getLangManager().getRaw("gui.wave.delay_lore3")));
+
+        // Variantes configurées (Slot 12)
+        int totalVarCount = wave.getVariantSpawns().values().stream().mapToInt(Integer::intValue).sum();
+        inv.setItem(12, createItem(Material.ZOMBIE_HEAD, plugin.getLangManager().getRaw("gui.wave.variants_title"),
+                "&7Types configurés : &e" + wave.getVariantSpawns().size(),
+                "&7Total monstres : &a" + totalVarCount,
+                "",
+                plugin.getLangManager().getRaw("gui.wave.variants_click_manage")));
+
+        // Escouades configurées (Slot 14)
+        int totalSquadCount = wave.getSquadSpawns().values().stream().mapToInt(Integer::intValue).sum();
+        inv.setItem(14, createItem(Material.SKELETON_SKULL, plugin.getLangManager().getRaw("gui.wave.squads_title"),
+                "&7Types configurés : &e" + wave.getSquadSpawns().size(),
+                "&7Total escouades : &a" + totalSquadCount,
+                "",
+                plugin.getLangManager().getRaw("gui.wave.squads_click_manage")));
+
+        // Distribution du spawn (Slot 16)
+        inv.setItem(16, createItem(Material.COMPASS, plugin.getLangManager().getRaw("gui.wave.distribution_title"),
+                "&7Mode actuel : &e" + wave.getSpawnDistribution(),
+                "",
+                plugin.getLangManager().getRaw("gui.wave.distribution_click_cycle")));
+
+        // Supprimer cette vague (Slot 22)
+        inv.setItem(22, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.wave.delete_title"),
+                plugin.getLangManager().getRaw("gui.wave.delete_lore"),
+                "",
+                plugin.getLangManager().getRaw("gui.wave.delete_click")));
+
+        // Bouton Retour (Slot 31)
+        inv.setItem(31, createBackItem());
+        player.openInventory(inv);
+    }
+
+    public void openEncounterWaveVariantsMenu(Player player, String zoneId, int waveIndex, int page) {
+        DifficultyZone zone = plugin.getZoneManager().getZone(zoneId);
+        if (zone == null) return;
+        fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+        if (enc == null || waveIndex < 0 || waveIndex >= enc.getWaves().size()) return;
+        fr.wilddifficulty.encounter.EncounterWave wave = enc.getWaves().get(waveIndex);
+
+        WDMenuHolder holder = new WDMenuHolder("ENCOUNTER_WAVE_VARIANTS", zoneId + ":" + waveIndex + ":" + page);
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("⚔ Variantes: Vague #" + (waveIndex + 1)));
+        holder.setInventory(inv);
+
+        List<MobVariant> allVariants = new ArrayList<>(plugin.getVariantManager().getAllVariants());
+        allVariants.sort(java.util.Comparator.comparing(MobVariant::getId));
+
+        int itemsPerPage = 45;
+        int maxPages = (int) Math.ceil((double) allVariants.size() / itemsPerPage);
+        if (maxPages == 0) maxPages = 1;
+        if (page >= maxPages) page = maxPages - 1;
+        if (page < 0) page = 0;
+
+        int startIndex = page * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, allVariants.size());
+
+        int slot = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            MobVariant var = allVariants.get(i);
+            int count = wave.getVariantSpawns().getOrDefault(var.getId(), 0);
+            Material mat = getVariantHeadMaterial(var.getType());
+            String title = (count > 0 ? "&a✔ &l" : "&7") + var.getId() + " &8(" + var.getType().name() + ")";
+            String countStatus = count > 0 ? "&aQuantité : &e" + count : "&7Non inclus dans cette vague";
+
+            inv.setItem(slot++, createItem(mat, title,
+                    countStatus,
+                    "",
+                    "&7Clic gauche : &a+1",
+                    "&7Shift-clic gauche : &a+5",
+                    "&7Clic droit : &c-1",
+                    "&7Shift-clic droit : &c-5",
+                    "&7Clic milieu : Définir via le tchat"));
+        }
+
+        // Pagination
+        if (page > 0) {
+            inv.setItem(48, createItem(Material.ARROW, plugin.getLangManager().getRaw("gui.item.page_précédente") + page + ")"));
+        }
+        if (page < maxPages - 1) {
+            inv.setItem(50, createItem(Material.ARROW, plugin.getLangManager().getRaw("gui.item.page_suivante") + (page + 2) + ")"));
+        }
+
+        // Bouton Retour (Slot 49)
+        inv.setItem(49, createBackItem());
+        player.openInventory(inv);
+    }
+
+    public void openEncounterWaveSquadsMenu(Player player, String zoneId, int waveIndex, int page) {
+        DifficultyZone zone = plugin.getZoneManager().getZone(zoneId);
+        if (zone == null) return;
+        fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+        if (enc == null || waveIndex < 0 || waveIndex >= enc.getWaves().size()) return;
+        fr.wilddifficulty.encounter.EncounterWave wave = enc.getWaves().get(waveIndex);
+
+        WDMenuHolder holder = new WDMenuHolder("ENCOUNTER_WAVE_SQUADS", zoneId + ":" + waveIndex + ":" + page);
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text("⚔ Escouades: Vague #" + (waveIndex + 1)));
+        holder.setInventory(inv);
+
+        List<MobSquad> allSquads = new ArrayList<>(plugin.getVariantManager().getAllSquads());
+        allSquads.sort(java.util.Comparator.comparing(MobSquad::getId));
+
+        int itemsPerPage = 45;
+        int maxPages = (int) Math.ceil((double) allSquads.size() / itemsPerPage);
+        if (maxPages == 0) maxPages = 1;
+        if (page >= maxPages) page = maxPages - 1;
+        if (page < 0) page = 0;
+
+        int startIndex = page * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, allSquads.size());
+
+        int slot = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            MobSquad sq = allSquads.get(i);
+            int count = wave.getSquadSpawns().getOrDefault(sq.getId(), 0);
+            String title = (count > 0 ? "&a✔ &l" : "&7") + sq.getId();
+            String countStatus = count > 0 ? "&aNombre d'escouades : &e" + count : "&7Non inclus dans cette vague";
+
+            inv.setItem(slot++, createItem(Material.SKELETON_SKULL, title,
+                    countStatus,
+                    "&7Membres par escouade : &f" + sq.getMembers().size(),
+                    "",
+                    "&7Clic gauche : &a+1",
+                    "&7Shift-clic gauche : &a+5",
+                    "&7Clic droit : &c-1",
+                    "&7Shift-clic droit : &c-5",
+                    "&7Clic milieu : Définir via le tchat"));
+        }
+
+        // Pagination
+        if (page > 0) {
+            inv.setItem(48, createItem(Material.ARROW, plugin.getLangManager().getRaw("gui.item.page_précédente") + page + ")"));
+        }
+        if (page < maxPages - 1) {
+            inv.setItem(50, createItem(Material.ARROW, plugin.getLangManager().getRaw("gui.item.page_suivante") + (page + 2) + ")"));
+        }
+
+        // Bouton Retour (Slot 49)
+        inv.setItem(49, createBackItem());
         player.openInventory(inv);
     }
 

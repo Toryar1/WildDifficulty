@@ -80,9 +80,35 @@ public class EncounterManager {
                     EncounterType type = zone.getEncounterConfig().getType();
                     if (type == EncounterType.TRIAL_BUNKER || type == EncounterType.OUTPOST || type == EncounterType.RUINS) {
                         startEncounter(zone, Collections.singletonList(player));
+                    } else if (type == EncounterType.BASE_RAID) {
+                        checkPlayerBadOmenZoneTrigger(player, zone);
                     }
                 }
             }
+        }
+    }
+
+    public void checkPlayerBadOmenZoneTrigger(Player player, DifficultyZone zone) {
+        if (zone == null || zone.getEncounterConfig() == null || !zone.getEncounterConfig().isEnabled()) return;
+        if (zone.getEncounterConfig().getType() != EncounterType.BASE_RAID) return;
+        if (isEncounterActive(zone.getId()) || isOnCooldown(zone.getId())) return;
+
+        org.bukkit.potion.PotionEffectType badOmenType = fr.wilddifficulty.util.CompatUtil.getPotionEffectType("BAD_OMEN");
+        org.bukkit.potion.PotionEffectType raidOmenType = fr.wilddifficulty.util.CompatUtil.getPotionEffectType("RAID_OMEN");
+
+        org.bukkit.potion.PotionEffect effect = null;
+        if (badOmenType != null && player.hasPotionEffect(badOmenType)) {
+            effect = player.getPotionEffect(badOmenType);
+        } else if (raidOmenType != null && player.hasPotionEffect(raidOmenType)) {
+            effect = player.getPotionEffect(raidOmenType);
+        }
+
+        if (effect != null) {
+            int level = Math.min(5, Math.max(1, effect.getAmplifier() + 1));
+            if (badOmenType != null) player.removePotionEffect(badOmenType);
+            if (raidOmenType != null) player.removePotionEffect(raidOmenType);
+
+            startEncounter(zone, Collections.singletonList(player), level);
         }
     }
 
@@ -104,6 +130,10 @@ public class EncounterManager {
     }
 
     public boolean startEncounter(DifficultyZone zone, List<Player> players) {
+        return startEncounter(zone, players, 0);
+    }
+
+    public boolean startEncounter(DifficultyZone zone, List<Player> players, int badOmenLevel) {
         if (zone == null || zone.getEncounterConfig() == null || zone.getEncounterConfig().getType() == EncounterType.NONE) {
             return false;
         }
@@ -117,6 +147,7 @@ public class EncounterManager {
         if (mechanic == null) return false;
 
         EncounterSession session = new EncounterSession(plugin, zone, config);
+        session.setBadOmenLevel(badOmenLevel);
         activeSessions.put(zone.getId(), session);
 
         mechanic.start(zone, players, session);

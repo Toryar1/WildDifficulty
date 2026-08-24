@@ -134,19 +134,13 @@ public class GuiListener implements Listener {
 
             switch (menuType) {
                 case "MAIN" -> {
-                    if (slot == 20) gui.openVariantList(player);
-                    else if (slot == 22) gui.openSquadList(player);
-                    else if (slot == 24) gui.openZoneList(player);
-                    else if (slot == 29) gui.openBloodMoonEditor(player);
-                    else if (slot == 31) gui.openGeneralConfig(player);
-                    else if (slot == 33) gui.openAdminToolsMenu(player);
-                    else if (slot == 38) gui.openLanguageSelector(player);
-                    else if (slot == 42) {
-                        plugin.reloadAll();
-                        player.sendMessage(plugin.getLangManager().get("general.config_reloaded"));
-                        player.closeInventory();
-                    }
-                    else if (slot == 49) {
+                    if (slot == 10) gui.openVariantList(player);
+                    else if (slot == 11) gui.openSquadList(player);
+                    else if (slot == 12) gui.openZoneList(player);
+                    else if (slot == 14) gui.openBloodMoonEditor(player);
+                    else if (slot == 15) gui.openGeneralConfig(player);
+                    else if (slot == 16) gui.openAdminToolsMenu(player);
+                    else if (slot == 22) {
                         player.closeInventory();
                     }
                 }
@@ -164,9 +158,7 @@ public class GuiListener implements Listener {
                         return;
                     }
                     if (slot == 12) {
-                        mainCfg.setDebug(!mainCfg.isDebug());
-                        mainCfg.save();
-                        gui.openGeneralConfig(player);
+                        gui.openThirstHardcoreAdminGui(player);
                         return;
                     }
                     if (slot == 14) {
@@ -239,17 +231,25 @@ public class GuiListener implements Listener {
                         return;
                     }
                     if (slot == 23) {
-                        gui.openThirstHardcoreAdminGui(player);
+                        gui.openLanguageSelector(player);
                         return;
                     }
                     if (slot == 25) {
-                        gui.openLanguageSelector(player);
+                        plugin.reloadAll();
+                        player.sendMessage(plugin.getLangManager().get("general.config_reloaded"));
+                        player.closeInventory();
+                        return;
+                    }
+                    if (slot == 28) {
+                        mainCfg.setDebug(!mainCfg.isDebug());
+                        mainCfg.save();
+                        gui.openGeneralConfig(player);
                         return;
                     }
                 }
                 case "LANGUAGE_SELECT" -> {
-                    if (slot == 49) {
-                        gui.openMainMenu(player);
+                    if (slot == 49 || slot == 53) {
+                        gui.openGeneralConfig(player);
                         return;
                     }
                     int[] langSlots = {11, 12, 13, 14, 15, 20, 21, 22, 23, 24};
@@ -265,6 +265,7 @@ public class GuiListener implements Listener {
                         if (idx < codes.size()) {
                             String selectedCode = codes.get(idx);
                             plugin.getLanguageSetup().changeLanguage(selectedCode, player);
+                            gui.openGeneralConfig(player);
                         }
                     }
                 }
@@ -899,10 +900,7 @@ public class GuiListener implements Listener {
                     MobVariant var = varManager.getVariant(contextId);
                     if (var == null) return;
                     if (slot == 31) {
-                        varManager.removeVariant(contextId);
-                        varManager.save();
-                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.variante_supprimée"));
-                        gui.openVariantList(player);
+                        gui.openConfirmDeleteMenu(player, "VARIANT", contextId);
                         return;
                     }
                     if (slot == 32) {
@@ -1817,10 +1815,7 @@ public class GuiListener implements Listener {
                         return;
                     }
                     if (slot == 22) {
-                        varManager.removeSquad(contextId);
-                        varManager.save();
-                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.escouade_supprimée"));
-                        gui.openSquadList(player);
+                        gui.openConfirmDeleteMenu(player, "SQUAD", contextId);
                         return;
                     }
                     if (slot == 10) {
@@ -1932,10 +1927,7 @@ public class GuiListener implements Listener {
                     DifficultyZone zone = zoneManager.getZone(contextId);
                     if (zone == null) return;
                     if (slot == 31) {
-                        zoneManager.removeZone(contextId);
-                        zoneManager.save();
-                        player.sendMessage(plugin.getLangManager().getRaw("gui.msg.zone_supprimée"));
-                        gui.openZoneList(player);
+                        gui.openConfirmDeleteMenu(player, "ZONE", contextId);
                         return;
                     }
                     if (slot == 10) {
@@ -2158,7 +2150,7 @@ public class GuiListener implements Listener {
                         }
                         enc.getWaves().add(wave);
                         zoneManager.save();
-                        player.sendMessage("§aNouvelle vague ajoutée.");
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.wave.added_msg"));
                         gui.openEncounterWavesMenu(player, contextId);
                         return;
                     }
@@ -2166,15 +2158,226 @@ public class GuiListener implements Listener {
                         if (event.isRightClick()) {
                             enc.getWaves().remove(slot);
                             zoneManager.save();
-                            player.sendMessage("§cVague supprimée.");
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.wave.deleted_msg"));
                             gui.openEncounterWavesMenu(player, contextId);
                         } else {
-                            fr.wilddifficulty.encounter.EncounterWave wave = enc.getWaves().get(slot);
-                            int nextDelay = (wave.getDelaySeconds() % 30) + 5;
-                            wave.setDelaySeconds(nextDelay);
-                            zoneManager.save();
-                            gui.openEncounterWavesMenu(player, contextId);
+                            gui.openEncounterSingleWaveMenu(player, contextId, slot);
                         }
+                    }
+                }
+                case "ENCOUNTER_SINGLE_WAVE_EDIT" -> {
+                    String[] parts = contextId.split(":");
+                    if (parts.length < 2) return;
+                    String zoneId = parts[0];
+                    int waveIdx = 0;
+                    try { waveIdx = Integer.parseInt(parts[1]); } catch (Exception ignored) {}
+
+                    DifficultyZone zone = zoneManager.getZone(zoneId);
+                    if (zone == null) return;
+                    fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+                    if (enc == null || waveIdx < 0 || waveIdx >= enc.getWaves().size()) return;
+                    fr.wilddifficulty.encounter.EncounterWave wave = enc.getWaves().get(waveIdx);
+
+                    if (slot == 31) {
+                        gui.openEncounterWavesMenu(player, zoneId);
+                        return;
+                    }
+                    if (slot == 10) {
+                        if (event.getClick() == ClickType.MIDDLE) {
+                            int finalWaveIdx = waveIdx;
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.wave.prompt_delay"), input -> {
+                                try {
+                                    int val = Integer.parseInt(input);
+                                    wave.setDelaySeconds(Math.max(1, val));
+                                    zoneManager.save();
+                                    player.sendMessage(plugin.getLangManager().getRaw("gui.wave.delay_updated"));
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().getRaw("gui.msg.nombre_invalide")); }
+                                plugin.getServer().getScheduler().runTask(plugin, () -> gui.openEncounterSingleWaveMenu(player, zoneId, finalWaveIdx));
+                            });
+                            return;
+                        }
+                        int delta = event.isLeftClick() ? (event.isShiftClick() ? 5 : 1) : (event.isShiftClick() ? -5 : -1);
+                        wave.setDelaySeconds(Math.max(1, wave.getDelaySeconds() + delta));
+                        zoneManager.save();
+                        gui.openEncounterSingleWaveMenu(player, zoneId, waveIdx);
+                        return;
+                    }
+                    if (slot == 12) {
+                        gui.openEncounterWaveVariantsMenu(player, zoneId, waveIdx, 0);
+                        return;
+                    }
+                    if (slot == 14) {
+                        gui.openEncounterWaveSquadsMenu(player, zoneId, waveIdx, 0);
+                        return;
+                    }
+                    if (slot == 16) {
+                        String current = wave.getSpawnDistribution();
+                        String next = switch (current) {
+                            case "AROUND_CENTER" -> "RANDOM_ZONE";
+                            case "RANDOM_ZONE" -> "MARKERS";
+                            default -> "AROUND_CENTER";
+                        };
+                        wave.setSpawnDistribution(next);
+                        zoneManager.save();
+                        gui.openEncounterSingleWaveMenu(player, zoneId, waveIdx);
+                        return;
+                    }
+                    if (slot == 22) {
+                        enc.getWaves().remove(waveIdx);
+                        zoneManager.save();
+                        player.sendMessage(plugin.getLangManager().getRaw("gui.wave.deleted_msg"));
+                        gui.openEncounterWavesMenu(player, zoneId);
+                        return;
+                    }
+                }
+                case "ENCOUNTER_WAVE_VARIANTS" -> {
+                    String[] parts = contextId.split(":");
+                    if (parts.length < 3) return;
+                    String zoneId = parts[0];
+                    int waveIdx = Integer.parseInt(parts[1]);
+                    int page = Integer.parseInt(parts[2]);
+
+                    DifficultyZone zone = zoneManager.getZone(zoneId);
+                    if (zone == null) return;
+                    fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+                    if (enc == null || waveIdx < 0 || waveIdx >= enc.getWaves().size()) return;
+                    fr.wilddifficulty.encounter.EncounterWave wave = enc.getWaves().get(waveIdx);
+
+                    if (slot == 49 || slot == 53) {
+                        gui.openEncounterSingleWaveMenu(player, zoneId, waveIdx);
+                        return;
+                    }
+                    if (slot == 48 && page > 0) {
+                        gui.openEncounterWaveVariantsMenu(player, zoneId, waveIdx, page - 1);
+                        return;
+                    }
+                    if (slot == 50) {
+                        gui.openEncounterWaveVariantsMenu(player, zoneId, waveIdx, page + 1);
+                        return;
+                    }
+
+                    List<MobVariant> allVariants = new ArrayList<>(plugin.getVariantManager().getAllVariants());
+                    allVariants.sort(java.util.Comparator.comparing(MobVariant::getId));
+
+                    int targetIdx = page * 45 + slot;
+                    if (targetIdx < allVariants.size()) {
+                        MobVariant var = allVariants.get(targetIdx);
+                        int currentCount = wave.getVariantSpawns().getOrDefault(var.getId(), 0);
+
+                        if (event.getClick() == ClickType.MIDDLE) {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.wave.prompt_variant_count") + " (" + var.getId() + ") :", input -> {
+                                try {
+                                    int val = Integer.parseInt(input);
+                                    if (val <= 0) wave.getVariantSpawns().remove(var.getId());
+                                    else wave.getVariantSpawns().put(var.getId(), val);
+                                    zoneManager.save();
+                                } catch (Exception ignored) {}
+                                plugin.getServer().getScheduler().runTask(plugin, () -> gui.openEncounterWaveVariantsMenu(player, zoneId, waveIdx, page));
+                            });
+                            return;
+                        }
+
+                        int delta = event.isLeftClick() ? (event.isShiftClick() ? 5 : 1) : (event.isShiftClick() ? -5 : -1);
+                        int nextCount = Math.max(0, currentCount + delta);
+                        if (nextCount <= 0) wave.getVariantSpawns().remove(var.getId());
+                        else wave.getVariantSpawns().put(var.getId(), nextCount);
+                        zoneManager.save();
+                        gui.openEncounterWaveVariantsMenu(player, zoneId, waveIdx, page);
+                    }
+                }
+                case "ENCOUNTER_WAVE_SQUADS" -> {
+                    String[] parts = contextId.split(":");
+                    if (parts.length < 3) return;
+                    String zoneId = parts[0];
+                    int waveIdx = Integer.parseInt(parts[1]);
+                    int page = Integer.parseInt(parts[2]);
+
+                    DifficultyZone zone = zoneManager.getZone(zoneId);
+                    if (zone == null) return;
+                    fr.wilddifficulty.encounter.EncounterConfig enc = zone.getEncounterConfig();
+                    if (enc == null || waveIdx < 0 || waveIdx >= enc.getWaves().size()) return;
+                    fr.wilddifficulty.encounter.EncounterWave wave = enc.getWaves().get(waveIdx);
+
+                    if (slot == 49 || slot == 53) {
+                        gui.openEncounterSingleWaveMenu(player, zoneId, waveIdx);
+                        return;
+                    }
+                    if (slot == 48 && page > 0) {
+                        gui.openEncounterWaveSquadsMenu(player, zoneId, waveIdx, page - 1);
+                        return;
+                    }
+                    if (slot == 50) {
+                        gui.openEncounterWaveSquadsMenu(player, zoneId, waveIdx, page + 1);
+                        return;
+                    }
+
+                    List<MobSquad> allSquads = new ArrayList<>(plugin.getVariantManager().getAllSquads());
+                    allSquads.sort(java.util.Comparator.comparing(MobSquad::getId));
+
+                    int targetIdx = page * 45 + slot;
+                    if (targetIdx < allSquads.size()) {
+                        MobSquad sq = allSquads.get(targetIdx);
+                        int currentCount = wave.getSquadSpawns().getOrDefault(sq.getId(), 0);
+
+                        if (event.getClick() == ClickType.MIDDLE) {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.wave.prompt_squad_count") + " (" + sq.getId() + ") :", input -> {
+                                try {
+                                    int val = Integer.parseInt(input);
+                                    if (val <= 0) wave.getSquadSpawns().remove(sq.getId());
+                                    else wave.getSquadSpawns().put(sq.getId(), val);
+                                    zoneManager.save();
+                                } catch (Exception ignored) {}
+                                plugin.getServer().getScheduler().runTask(plugin, () -> gui.openEncounterWaveSquadsMenu(player, zoneId, waveIdx, page));
+                            });
+                            return;
+                        }
+
+                        int delta = event.isLeftClick() ? (event.isShiftClick() ? 5 : 1) : (event.isShiftClick() ? -5 : -1);
+                        int nextCount = Math.max(0, currentCount + delta);
+                        if (nextCount <= 0) wave.getSquadSpawns().remove(sq.getId());
+                        else wave.getSquadSpawns().put(sq.getId(), nextCount);
+                        zoneManager.save();
+                        gui.openEncounterWaveSquadsMenu(player, zoneId, waveIdx, page);
+                    }
+                }
+                case "CONFIRM_DELETE" -> {
+                    String[] parts = contextId.split(":");
+                    if (parts.length < 2) {
+                        gui.openMainMenu(player);
+                        return;
+                    }
+                    String type = parts[0];
+                    String targetId = parts[1];
+
+                    if (slot == 11) {
+                        if (type.equals("VARIANT")) {
+                            varManager.removeVariant(targetId);
+                            varManager.save();
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.variante_supprimée"));
+                            gui.openVariantList(player);
+                        } else if (type.equals("SQUAD")) {
+                            varManager.removeSquad(targetId);
+                            varManager.save();
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.escouade_supprimée"));
+                            gui.openSquadList(player);
+                        } else if (type.equals("ZONE")) {
+                            zoneManager.removeZone(targetId);
+                            zoneManager.save();
+                            player.sendMessage(plugin.getLangManager().getRaw("gui.msg.zone_supprimée"));
+                            gui.openZoneList(player);
+                        }
+                        return;
+                    }
+
+                    if (slot == 15 || slot == 22 || slot == 26) {
+                        if (type.equals("VARIANT")) {
+                            gui.openVariantEditor(player, targetId);
+                        } else if (type.equals("SQUAD")) {
+                            gui.openSquadEditor(player, targetId);
+                        } else if (type.equals("ZONE")) {
+                            gui.openZoneEditor(player, targetId);
+                        }
+                        return;
                     }
                 }
                 case "ENCOUNTER_REWARDS_EDIT" -> {
@@ -2993,6 +3196,25 @@ public class GuiListener implements Listener {
             gui.openZoneEditor(player, contextId);
         } else if (menuType.equals("ENCOUNTER_WAVES_EDIT") || menuType.equals("ENCOUNTER_REWARDS_EDIT")) {
             gui.openZoneEncounterMenu(player, contextId);
+        } else if (menuType.equals("ENCOUNTER_SINGLE_WAVE_EDIT")) {
+            String zoneId = contextId.contains(":") ? contextId.split(":")[0] : contextId;
+            gui.openEncounterWavesMenu(player, zoneId);
+        } else if (menuType.equals("ENCOUNTER_WAVE_VARIANTS") || menuType.equals("ENCOUNTER_WAVE_SQUADS")) {
+            String[] parts = contextId.split(":");
+            String zoneId = parts[0];
+            int waveIdx = Integer.parseInt(parts[1]);
+            gui.openEncounterSingleWaveMenu(player, zoneId, waveIdx);
+        } else if (menuType.equals("CONFIRM_DELETE")) {
+            String[] parts = contextId.split(":");
+            if (parts.length >= 2) {
+                String type = parts[0];
+                String targetId = parts[1];
+                if (type.equals("VARIANT")) gui.openVariantEditor(player, targetId);
+                else if (type.equals("SQUAD")) gui.openSquadEditor(player, targetId);
+                else if (type.equals("ZONE")) gui.openZoneEditor(player, targetId);
+            } else {
+                gui.openMainMenu(player);
+            }
         } else if (menuType.equals("WG_REGION_SELECT")) {
             String zoneId = contextId.contains(":") ? contextId.split(":")[0] : contextId;
             gui.openZoneEditor(player, zoneId);

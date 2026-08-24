@@ -54,13 +54,29 @@ public class BaseRaidMechanic implements EncounterMechanic {
         }
 
         // Mode Raid Custom : Vagues d'ennemis configurées
+        int baseWaves = config.getWaves().isEmpty() ? config.getRaidWaveCount() : config.getWaves().size();
+        int badOmenLevel = session.getBadOmenLevel();
+        int extraWaves = 0;
+        if (badOmenLevel > 0) {
+            for (int i = 0; i < badOmenLevel; i++) {
+                if (random.nextDouble() < (0.35 + (badOmenLevel * 0.12))) {
+                    extraWaves++;
+                }
+            }
+        }
+        int totalWaves = Math.max(1, baseWaves + extraWaves);
+        session.setTotalWaveCount(totalWaves);
+
         session.setCurrentWaveIndex(0);
         session.setWaveCountdownSeconds(3);
 
-        String startMsg = plugin.getLangManager().get("encounter.raid_start", Map.of("zone", zone.getId()));
+        String startMsg = badOmenLevel > 0
+                ? plugin.getLangManager().get("encounter.bad_omen_raid_start", Map.of("zone", zone.getId(), "level", String.valueOf(badOmenLevel), "waves", String.valueOf(totalWaves)))
+                : plugin.getLangManager().get("encounter.raid_start", Map.of("zone", zone.getId()));
+
         for (Player p : players) {
             session.addParticipant(p);
-            p.sendMessage(startMsg != null ? startMsg : ChatColor.RED + "⚔ [Alerte Raid] L'invasion commence dans la zone " + zone.getId() + " !");
+            p.sendMessage(startMsg != null ? startMsg : ChatColor.RED + "⚔ [Alerte Raid] L'invasion commence dans la zone " + zone.getId() + " (" + totalWaves + " vagues) !");
             p.playSound(p.getLocation(), Sound.EVENT_RAID_HORN, 1.5f, 1.0f);
         }
 
@@ -117,7 +133,7 @@ public class BaseRaidMechanic implements EncounterMechanic {
         // Mise à jour de la BossBar avec le pourcentage d'ennemis restants
         int remaining = session.getAliveMobUuids().size();
         int waveNum = session.getCurrentWaveIndex() + 1;
-        int totalWaves = config.getWaves().isEmpty() ? config.getRaidWaveCount() : config.getWaves().size();
+        int totalWaves = session.getTotalWaveCount() > 0 ? session.getTotalWaveCount() : (config.getWaves().isEmpty() ? config.getRaidWaveCount() : config.getWaves().size());
 
         if (remaining > 0) {
             double progress = Math.min(1.0, (double) remaining / 10.0);
@@ -151,13 +167,14 @@ public class BaseRaidMechanic implements EncounterMechanic {
 
         Location center = new Location(world, zone.getCenterX(), zone.getCenterY(), zone.getCenterZ());
 
-        if (!waves.isEmpty() && waveIdx < waves.size()) {
-            EncounterWave wave = waves.get(waveIdx);
+        if (!waves.isEmpty()) {
+            EncounterWave wave = waveIdx < waves.size() ? waves.get(waveIdx) : waves.get(waves.size() - 1);
+            double bonusScale = waveIdx >= waves.size() ? 1.0 + 0.25 * (waveIdx - waves.size() + 1) : 1.0;
 
             // Spawn des variantes
             for (Map.Entry<String, Integer> entry : wave.getVariantSpawns().entrySet()) {
                 String varId = entry.getKey();
-                int count = entry.getValue();
+                int count = (int) Math.ceil(entry.getValue() * bonusScale);
                 MobVariant variant = plugin.getVariantManager().getVariant(varId);
                 for (int i = 0; i < count; i++) {
                     Location loc = getRandomSpawnLocation(zone, center);
@@ -173,7 +190,7 @@ public class BaseRaidMechanic implements EncounterMechanic {
             // Spawn des escouades
             for (Map.Entry<String, Integer> entry : wave.getSquadSpawns().entrySet()) {
                 String squadId = entry.getKey();
-                int count = entry.getValue();
+                int count = (int) Math.ceil(entry.getValue() * bonusScale);
                 for (int i = 0; i < count; i++) {
                     Location loc = getRandomSpawnLocation(zone, center);
                     List<LivingEntity> squadMobs = plugin.getVariantManager().spawnSquad(squadId, loc);

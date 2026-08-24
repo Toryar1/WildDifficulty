@@ -33,9 +33,11 @@ public class EncounterSession {
     private final Set<UUID> aliveMobUuids = new HashSet<>();
     private final Set<UUID> participatingPlayerUuids = new HashSet<>();
 
-    // Variables spécifiques pour Trial / Outpost
+    // Variables spécifiques pour Trial / Outpost / Raid
     private int trialTotalSpawned = 0;
     private double lingeringSeconds = 0;
+    private int badOmenLevel = 0;
+    private int totalWaveCount = 0;
 
     // BossBar
     private BossBar bossBar;
@@ -133,6 +135,12 @@ public class EncounterSession {
     public double getLingeringSeconds() { return lingeringSeconds; }
     public void setLingeringSeconds(double lingeringSeconds) { this.lingeringSeconds = lingeringSeconds; }
     public void addLingeringSeconds(double s) { this.lingeringSeconds += s; }
+
+    public int getBadOmenLevel() { return badOmenLevel; }
+    public void setBadOmenLevel(int badOmenLevel) { this.badOmenLevel = badOmenLevel; }
+
+    public int getTotalWaveCount() { return totalWaveCount; }
+    public void setTotalWaveCount(int totalWaveCount) { this.totalWaveCount = totalWaveCount; }
 
     public BossBar getBossBar() { return bossBar; }
 }

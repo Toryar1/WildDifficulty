@@ -47,4 +47,21 @@ public class EncounterListener implements Listener {
             }
         }
     }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onPlayerMove(org.bukkit.event.player.PlayerMoveEvent event) {
+        if (event.getFrom().getBlockX() == event.getTo().getBlockX()
+                && event.getFrom().getBlockY() == event.getTo().getBlockY()
+                && event.getFrom().getBlockZ() == event.getTo().getBlockZ()) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+        if (plugin.getEncounterManager() == null) return;
+
+        DifficultyZone zone = plugin.getZoneManager().getZoneAt(event.getTo());
+        if (zone != null) {
+            plugin.getEncounterManager().checkPlayerBadOmenZoneTrigger(player, zone);
+        }
+    }
 }
