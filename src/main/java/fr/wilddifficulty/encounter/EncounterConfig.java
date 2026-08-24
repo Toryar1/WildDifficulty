@@ -46,7 +46,21 @@ public class EncounterConfig {
     private EncounterReward rewards = new EncounterReward();
     private List<double[]> spawnMarkers = new ArrayList<>();
 
+    // Conditions de Défaite & Objectif IA
+    private String defeatCondition = "TIMEOUT_OUTSIDE_ZONE"; // TIMEOUT_OUTSIDE_ZONE | ALL_PLAYERS_DEAD | TIME_LIMIT
+    private int playerLeaveGracePeriodSeconds = 30;
+    private String mobObjective = "TARGET_PLAYERS"; // TARGET_PLAYERS | ATTACK_CENTER_POINT | KILL_VILLAGERS_AND_NPCS | DEFEND_ZONE
+
     public EncounterConfig() {}
+
+    public String getDefeatCondition() { return defeatCondition; }
+    public void setDefeatCondition(String defeatCondition) { this.defeatCondition = defeatCondition; }
+
+    public int getPlayerLeaveGracePeriodSeconds() { return playerLeaveGracePeriodSeconds; }
+    public void setPlayerLeaveGracePeriodSeconds(int s) { this.playerLeaveGracePeriodSeconds = Math.max(0, s); }
+
+    public String getMobObjective() { return mobObjective; }
+    public void setMobObjective(String mobObjective) { this.mobObjective = mobObjective; }
 
     public List<double[]> getSpawnMarkers() { return spawnMarkers; }
     public void setSpawnMarkers(List<double[]> spawnMarkers) { this.spawnMarkers = spawnMarkers; }

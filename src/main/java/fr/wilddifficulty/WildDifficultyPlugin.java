@@ -147,6 +147,7 @@ public final class WildDifficultyPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new fr.wilddifficulty.listener.ThirstListener(this), this);
         getServer().getPluginManager().registerEvents(new fr.wilddifficulty.listener.HardcoreDeathListener(this), this);
         getServer().getPluginManager().registerEvents(new fr.wilddifficulty.listener.EncounterListener(this), this);
+        getServer().getPluginManager().registerEvents(new fr.wilddifficulty.listener.SpawnMarkerToolListener(this), this);
 
         // Enregistrement des commandes
         WDGuiCommand wdCmd = new WDGuiCommand(this);

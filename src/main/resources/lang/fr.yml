@@ -1021,5 +1021,20 @@
 "encounter.markers_cleared": "&c[Encounter] Tous les marqueurs de spawn ont été supprimés pour cette zone."
 "encounter.marker_removed": "&c[Encounter] Marqueur de spawn supprimé."
 "encounter.marker_teleported": "&a[Encounter] Téléporté au marqueur de spawn."
+"gui.item.spawners": "&6⚡ Spawners Personnalisés"
+"gui.item.gérer_les_spawners_personnalisés": "&7Gérer les spawners automatiques de monstres"
+"gui.title_spawners_list": "⚡ Spawners Personnalisés"
+"tools.given_marker": "&a[WD] Outil de Marqueurs donné. Clic droit sur un bloc pour ajouter un spawn, clic gauche pour retirer."
+"tools.item_marker_title": "&6🎯 Outil de Marqueurs"
+"tools.item_marker_lore1": "&7Clic-Droit sur un bloc : &aPlacer un marqueur"
+"tools.item_marker_lore2": "&7Clic-Gauche : &cSupprimer le plus proche"
+"tools.item_marker_lore3": "&7Shift + Clic-Droit : &eOuvrir le menu des marqueurs"
+"spawner.teleported": "&a[WD] Téléporté au spawner personnalisé."
+"encounter.marker_tool_added": "&a[WD] Marqueur #{count} ajouté en X: {x}, Y: {y}, Z: {z}"
+"encounter.marker_tool_info": "&e[WD] {count} marqueur(s) configuré(s) dans cette zone."
+"encounter.outside_zone_warning": "&c⚠ Vous êtes hors de la zone ! Défaite dans &e{seconds}s &c!"
+"encounter.grace_period_updated": "&a[Encounter] Délai de grâce hors zone défini sur &e{seconds}s&a."
+"gui.wave.prompt_grace_period": "&eEntrez le délai de grâce hors zone en secondes (ex: 30) :"
+
 
 

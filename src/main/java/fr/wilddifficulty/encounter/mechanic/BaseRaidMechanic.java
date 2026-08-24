@@ -4,6 +4,7 @@ import fr.wilddifficulty.WildDifficultyPlugin;
 import fr.wilddifficulty.encounter.EncounterConfig;
 import fr.wilddifficulty.encounter.EncounterReward;
 import fr.wilddifficulty.encounter.EncounterSession;
+import fr.wilddifficulty.encounter.EncounterSpawnUtil;
 import fr.wilddifficulty.encounter.EncounterStatus;
 import fr.wilddifficulty.encounter.EncounterWave;
 import fr.wilddifficulty.util.CompatUtil;
@@ -40,20 +41,7 @@ public class BaseRaidMechanic implements EncounterMechanic {
     public void start(DifficultyZone zone, List<Player> players, EncounterSession session) {
         EncounterConfig config = session.getConfig();
 
-        if ("VANILLA_RAID_MODE".equalsIgnoreCase(config.getRaidMode())) {
-            // Mode Raid Vanilla : donne Mauvais Présage (Bad Omen) pour déclencher le raid naturel
-            for (Player p : players) {
-                PotionEffectType badOmen = CompatUtil.getPotionEffectType("BAD_OMEN");
-                if (badOmen != null) {
-                    p.addPotionEffect(new PotionEffect(badOmen, 20 * 60, 0));
-                }
-                p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c[Raid] &7Une menace d'invasion pèse sur cette zone !"));
-            }
-            session.setStatus(EncounterStatus.ACTIVE);
-            return;
-        }
-
-        // Mode Raid Custom : Vagues d'ennemis configurées
+        // Mode Raid Custom ou Vanilla : calcul du nombre de vagues
         int baseWaves = config.getWaves().isEmpty() ? config.getRaidWaveCount() : config.getWaves().size();
         int badOmenLevel = session.getBadOmenLevel();
         int extraWaves = 0;
@@ -69,6 +57,7 @@ public class BaseRaidMechanic implements EncounterMechanic {
 
         session.setCurrentWaveIndex(0);
         session.setWaveCountdownSeconds(3);
+        session.resetSecondsOutsideZone();
 
         String startMsg = badOmenLevel > 0
                 ? plugin.getLangManager().get("encounter.bad_omen_raid_start", Map.of("zone", zone.getId(), "level", String.valueOf(badOmenLevel), "waves", String.valueOf(totalWaves)))
@@ -86,30 +75,50 @@ public class BaseRaidMechanic implements EncounterMechanic {
     @Override
     public void tick(DifficultyZone zone, EncounterSession session) {
         EncounterConfig config = session.getConfig();
-        if ("VANILLA_RAID_MODE".equalsIgnoreCase(config.getRaidMode())) {
-            return;
-        }
-
         session.incrementTicks();
         session.syncBossBarPlayers();
 
-        // Vérification de la présence de joueurs dans la zone
         World world = Bukkit.getWorld(zone.getWorld());
         if (world == null) return;
 
+        // Vérification des conditions de défaite
         boolean anyPlayerInZone = false;
+        boolean allPlayersDead = true;
         for (UUID uuid : session.getParticipatingPlayerUuids()) {
             Player p = Bukkit.getPlayer(uuid);
-            if (p != null && p.isOnline() && zone.contains(p.getLocation())) {
-                anyPlayerInZone = true;
-                break;
+            if (p != null && p.isOnline()) {
+                if (!p.isDead()) allPlayersDead = false;
+                if (zone.contains(p.getLocation())) {
+                    anyPlayerInZone = true;
+                }
             }
         }
 
-        if (!anyPlayerInZone) {
-            // Aucun joueur actif dans la zone pendant le raid
+        if (allPlayersDead) {
             end(zone, session, false);
             return;
+        }
+
+        if (!anyPlayerInZone) {
+            session.incrementSecondsOutsideZone();
+            int grace = config.getPlayerLeaveGracePeriodSeconds();
+            int remaining = grace - session.getSecondsOutsideZone();
+            if ("TIMEOUT_OUTSIDE_ZONE".equalsIgnoreCase(config.getDefeatCondition())) {
+                if (remaining <= 0) {
+                    end(zone, session, false);
+                    return;
+                } else if (remaining % 5 == 0 || remaining <= 5) {
+                    for (UUID uuid : session.getParticipatingPlayerUuids()) {
+                        Player p = Bukkit.getPlayer(uuid);
+                        if (p != null && p.isOnline()) {
+                            String warn = plugin.getLangManager().get("encounter.outside_zone_warning", Map.of("seconds", String.valueOf(remaining)));
+                            p.sendActionBar(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacyAmpersand().deserialize(warn));
+                        }
+                    }
+                }
+            }
+        } else {
+            session.resetSecondsOutsideZone();
         }
 
         // Gestion du compte à rebours de vague
@@ -129,6 +138,11 @@ public class BaseRaidMechanic implements EncounterMechanic {
             Entity ent = Bukkit.getEntity(mobUuid);
             return ent == null || ent.isDead() || !ent.isValid();
         });
+
+        // Application de l'objectif IA aux mobs vivants
+        if (session.getTicksElapsed() % 2 == 0) {
+            applyMobObjectives(zone, session);
+        }
 
         // Mise à jour de la BossBar avec le pourcentage d'ennemis restants
         int remaining = session.getAliveMobUuids().size();
@@ -157,6 +171,49 @@ public class BaseRaidMechanic implements EncounterMechanic {
         }
     }
 
+    private void applyMobObjectives(DifficultyZone zone, EncounterSession session) {
+        String objective = session.getConfig().getMobObjective();
+        Location center = new Location(Bukkit.getWorld(zone.getWorld()), zone.getCenterX(), zone.getCenterY(), zone.getCenterZ());
+
+        for (UUID mobUuid : session.getAliveMobUuids()) {
+            Entity ent = Bukkit.getEntity(mobUuid);
+            if (ent instanceof org.bukkit.entity.Mob mob && mob.isValid()) {
+                if ("ATTACK_CENTER_POINT".equalsIgnoreCase(objective)) {
+                    if (mob.getLocation().distanceSquared(center) > 9) {
+                        mob.getPathfinder().moveTo(center, 1.25);
+                    }
+                } else if ("KILL_VILLAGERS_AND_NPCS".equalsIgnoreCase(objective)) {
+                    if (mob.getTarget() == null || mob.getTarget() instanceof Player) {
+                        for (Entity nearby : mob.getNearbyEntities(20, 10, 20)) {
+                            if (nearby.getType() == EntityType.VILLAGER || nearby.getType() == EntityType.IRON_GOLEM || nearby.hasMetadata("wd_npc")) {
+                                if (nearby instanceof LivingEntity targetLe && !targetLe.isDead()) {
+                                    mob.setTarget(targetLe);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } else if ("TARGET_PLAYERS".equalsIgnoreCase(objective)) {
+                    if (mob.getTarget() == null) {
+                        Player closest = null;
+                        double closestDist = Double.MAX_VALUE;
+                        for (UUID uuid : session.getParticipatingPlayerUuids()) {
+                            Player p = Bukkit.getPlayer(uuid);
+                            if (p != null && p.isOnline() && !p.isDead()) {
+                                double d = p.getLocation().distanceSquared(mob.getLocation());
+                                if (d < closestDist) {
+                                    closestDist = d;
+                                    closest = p;
+                                }
+                            }
+                        }
+                        if (closest != null) mob.setTarget(closest);
+                    }
+                }
+            }
+        }
+    }
+
     private void spawnWave(DifficultyZone zone, EncounterSession session) {
         World world = Bukkit.getWorld(zone.getWorld());
         if (world == null) return;
@@ -167,7 +224,7 @@ public class BaseRaidMechanic implements EncounterMechanic {
 
         Location center = new Location(world, zone.getCenterX(), zone.getCenterY(), zone.getCenterZ());
 
-        if (!waves.isEmpty()) {
+        if (!waves.isEmpty() && !"VANILLA_RAID_MODE".equalsIgnoreCase(config.getRaidMode())) {
             EncounterWave wave = waveIdx < waves.size() ? waves.get(waveIdx) : waves.get(waves.size() - 1);
             double bonusScale = waveIdx >= waves.size() ? 1.0 + 0.25 * (waveIdx - waves.size() + 1) : 1.0;
 
@@ -177,7 +234,7 @@ public class BaseRaidMechanic implements EncounterMechanic {
                 int count = (int) Math.ceil(entry.getValue() * bonusScale);
                 MobVariant variant = plugin.getVariantManager().getVariant(varId);
                 for (int i = 0; i < count; i++) {
-                    Location loc = getRandomSpawnLocation(zone, center, wave, config);
+                    Location loc = EncounterSpawnUtil.getSafeSpawnLocation(zone, center, wave, config);
                     if (variant != null) {
                         LivingEntity mob = plugin.getVariantManager().spawnVariantMob(variant, loc);
                         if (mob != null) {
@@ -192,7 +249,7 @@ public class BaseRaidMechanic implements EncounterMechanic {
                 String squadId = entry.getKey();
                 int count = (int) Math.ceil(entry.getValue() * bonusScale);
                 for (int i = 0; i < count; i++) {
-                    Location loc = getRandomSpawnLocation(zone, center, wave, config);
+                    Location loc = EncounterSpawnUtil.getSafeSpawnLocation(zone, center, wave, config);
                     List<LivingEntity> squadMobs = plugin.getVariantManager().spawnSquad(squadId, loc);
                     for (LivingEntity m : squadMobs) {
                         session.getAliveMobUuids().add(m.getUniqueId());
@@ -200,37 +257,35 @@ public class BaseRaidMechanic implements EncounterMechanic {
                 }
             }
         } else {
-            // Vague de raid par défaut si non définie
-            int mobCount = 4 + (waveIdx * 3);
-            for (int i = 0; i < mobCount; i++) {
-                Location loc = getRandomSpawnLocation(zone, center, null, config);
-                LivingEntity pillager = (LivingEntity) world.spawnEntity(loc, EntityType.PILLAGER);
-                session.getAliveMobUuids().add(pillager.getUniqueId());
-            }
+            // Vague de raid Vanilla automatique
+            double bonusScale = waveIdx >= 5 ? 1.0 + 0.25 * (waveIdx - 4) : 1.0;
+            spawnVanillaRaidWave(world, zone, center, waveIdx, bonusScale, config, session);
         }
 
         // Effets visuels & sonores
         world.playSound(center, Sound.EVENT_RAID_HORN, 2.0f, 1.0f);
     }
 
-    private Location getRandomSpawnLocation(DifficultyZone zone, Location center, EncounterWave wave, EncounterConfig config) {
-        World w = center.getWorld();
-        if (wave != null && "MARKERS".equalsIgnoreCase(wave.getSpawnDistribution()) && config != null && !config.getSpawnMarkers().isEmpty()) {
-            double[] chosen = config.getSpawnMarkers().get(random.nextInt(config.getSpawnMarkers().size()));
-            return new Location(w, chosen[0], chosen[1], chosen[2]);
+    private void spawnVanillaRaidWave(World world, DifficultyZone zone, Location center, int waveIdx, double scale, EncounterConfig config, EncounterSession session) {
+        int pillagers = (int) Math.ceil((3 + waveIdx) * scale);
+        int vindicators = (int) Math.ceil((waveIdx >= 1 ? waveIdx : 0) * scale);
+        int witches = (int) Math.ceil((waveIdx >= 3 ? 1 + (waveIdx - 3) : 0) * scale);
+        int evokers = (int) Math.ceil((waveIdx >= 3 ? 1 : 0) * scale);
+        int ravagers = (int) Math.ceil((waveIdx == 2 || waveIdx >= 4 ? 1 : 0) * scale);
+
+        spawnMobsOfType(world, zone, center, EntityType.PILLAGER, pillagers, config, session);
+        spawnMobsOfType(world, zone, center, EntityType.VINDICATOR, vindicators, config, session);
+        spawnMobsOfType(world, zone, center, EntityType.WITCH, witches, config, session);
+        spawnMobsOfType(world, zone, center, EntityType.EVOKER, evokers, config, session);
+        spawnMobsOfType(world, zone, center, EntityType.RAVAGER, ravagers, config, session);
+    }
+
+    private void spawnMobsOfType(World world, DifficultyZone zone, Location center, EntityType type, int count, EncounterConfig config, EncounterSession session) {
+        for (int i = 0; i < count; i++) {
+            Location loc = EncounterSpawnUtil.getSafeSpawnLocation(zone, center, null, config);
+            LivingEntity entity = (LivingEntity) world.spawnEntity(loc, type);
+            session.getAliveMobUuids().add(entity.getUniqueId());
         }
-        if (wave != null && "RANDOM_ZONE".equalsIgnoreCase(wave.getSpawnDistribution())) {
-            double rx = zone.getMinX() + random.nextDouble() * Math.max(1.0, zone.getMaxX() - zone.getMinX());
-            double rz = zone.getMinZ() + random.nextDouble() * Math.max(1.0, zone.getMaxZ() - zone.getMinZ());
-            int ry = w.getHighestBlockYAt((int) rx, (int) rz) + 1;
-            return new Location(w, rx, ry, rz);
-        }
-        double angle = random.nextDouble() * 2 * Math.PI;
-        double dist = 8 + random.nextDouble() * 12;
-        double x = center.getX() + Math.cos(angle) * dist;
-        double z = center.getZ() + Math.sin(angle) * dist;
-        int y = w.getHighestBlockYAt((int) x, (int) z) + 1;
-        return new Location(w, x, y, z);
     }
 
     @Override

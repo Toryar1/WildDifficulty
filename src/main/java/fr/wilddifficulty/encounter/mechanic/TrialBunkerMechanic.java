@@ -4,6 +4,7 @@ import fr.wilddifficulty.WildDifficultyPlugin;
 import fr.wilddifficulty.encounter.EncounterConfig;
 import fr.wilddifficulty.encounter.EncounterReward;
 import fr.wilddifficulty.encounter.EncounterSession;
+import fr.wilddifficulty.encounter.EncounterSpawnUtil;
 import fr.wilddifficulty.encounter.EncounterStatus;
 import fr.wilddifficulty.encounter.EncounterWave;
 import fr.wilddifficulty.variant.MobVariant;
@@ -65,19 +66,47 @@ public class TrialBunkerMechanic implements EncounterMechanic {
         World world = Bukkit.getWorld(zone.getWorld());
         if (world == null) return;
 
-        // Calcul des joueurs actifs dans le bunker
+        // Vérification des conditions de défaite
+        boolean anyPlayerInZone = false;
+        boolean allPlayersDead = true;
         int activePlayersCount = 0;
+
         for (UUID uuid : session.getParticipatingPlayerUuids()) {
             Player p = Bukkit.getPlayer(uuid);
-            if (p != null && p.isOnline() && zone.contains(p.getLocation())) {
-                activePlayersCount++;
+            if (p != null && p.isOnline()) {
+                if (!p.isDead()) allPlayersDead = false;
+                if (zone.contains(p.getLocation())) {
+                    anyPlayerInZone = true;
+                    activePlayersCount++;
+                }
             }
         }
 
-        if (activePlayersCount == 0) {
-            // Aucun joueur actif restant
+        if (allPlayersDead) {
             end(zone, session, false);
             return;
+        }
+
+        if (!anyPlayerInZone) {
+            session.incrementSecondsOutsideZone();
+            int grace = config.getPlayerLeaveGracePeriodSeconds();
+            int remaining = grace - session.getSecondsOutsideZone();
+            if ("TIMEOUT_OUTSIDE_ZONE".equalsIgnoreCase(config.getDefeatCondition())) {
+                if (remaining <= 0) {
+                    end(zone, session, false);
+                    return;
+                } else if (remaining % 5 == 0 || remaining <= 5) {
+                    for (UUID uuid : session.getParticipatingPlayerUuids()) {
+                        Player p = Bukkit.getPlayer(uuid);
+                        if (p != null && p.isOnline()) {
+                            String warn = plugin.getLangManager().get("encounter.outside_zone_warning", Map.of("seconds", String.valueOf(remaining)));
+                            p.sendActionBar(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacyAmpersand().deserialize(warn));
+                        }
+                    }
+                }
+            }
+        } else {
+            session.resetSecondsOutsideZone();
         }
 
         // Nettoyage des mobs morts
@@ -86,9 +115,14 @@ public class TrialBunkerMechanic implements EncounterMechanic {
             return ent == null || ent.isDead() || !ent.isValid();
         });
 
+        // Application des objectifs IA
+        if (session.getTicksElapsed() % 2 == 0) {
+            applyMobObjectives(zone, session);
+        }
+
         // Calcul du total de mobs à éliminer avec scaling par joueur
         int baseTotal = config.getTrialTotalMobs();
-        int scaledTotal = (int) Math.round(baseTotal * (1.0 + (activePlayersCount - 1) * config.getTrialScalingPerPlayer()));
+        int scaledTotal = (int) Math.round(baseTotal * (1.0 + (Math.max(1, activePlayersCount) - 1) * config.getTrialScalingPerPlayer()));
 
         // Spawn régulier jusqu'au plafond de la session
         if (session.getTrialTotalSpawned() < scaledTotal) {
@@ -109,29 +143,67 @@ public class TrialBunkerMechanic implements EncounterMechanic {
         }
     }
 
+    private void applyMobObjectives(DifficultyZone zone, EncounterSession session) {
+        String objective = session.getConfig().getMobObjective();
+        Location center = new Location(Bukkit.getWorld(zone.getWorld()), zone.getCenterX(), zone.getCenterY(), zone.getCenterZ());
+
+        for (UUID mobUuid : session.getAliveMobUuids()) {
+            Entity ent = Bukkit.getEntity(mobUuid);
+            if (ent instanceof org.bukkit.entity.Mob mob && mob.isValid()) {
+                if ("ATTACK_CENTER_POINT".equalsIgnoreCase(objective)) {
+                    if (mob.getLocation().distanceSquared(center) > 4) {
+                        mob.getPathfinder().moveTo(center, 1.25);
+                    }
+                } else if ("TARGET_PLAYERS".equalsIgnoreCase(objective) || "KILL_VILLAGERS_AND_NPCS".equalsIgnoreCase(objective)) {
+                    if (mob.getTarget() == null) {
+                        Player closest = null;
+                        double closestDist = Double.MAX_VALUE;
+                        for (UUID uuid : session.getParticipatingPlayerUuids()) {
+                            Player p = Bukkit.getPlayer(uuid);
+                            if (p != null && p.isOnline() && !p.isDead()) {
+                                double d = p.getLocation().distanceSquared(mob.getLocation());
+                                if (d < closestDist) {
+                                    closestDist = d;
+                                    closest = p;
+                                }
+                            }
+                        }
+                        if (closest != null) mob.setTarget(closest);
+                    }
+                }
+            }
+        }
+    }
+
     private void spawnTrialMob(DifficultyZone zone, EncounterSession session) {
         World world = Bukkit.getWorld(zone.getWorld());
         if (world == null) return;
 
-        Location center = new Location(world, zone.getCenterX(), zone.getCenterY(), zone.getCenterZ());
-        Location loc = getRandomTrialLocation(zone, center);
+        // Position de spawn basée sur un joueur présent ou le centre de la zone
+        Location refLoc = new Location(world, zone.getCenterX(), zone.getCenterY(), zone.getCenterZ());
+        for (UUID uuid : session.getParticipatingPlayerUuids()) {
+            Player p = Bukkit.getPlayer(uuid);
+            if (p != null && p.isOnline() && zone.contains(p.getLocation())) {
+                refLoc = p.getLocation();
+                break;
+            }
+        }
 
         EncounterConfig config = session.getConfig();
         List<EncounterWave> waves = config.getWaves();
+        EncounterWave wave = waves.isEmpty() ? null : waves.get(random.nextInt(waves.size()));
+        Location loc = EncounterSpawnUtil.getSafeSpawnLocation(zone, refLoc, wave, config);
 
-        if (!waves.isEmpty()) {
-            EncounterWave wave = waves.get(random.nextInt(waves.size()));
-            if (!wave.getVariantSpawns().isEmpty()) {
-                String varId = wave.getVariantSpawns().keySet().iterator().next();
-                MobVariant variant = plugin.getVariantManager().getVariant(varId);
-                if (variant != null) {
-                    LivingEntity mob = plugin.getVariantManager().spawnVariantMob(variant, loc);
-                    if (mob != null) {
-                        session.getAliveMobUuids().add(mob.getUniqueId());
-                        session.incrementTrialSpawned(1);
-                        world.playSound(loc, Sound.BLOCK_TRIAL_SPAWNER_SPAWN_MOB, 1.2f, 1.0f);
-                        return;
-                    }
+        if (wave != null && !wave.getVariantSpawns().isEmpty()) {
+            String varId = wave.getVariantSpawns().keySet().iterator().next();
+            MobVariant variant = plugin.getVariantManager().getVariant(varId);
+            if (variant != null) {
+                LivingEntity mob = plugin.getVariantManager().spawnVariantMob(variant, loc);
+                if (mob != null) {
+                    session.getAliveMobUuids().add(mob.getUniqueId());
+                    session.incrementTrialSpawned(1);
+                    world.playSound(loc, Sound.BLOCK_TRIAL_SPAWNER_SPAWN_MOB, 1.2f, 1.0f);
+                    return;
                 }
             }
         }
@@ -141,16 +213,6 @@ public class TrialBunkerMechanic implements EncounterMechanic {
         session.getAliveMobUuids().add(mob.getUniqueId());
         session.incrementTrialSpawned(1);
         world.playSound(loc, Sound.BLOCK_TRIAL_SPAWNER_SPAWN_MOB, 1.2f, 1.0f);
-    }
-
-    private Location getRandomTrialLocation(DifficultyZone zone, Location center) {
-        World w = center.getWorld();
-        double angle = random.nextDouble() * 2 * Math.PI;
-        double dist = 2 + random.nextDouble() * 6;
-        double x = center.getX() + Math.cos(angle) * dist;
-        double z = center.getZ() + Math.sin(angle) * dist;
-        double y = center.getY();
-        return new Location(w, x, y, z);
     }
 
     @Override

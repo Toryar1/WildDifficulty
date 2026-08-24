@@ -142,5 +142,11 @@ public class EncounterSession {
     public int getTotalWaveCount() { return totalWaveCount; }
     public void setTotalWaveCount(int totalWaveCount) { this.totalWaveCount = totalWaveCount; }
 
+    private int secondsOutsideZone = 0;
+
+    public int getSecondsOutsideZone() { return secondsOutsideZone; }
+    public void incrementSecondsOutsideZone() { this.secondsOutsideZone++; }
+    public void resetSecondsOutsideZone() { this.secondsOutsideZone = 0; }
+
     public BossBar getBossBar() { return bossBar; }
 }

@@ -1021,5 +1021,20 @@
 "encounter.markers_cleared": "&c[Encounter] Todos os marcadores de spawn foram limpos para esta zona."
 "encounter.marker_removed": "&c[Encounter] Marcador de spawn removido."
 "encounter.marker_teleported": "&a[Encounter] Teletransportado para o marcador de spawn."
+"gui.item.spawners": "&6⚡ Spawners Personalizados"
+"gui.item.gérer_les_spawners_personnalisés": "&7Gerenciar geradores automáticos de monstros"
+"gui.title_spawners_list": "⚡ Spawners Personalizados"
+"tools.given_marker": "&a[WD] Varinha de marcadores entregue. Clique direito em bloco para colocar, clique esquerdo para remover."
+"tools.item_marker_title": "&6🎯 Varinha de Marcadores"
+"tools.item_marker_lore1": "&7Clique direito em bloco: &aColocar marcador"
+"tools.item_marker_lore2": "&7Clique esquerdo: &cRemover marcador mais próximo"
+"tools.item_marker_lore3": "&7Shift + Clique direito: &eAbrir menu de marcadores"
+"spawner.teleported": "&a[WD] Teletransportado para o gerador personalizado."
+"encounter.marker_tool_added": "&a[WD] Marcador #{count} adicionado em X: {x}, Y: {y}, Z: {z}"
+"encounter.marker_tool_info": "&e[WD] {count} marcador(es) configurado(s) nesta zona."
+"encounter.outside_zone_warning": "&c⚠ Você está fora da zona! Derrota em &e{seconds}s &c!"
+"encounter.grace_period_updated": "&a[Encounter] Período de tolerância fora da zona definido para &e{seconds}s&a."
+"gui.wave.prompt_grace_period": "&eDigite o período de tolerância fora da zona em segundos (ex: 30):"
+
 
 

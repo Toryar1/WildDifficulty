@@ -1021,5 +1021,20 @@
 "encounter.markers_cleared": "&c[Encounter] All spawn markers cleared for this zone."
 "encounter.marker_removed": "&c[Encounter] Spawn marker removed."
 "encounter.marker_teleported": "&a[Encounter] Teleported to spawn marker."
+"gui.item.spawners": "&6⚡ Custom Spawners"
+"gui.item.gérer_les_spawners_personnalisés": "&7Manage automatic monster spawners"
+"gui.title_spawners_list": "⚡ Custom Spawners"
+"tools.given_marker": "&a[WD] Marker Wand given. Right-click block to add spawn, left-click to remove."
+"tools.item_marker_title": "&6🎯 Marker Wand"
+"tools.item_marker_lore1": "&7Right-Click on block: &aPlace marker"
+"tools.item_marker_lore2": "&7Left-Click: &cRemove closest marker"
+"tools.item_marker_lore3": "&7Shift + Right-Click: &eOpen markers menu"
+"spawner.teleported": "&a[WD] Teleported to custom spawner."
+"encounter.marker_tool_added": "&a[WD] Marker #{count} added at X: {x}, Y: {y}, Z: {z}"
+"encounter.marker_tool_info": "&e[WD] {count} marker(s) configured in this zone."
+"encounter.outside_zone_warning": "&c⚠ You are outside the zone! Defeat in &e{seconds}s &c!"
+"encounter.grace_period_updated": "&a[Encounter] Outside zone grace period set to &e{seconds}s&a."
+"gui.wave.prompt_grace_period": "&eEnter outside zone grace period in seconds (e.g. 30):"
+
 
 

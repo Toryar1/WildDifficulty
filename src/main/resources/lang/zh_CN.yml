@@ -1021,5 +1021,20 @@
 "encounter.markers_cleared": "&c[Encounter] 已清除该区域的所有生成标记点。"
 "encounter.marker_removed": "&c[Encounter] 生成标记点已删除。"
 "encounter.marker_teleported": "&a[Encounter] 已传送至生成标记点。"
+"gui.item.spawners": "&6⚡ 自定义刷怪笼"
+"gui.item.gérer_les_spawners_personnalisés": "&7管理自动怪物刷怪笼"
+"gui.title_spawners_list": "⚡ 自定义刷怪笼"
+"tools.given_marker": "&a[WD] 已获得标记魔杖。右键方块添加点位，左键方块移除点位。"
+"tools.item_marker_title": "&6🎯 标记魔杖"
+"tools.item_marker_lore1": "&7右键方块: &a放置生成标记点"
+"tools.item_marker_lore2": "&7左键方块: &c移除最近的标记点"
+"tools.item_marker_lore3": "&7Shift + 右键: &e打开标记菜单"
+"spawner.teleported": "&a[WD] 已传送至自定义刷怪笼。"
+"encounter.marker_tool_added": "&a[WD] 生成标记点 #{count} 已添加于 X: {x}, Y: {y}, Z: {z}"
+"encounter.marker_tool_info": "&e[WD] 该区域当前已配置 {count} 个标记点。"
+"encounter.outside_zone_warning": "&c⚠ 您已离开区域！将在 &e{seconds}秒 &c后失败！"
+"encounter.grace_period_updated": "&a[Encounter] 区域外缓冲时间已设置为 &e{seconds}秒&a。"
+"gui.wave.prompt_grace_period": "&e请输入区域外缓冲时间（秒，如 30）："
+
 
 

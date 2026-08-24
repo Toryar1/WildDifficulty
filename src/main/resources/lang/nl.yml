@@ -1021,5 +1021,20 @@
 "encounter.markers_cleared": "&c[Encounter] Alle spawn-markeringen voor deze zone gewist."
 "encounter.marker_removed": "&c[Encounter] Spawn-markering verwijderd."
 "encounter.marker_teleported": "&a[Encounter] Geteleporteerd naar spawn-markering."
+"gui.item.spawners": "&6⚡ Aangepaste Spawners"
+"gui.item.gérer_les_spawners_personnalisés": "&7Beheer automatische monster spawners"
+"gui.title_spawners_list": "⚡ Aangepaste Spawners"
+"tools.given_marker": "&a[WD] Markeringsstok gegeven. Rechtsklik op een blok om te plaatsen, linksklik om te verwijderen."
+"tools.item_marker_title": "&6🎯 Markeringsstok"
+"tools.item_marker_lore1": "&7Rechtsklik op blok: &aPlaats markering"
+"tools.item_marker_lore2": "&7Linksklik: &cVerwijder dichtstbijzijnde markering"
+"tools.item_marker_lore3": "&7Shift + Rechtsklik: &eOpen markeringsmenu"
+"spawner.teleported": "&a[WD] Geteleporteerd naar aangepaste spawner."
+"encounter.marker_tool_added": "&a[WD] Markering #{count} toegevoegd op X: {x}, Y: {y}, Z: {z}"
+"encounter.marker_tool_info": "&e[WD] {count} markering(en) geconfigureerd in deze zone."
+"encounter.outside_zone_warning": "&c⚠ Je bent buiten de zone! Nederlaag over &e{seconds}s &c!"
+"encounter.grace_period_updated": "&a[Encounter] Respijttijd buiten zone ingesteld op &e{seconds}s&a."
+"gui.wave.prompt_grace_period": "&eVoer respijttijd buiten zone in seconden in (bijv. 30):"
+
 
 

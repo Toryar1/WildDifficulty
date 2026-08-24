@@ -35,6 +35,10 @@ public class SpawnerManager {
         return spawnerClipboards;
     }
 
+    public Map<String, CustomSpawner> getSpawners() {
+        return spawners;
+    }
+
     public void load() {
         spawners.clear();
         nextAllowedSpawnTime.clear();

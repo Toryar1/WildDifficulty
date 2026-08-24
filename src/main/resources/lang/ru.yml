@@ -1021,5 +1021,20 @@
 "encounter.markers_cleared": "&c[Encounter] Все маркеры спавна удалены для этой зоны."
 "encounter.marker_removed": "&c[Encounter] Маркер спавна удален."
 "encounter.marker_teleported": "&a[Encounter] Телепортирован к маркеру спавна."
+"gui.item.spawners": "&6⚡ Пользовательские Спавнеры"
+"gui.item.gérer_les_spawners_personnalisés": "&7Управление автоматическими спавнерами монстров"
+"gui.title_spawners_list": "⚡ Пользовательские Спавнеры"
+"tools.given_marker": "&a[WD] Жезл маркеров выдан. Правый клик по блоку — поставить, левый — удалить."
+"tools.item_marker_title": "&6🎯 Жезл Маркеров"
+"tools.item_marker_lore1": "&7Правый клик по блоку: &aПоставить маркер"
+"tools.item_marker_lore2": "&7Левый клик: &cУдалить ближайший маркер"
+"tools.item_marker_lore3": "&7Shift + Правый клик: &eОткрыть меню маркеров"
+"spawner.teleported": "&a[WD] Телепортирован к пользовательскому спавнеру."
+"encounter.marker_tool_added": "&a[WD] Маркер #{count} добавлен в X: {x}, Y: {y}, Z: {z}"
+"encounter.marker_tool_info": "&e[WD] В этой зоне настроено {count} маркер(ов)."
+"encounter.outside_zone_warning": "&c⚠ Вы вне зоны! Поражение через &e{seconds}с &c!"
+"encounter.grace_period_updated": "&a[Encounter] Время льготы вне зоны установлено на &e{seconds}с&a."
+"gui.wave.prompt_grace_period": "&eВведите время льготы вне зоны в секундах (напр. 30):"
+
 
 

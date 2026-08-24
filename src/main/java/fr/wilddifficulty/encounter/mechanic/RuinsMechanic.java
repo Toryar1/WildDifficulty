@@ -60,7 +60,7 @@ public class RuinsMechanic implements EncounterMechanic {
             for (Map.Entry<String, Integer> entry : wave.getVariantSpawns().entrySet()) {
                 MobVariant variant = plugin.getVariantManager().getVariant(entry.getKey());
                 for (int i = 0; i < entry.getValue(); i++) {
-                    Location loc = getRandomRuinsLocation(zone, center);
+                    Location loc = fr.wilddifficulty.encounter.EncounterSpawnUtil.getSafeSpawnLocation(zone, center, wave, config);
                     if (variant != null) {
                         LivingEntity mob = plugin.getVariantManager().spawnVariantMob(variant, loc);
                         if (mob != null) {
@@ -73,21 +73,11 @@ public class RuinsMechanic implements EncounterMechanic {
             // Gardiens par défaut (Wither Skeleton / Bogged / Husk)
             int count = 3 + random.nextInt(3);
             for (int i = 0; i < count; i++) {
-                Location loc = getRandomRuinsLocation(zone, center);
+                Location loc = fr.wilddifficulty.encounter.EncounterSpawnUtil.getSafeSpawnLocation(zone, center, null, config);
                 LivingEntity guard = (LivingEntity) world.spawnEntity(loc, EntityType.WITHER_SKELETON);
                 session.getAliveMobUuids().add(guard.getUniqueId());
             }
         }
-    }
-
-    private Location getRandomRuinsLocation(DifficultyZone zone, Location center) {
-        World w = center.getWorld();
-        double angle = random.nextDouble() * 2 * Math.PI;
-        double dist = 3 + random.nextDouble() * 5;
-        double x = center.getX() + Math.cos(angle) * dist;
-        double z = center.getZ() + Math.sin(angle) * dist;
-        int y = w.getHighestBlockYAt((int) x, (int) z) + 1;
-        return new Location(w, x, y, z);
     }
 
     @Override

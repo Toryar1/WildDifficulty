@@ -95,7 +95,7 @@ public class OutpostMechanic implements EncounterMechanic {
         // Spawn de patrouille avec Capitaine
         int count = 5 + random.nextInt(4);
         for (int i = 0; i < count; i++) {
-            Location loc = getRandomOutpostLocation(zone, center);
+            Location loc = fr.wilddifficulty.encounter.EncounterSpawnUtil.getSafeSpawnLocation(zone, center, null, session.getConfig());
             LivingEntity illager = (LivingEntity) world.spawnEntity(loc, random.nextBoolean() ? EntityType.PILLAGER : EntityType.VINDICATOR);
             if (i == 0 && illager instanceof Pillager && random.nextDouble() <= session.getConfig().getOutpostCaptainChance()) {
                 // Équiper la bannière Ominous / Capitaine
@@ -103,16 +103,6 @@ public class OutpostMechanic implements EncounterMechanic {
             }
             session.getAliveMobUuids().add(illager.getUniqueId());
         }
-    }
-
-    private Location getRandomOutpostLocation(DifficultyZone zone, Location center) {
-        World w = center.getWorld();
-        double angle = random.nextDouble() * 2 * Math.PI;
-        double dist = 6 + random.nextDouble() * 10;
-        double x = center.getX() + Math.cos(angle) * dist;
-        double z = center.getZ() + Math.sin(angle) * dist;
-        int y = w.getHighestBlockYAt((int) x, (int) z) + 1;
-        return new Location(w, x, y, z);
     }
 
     @Override

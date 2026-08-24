@@ -81,10 +81,32 @@ public final class ToolsUtil {
         return stick;
     }
 
+    public static ItemStack getSpawnMarkerTool(String zoneId) {
+        WildDifficultyPlugin plugin = WildDifficultyPlugin.getInstance();
+        ItemStack rod = new ItemStack(Material.BLAZE_ROD);
+        ItemMeta meta = rod.getItemMeta();
+        if (meta != null) {
+            meta.getPersistentDataContainer().set(
+                new org.bukkit.NamespacedKey(plugin, "wd_marker_tool"),
+                org.bukkit.persistence.PersistentDataType.STRING,
+                zoneId != null ? zoneId : ""
+            );
+            meta.displayName(plugin.getLangManager().getRawComponent("tools.item_marker_title"));
+            meta.lore(List.of(
+                plugin.getLangManager().getRawComponent("tools.item_marker_lore1"),
+                plugin.getLangManager().getRawComponent("tools.item_marker_lore2"),
+                plugin.getLangManager().getRawComponent("tools.item_marker_lore3")
+            ));
+            rod.setItemMeta(meta);
+        }
+        return rod;
+    }
+
     public static void giveAllTools(Player player) {
         player.getInventory().addItem(getZoneTool());
         player.getInventory().addItem(getSpawnerTool());
         player.getInventory().addItem(getBiomeTool());
         player.getInventory().addItem(getInspectorTool());
+        player.getInventory().addItem(getSpawnMarkerTool(null));
     }
 }

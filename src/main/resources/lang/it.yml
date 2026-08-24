@@ -1021,5 +1021,20 @@
 "encounter.markers_cleared": "&c[Encounter] Tutti i marcatori di spawn per questa zona sono stati cancellati."
 "encounter.marker_removed": "&c[Encounter] Marcatore di spawn rimosso."
 "encounter.marker_teleported": "&a[Encounter] Teletrasportato al marcatore di spawn."
+"gui.item.spawners": "&6⚡ Generatori Personalizzati"
+"gui.item.gérer_les_spawners_personnalisés": "&7Gestisci i generatori automatici di mostri"
+"gui.title_spawners_list": "⚡ Generatori Personalizzati"
+"tools.given_marker": "&a[WD] Bacchetta dei marcatori assegnata. Clic destro su blocco per piazzare, clic sinistro per rimuovere."
+"tools.item_marker_title": "&6🎯 Bacchetta Marcatori"
+"tools.item_marker_lore1": "&7Clic destro su blocco: &aPiazza marcatore"
+"tools.item_marker_lore2": "&7Clic sinistro: &cRimuovi marcatore più vicino"
+"tools.item_marker_lore3": "&7Shift + Clic destro: &eApri menu marcatori"
+"spawner.teleported": "&a[WD] Teletrasportato al generatore personalizzato."
+"encounter.marker_tool_added": "&a[WD] Marcatore #{count} aggiunto in X: {x}, Y: {y}, Z: {z}"
+"encounter.marker_tool_info": "&e[WD] {count} marcatore/i configurato/i in questa zona."
+"encounter.outside_zone_warning": "&c⚠ Sei fuori dalla zona! Sconfitta tra &e{seconds}s &c!"
+"encounter.grace_period_updated": "&a[Encounter] Tempo di grazia fuori zona impostato su &e{seconds}s&a."
+"gui.wave.prompt_grace_period": "&eInserisci il tempo di grazia fuori zona in secondi (es: 30):"
+
 
 

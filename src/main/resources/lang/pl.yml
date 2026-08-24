@@ -1021,5 +1021,20 @@
 "encounter.markers_cleared": "&c[Encounter] Wszystkie znaczniki spawnu zostały usunięte dla tej strefy."
 "encounter.marker_removed": "&c[Encounter] Znacznik spawnu usunięty."
 "encounter.marker_teleported": "&a[Encounter] Przeteleportowano do znacznika spawnu."
+"gui.item.spawners": "&6⚡ Niestandardowe Spawnery"
+"gui.item.gérer_les_spawners_personnalisés": "&7Zarządzaj automatycznymi spawnerami potworów"
+"gui.title_spawners_list": "⚡ Niestandardowe Spawnery"
+"tools.given_marker": "&a[WD] Różdżka znaczników przyznana. Prawy przycisk na blok, aby dodać, lewy aby usunąć."
+"tools.item_marker_title": "&6🎯 Różdżka Znaczników"
+"tools.item_marker_lore1": "&7Prawy przycisk na blok: &aPostaw znacznik"
+"tools.item_marker_lore2": "&7Lewy przycisk: &cUsuń najbliższy znacznik"
+"tools.item_marker_lore3": "&7Shift + Prawy przycisk: &eOtwórz menu znaczników"
+"spawner.teleported": "&a[WD] Przeteleportowano do niestandardowego spawnera."
+"encounter.marker_tool_added": "&a[WD] Znacznik #{count} dodany w X: {x}, Y: {y}, Z: {z}"
+"encounter.marker_tool_info": "&e[WD] {count} znacznik(ów) skonfigurowano w tej strefie."
+"encounter.outside_zone_warning": "&c⚠ Jesteś poza strefą! Porażka za &e{seconds}s &c!"
+"encounter.grace_period_updated": "&a[Encounter] Czas karencji poza strefą ustawiony na &e{seconds}s&a."
+"gui.wave.prompt_grace_period": "&eWprowadź czas karencji poza strefą w sekundach (np. 30):"
+
 
 

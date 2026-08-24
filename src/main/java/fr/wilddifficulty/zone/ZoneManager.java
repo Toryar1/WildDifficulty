@@ -402,6 +402,9 @@ public class ZoneManager {
             encSec.set("bossbar-enabled", enc.isBossBarEnabled());
             encSec.set("bossbar-color", enc.getBossBarColor());
             encSec.set("bossbar-style", enc.getBossBarStyle());
+            encSec.set("defeat-condition", enc.getDefeatCondition());
+            encSec.set("grace-period", enc.getPlayerLeaveGracePeriodSeconds());
+            encSec.set("mob-objective", enc.getMobObjective());
 
             if (!enc.getWaves().isEmpty()) {
                 ConfigurationSection wavesSec = encSec.createSection("waves");
@@ -642,6 +645,9 @@ public class ZoneManager {
             enc.setBossBarEnabled(encSec.getBoolean("bossbar-enabled", true));
             enc.setBossBarColor(encSec.getString("bossbar-color", "RED"));
             enc.setBossBarStyle(encSec.getString("bossbar-style", "NOTCHED_10"));
+            enc.setDefeatCondition(encSec.getString("defeat-condition", "TIMEOUT_OUTSIDE_ZONE"));
+            enc.setPlayerLeaveGracePeriodSeconds(encSec.getInt("grace-period", 30));
+            enc.setMobObjective(encSec.getString("mob-objective", "TARGET_PLAYERS"));
 
             ConfigurationSection wavesSec = encSec.getConfigurationSection("waves");
             if (wavesSec != null) {

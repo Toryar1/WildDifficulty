@@ -137,6 +137,7 @@ public class GuiListener implements Listener {
                     if (slot == 10) gui.openVariantList(player);
                     else if (slot == 11) gui.openSquadList(player);
                     else if (slot == 12) gui.openZoneList(player);
+                    else if (slot == 13) gui.openSpawnerListMenu(player, 0);
                     else if (slot == 14) gui.openBloodMoonEditor(player);
                     else if (slot == 15) gui.openGeneralConfig(player);
                     else if (slot == 16) gui.openAdminToolsMenu(player);
@@ -274,27 +275,84 @@ public class GuiListener implements Listener {
                     }
                 }
                 case "ADMIN_TOOLS" -> {
-                    if (slot == 49) {
+                    if (slot == 22 || slot == 26 || slot == 49) {
                         gui.openMainMenu(player);
                         return;
                     }
-                    if (slot == 20) {
+                    if (slot == 10) {
                         player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getZoneTool());
                         player.sendMessage(plugin.getLangManager().get("tools.given_zone"));
-                    } else if (slot == 21) {
+                    } else if (slot == 11) {
                         player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getSpawnerTool());
                         player.sendMessage(plugin.getLangManager().get("tools.given_spawner"));
-                    } else if (slot == 22) {
+                    } else if (slot == 12) {
+                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getSpawnMarkerTool(null));
+                        player.sendMessage(plugin.getLangManager().get("tools.given_marker"));
+                    } else if (slot == 13) {
                         player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getBiomeTool());
                         player.sendMessage(plugin.getLangManager().get("tools.given_biome"));
-                    } else if (slot == 23) {
+                    } else if (slot == 14) {
                         player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getInspectorTool());
                         player.sendMessage(plugin.getLangManager().get("tools.given_inspector"));
-                    } else if (slot == 24) {
+                    } else if (slot == 15) {
                         fr.wilddifficulty.util.ToolsUtil.giveAllTools(player);
                         player.sendMessage(plugin.getLangManager().get("tools.given_all"));
-                    } else if (slot == 31) {
+                    } else if (slot == 16) {
                         org.bukkit.Bukkit.dispatchCommand(player, "wd scoreboard");
+                    }
+                }
+                case "SPAWNER_LIST" -> {
+                    int page = 0;
+                    try { page = Integer.parseInt(contextId); } catch (Exception ignored) {}
+                    if (slot == 31) {
+                        gui.openMainMenu(player);
+                        return;
+                    }
+                    if (slot == 28) {
+                        gui.openSpawnerListMenu(player, page - 1);
+                        return;
+                    }
+                    if (slot == 32) {
+                        gui.openSpawnerListMenu(player, page + 1);
+                        return;
+                    }
+                    if (slot == 29) {
+                        Location loc = player.getLocation().getBlock().getLocation();
+                        plugin.getSpawnerManager().getOrCreateSpawner(loc);
+                        player.sendMessage(plugin.getLangManager().get("spawner.created", Map.of(
+                                "x", String.valueOf(loc.getBlockX()),
+                                "y", String.valueOf(loc.getBlockY()),
+                                "z", String.valueOf(loc.getBlockZ())
+                        )));
+                        gui.openSpawnerEditor(player, loc);
+                        return;
+                    }
+                    if (slot == 30) {
+                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getSpawnerTool());
+                        player.sendMessage(plugin.getLangManager().get("tools.given_spawner"));
+                        return;
+                    }
+                    List<fr.wilddifficulty.spawner.CustomSpawner> spawnerList = new ArrayList<>(plugin.getSpawnerManager().getAllSpawners());
+                    int[] spawnerSlots = {10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25};
+                    for (int i = 0; i < spawnerSlots.length; i++) {
+                        if (slot == spawnerSlots[i]) {
+                            int targetIdx = page * 14 + i;
+                            if (targetIdx < spawnerList.size()) {
+                                fr.wilddifficulty.spawner.CustomSpawner spawner = spawnerList.get(targetIdx);
+                                if (event.isShiftClick() && event.isRightClick()) {
+                                    plugin.getSpawnerManager().removeSpawner(spawner.getLocation());
+                                    player.sendMessage(plugin.getLangManager().get("spawner.removed"));
+                                    gui.openSpawnerListMenu(player, page);
+                                } else if (event.isRightClick()) {
+                                    player.teleport(spawner.getLocation().clone().add(0.5, 1.0, 0.5));
+                                    player.sendMessage(plugin.getLangManager().get("spawner.teleported"));
+                                    player.closeInventory();
+                                } else {
+                                    gui.openSpawnerEditor(player, spawner.getLocation());
+                                }
+                            }
+                            return;
+                        }
                     }
                 }
                 case "SPAWNER_EDIT" -> {
@@ -2107,8 +2165,10 @@ public class GuiListener implements Listener {
                         }
                         zoneManager.save();
                         gui.openZoneEncounterMenu(player, contextId);
-                    } else if (slot == 14) {
+                    } else if (slot == 13) {
                         gui.openEncounterWavesMenu(player, contextId);
+                    } else if (slot == 14) {
+                        gui.openEncounterSpawnMarkersMenu(player, contextId);
                     } else if (slot == 15) {
                         gui.openEncounterRewardsMenu(player, contextId);
                     } else if (slot == 16) {
@@ -2125,6 +2185,39 @@ public class GuiListener implements Listener {
                         gui.openZoneEncounterMenu(player, contextId);
                     } else if (slot == 19) {
                         enc.setBossBarEnabled(!enc.isBossBarEnabled());
+                        zoneManager.save();
+                        gui.openZoneEncounterMenu(player, contextId);
+                    } else if (slot == 20) {
+                        if (event.isRightClick()) {
+                            ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.wave.prompt_grace_period"), input -> {
+                                try {
+                                    int val = Integer.parseInt(input);
+                                    enc.setPlayerLeaveGracePeriodSeconds(val);
+                                    zoneManager.save();
+                                    player.sendMessage(plugin.getLangManager().get("encounter.grace_period_updated", Map.of("seconds", String.valueOf(val))));
+                                } catch (Exception e) { player.sendMessage(plugin.getLangManager().get("general.invalid_number")); }
+                                plugin.getServer().getScheduler().runTask(plugin, () -> gui.openZoneEncounterMenu(player, contextId));
+                            });
+                            return;
+                        }
+                        String current = enc.getDefeatCondition();
+                        String next = switch (current) {
+                            case "TIMEOUT_OUTSIDE_ZONE" -> "ALL_PLAYERS_DEAD";
+                            case "ALL_PLAYERS_DEAD" -> "TIME_LIMIT";
+                            default -> "TIMEOUT_OUTSIDE_ZONE";
+                        };
+                        enc.setDefeatCondition(next);
+                        zoneManager.save();
+                        gui.openZoneEncounterMenu(player, contextId);
+                    } else if (slot == 21) {
+                        String current = enc.getMobObjective();
+                        String next = switch (current) {
+                            case "TARGET_PLAYERS" -> "ATTACK_CENTER_POINT";
+                            case "ATTACK_CENTER_POINT" -> "KILL_VILLAGERS_AND_NPCS";
+                            case "KILL_VILLAGERS_AND_NPCS" -> "DEFEND_ZONE";
+                            default -> "TARGET_PLAYERS";
+                        };
+                        enc.setMobObjective(next);
                         zoneManager.save();
                         gui.openZoneEncounterMenu(player, contextId);
                     } else if (slot == 22) {
@@ -2277,6 +2370,11 @@ public class GuiListener implements Listener {
                                 "z", String.format("%.1f", loc.getZ())
                         )));
                         gui.openEncounterSpawnMarkersMenu(player, zoneId);
+                        return;
+                    }
+                    if (slot == 30) {
+                        player.getInventory().addItem(fr.wilddifficulty.util.ToolsUtil.getSpawnMarkerTool(zoneId));
+                        player.sendMessage(plugin.getLangManager().get("tools.given_marker"));
                         return;
                     }
                     if (slot == 33) {
@@ -3192,7 +3290,7 @@ public class GuiListener implements Listener {
     }
 
     private void handleGenericReturn(Player player, String menuType, String contextId, GuiManager gui) {
-        if (menuType.equals("VARIANT_LIST") || menuType.equals("SQUAD_LIST") || menuType.equals("ZONE_LIST") || menuType.equals("BLOODMOON_EDIT") || menuType.equals("BIOME_SPAWN_CONFIG") || menuType.equals("ADMIN_TOOLS") || menuType.equals("GENERAL_CONFIG")) {
+        if (menuType.equals("VARIANT_LIST") || menuType.equals("SQUAD_LIST") || menuType.equals("ZONE_LIST") || menuType.equals("BLOODMOON_EDIT") || menuType.equals("BIOME_SPAWN_CONFIG") || menuType.equals("ADMIN_TOOLS") || menuType.equals("GENERAL_CONFIG") || menuType.equals("SPAWNER_LIST")) {
             gui.openMainMenu(player);
         } else if (menuType.equals("GLOBALS") || menuType.equals("BANNED_NATURAL_ENTITIES")) {
             gui.openGeneralConfig(player);

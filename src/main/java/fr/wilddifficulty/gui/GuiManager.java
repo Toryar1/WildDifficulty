@@ -85,6 +85,7 @@ public class GuiManager {
         inv.setItem(10, createItem(Material.ZOMBIE_HEAD, plugin.getLangManager().getRaw("gui.item.variantes"), plugin.getLangManager().getRaw("gui.item.gérer_les_variantes_de_mobs")));
         inv.setItem(11, createItem(Material.SKELETON_SKULL, plugin.getLangManager().getRaw("gui.item.escouades"), plugin.getLangManager().getRaw("gui.item.gérer_les_escouades")));
         inv.setItem(12, createItem(Material.MAP, plugin.getLangManager().getRaw("gui.item.zones"), plugin.getLangManager().getRaw("gui.item.gérer_les_zones_de_difficulté")));
+        inv.setItem(13, createItem(Material.SPAWNER, plugin.getLangManager().getRaw("gui.item.spawners"), plugin.getLangManager().getRaw("gui.item.gérer_les_spawners_personnalisés")));
 
         inv.setItem(14, createItem(Material.REDSTONE, plugin.getLangManager().getRaw("gui.item.configuration_lune_de_sang"), 
                 plugin.getLangManager().getRaw("gui.item.gérer_le_taux_dapparition_multiplicateurs"), 
@@ -308,20 +309,20 @@ public class GuiManager {
 
     public void openAdminToolsMenu(Player player) {
         WDMenuHolder holder = new WDMenuHolder("ADMIN_TOOLS", null);
-        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_admin_tools")));
+        Inventory inv = Bukkit.createInventory(holder, 27, Component.text(plugin.getLangManager().getRaw("gui.title_admin_tools")));
         holder.setInventory(inv);
 
         fillBorders(inv);
 
-        inv.setItem(20, createItem(Material.GOLDEN_HOE, plugin.getLangManager().getRaw("gui.item.outil_de_zone"), plugin.getLangManager().getRaw("gui.item.dessine_les_points_du_polygone"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
-        inv.setItem(21, createItem(Material.NETHERITE_SHOVEL, plugin.getLangManager().getRaw("gui.item.outil_de_spawner"), plugin.getLangManager().getRaw("gui.item.configure_les_spawners_personnalisés"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
-        inv.setItem(22, createItem(Material.COMPASS, plugin.getLangManager().getRaw("gui.item.outil_de_biome"), plugin.getLangManager().getRaw("gui.item.configure_les_spawns_par_biome"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
-        inv.setItem(23, createItem(Material.STICK, plugin.getLangManager().getRaw("gui.item.inspecteur_de_mobs"), plugin.getLangManager().getRaw("gui.item.affiche_les_détails_complets_dune"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
-        
-        inv.setItem(24, createItem(Material.CHEST, plugin.getLangManager().getRaw("gui.item.tous_les_outils"), plugin.getLangManager().getRaw("gui.item.obtenir_tous_les_outils_dun"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
-        inv.setItem(31, createItem(Material.FILLED_MAP, plugin.getLangManager().getRaw("gui.item.activerdésactiver_scoreboard_debug"), plugin.getLangManager().getRaw("gui.item.affiche_le_scoreboard_latéral_danalyse"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_basculer")));
+        inv.setItem(10, createItem(Material.GOLDEN_HOE, plugin.getLangManager().getRaw("gui.item.outil_de_zone"), plugin.getLangManager().getRaw("gui.item.dessine_les_points_du_polygone"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
+        inv.setItem(11, createItem(Material.NETHERITE_SHOVEL, plugin.getLangManager().getRaw("gui.item.outil_de_spawner"), plugin.getLangManager().getRaw("gui.item.configure_les_spawners_personnalisés"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
+        inv.setItem(12, createItem(Material.BLAZE_ROD, plugin.getLangManager().getRaw("tools.item_marker_title"), plugin.getLangManager().getRaw("tools.item_marker_lore1"), plugin.getLangManager().getRaw("tools.item_marker_lore2"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
+        inv.setItem(13, createItem(Material.COMPASS, plugin.getLangManager().getRaw("gui.item.outil_de_biome"), plugin.getLangManager().getRaw("gui.item.configure_les_spawns_par_biome"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
+        inv.setItem(14, createItem(Material.STICK, plugin.getLangManager().getRaw("gui.item.inspecteur_de_mobs"), plugin.getLangManager().getRaw("gui.item.affiche_les_détails_complets_dune"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
+        inv.setItem(15, createItem(Material.CHEST, plugin.getLangManager().getRaw("gui.item.tous_les_outils"), plugin.getLangManager().getRaw("gui.item.obtenir_tous_les_outils_dun"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_obtenir")));
+        inv.setItem(16, createItem(Material.FILLED_MAP, plugin.getLangManager().getRaw("gui.item.activerdésactiver_scoreboard_debug"), plugin.getLangManager().getRaw("gui.item.affiche_le_scoreboard_latéral_danalyse"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_basculer")));
 
-        inv.setItem(49, createBackItem());
+        inv.setItem(22, createBackItem());
         player.openInventory(inv);
     }
 
@@ -1586,6 +1587,11 @@ public class GuiManager {
                 "",
                 "&e➜ Clic pour éditer les vagues"));
 
+        inv.setItem(14, createItem(Material.TARGET, "&6🎯 Marqueurs de Spawn",
+                "&7Marqueurs configurés : &e" + enc.getSpawnMarkers().size(),
+                "",
+                "&e➜ Clic pour gérer les points de spawn"));
+
         inv.setItem(15, createItem(Material.CHEST, "&6🎁 Récompenses de Victoire",
                 "&7XP : &e" + enc.getRewards().getXpAmount() + " XP",
                 "&7Items configurés : &e" + enc.getRewards().getItems().size(),
@@ -1598,7 +1604,7 @@ public class GuiManager {
             inv.setItem(16, createItem(Material.CROSSBOW, "&c⚔ Mode de Raid",
                     "&7Mode actuel : &e" + enc.getRaidMode(),
                     "&8- &fCUSTOM_RAID_MODE &7: Vagues simulées",
-                    "&8- &fVANILLA_RAID_MODE &7: Bad Omen & Raid naturel",
+                    "&8- &fVANILLA_RAID_MODE &7: Vagues pillards automatiques",
                     "",
                     "&e➜ Clic pour basculer le mode"));
         } else if (enc.getType() == fr.wilddifficulty.encounter.EncounterType.TRIAL_BUNKER) {
@@ -1625,7 +1631,26 @@ public class GuiManager {
 
         inv.setItem(19, createToggleItem(Material.DRAGON_HEAD, "&dBossBar de Progression", enc.isBossBarEnabled()));
 
-        // Bouton de Test / Démarrage Forcé
+        // Conditions de Défaite (Slot 20)
+        inv.setItem(20, createItem(Material.TOTEM_OF_UNDYING, "&c☠ Conditions de Défaite",
+                "&7Mode : &e" + enc.getDefeatCondition(),
+                "&7Délai hors zone : &b" + enc.getPlayerLeaveGracePeriodSeconds() + "s",
+                "",
+                "&e➜ Clic gauche : Changer de mode",
+                "&e➜ Clic droit : Modifier le délai hors zone (tchat)"));
+
+        // Objectif des Ennemis (Slot 21)
+        inv.setItem(21, createItem(Material.BOW, "&d🎯 Objectif des Ennemis",
+                "&7Objectif actuel : &e" + enc.getMobObjective(),
+                "",
+                "&8- &fTARGET_PLAYERS &7: Traquer les joueurs",
+                "&8- &fATTACK_CENTER_POINT &7: Foncer au centre",
+                "&8- &fKILL_VILLAGERS_AND_NPCS &7: Tuer PNJ/Villageois",
+                "&8- &fDEFEND_ZONE &7: Patrouiller la zone",
+                "",
+                "&e➜ Clic pour changer d'objectif"));
+
+        // Bouton de Test / Démarrage Forcé (Slot 22)
         boolean isActive = plugin.getEncounterManager().isEncounterActive(zoneId);
         long cd = plugin.getEncounterManager().getRemainingCooldownSeconds(zoneId);
         String triggerLore = isActive ? "&cEncounter déjà en cours !" : (cd > 0 ? "&cEn recharge (" + cd + "s)" : "&aPrêt à démarrer");
@@ -1717,6 +1742,13 @@ public class GuiManager {
                 "&7comme point d'apparition (Marqueur).",
                 "",
                 "&a➜ Clic pour ajouter"));
+
+        // Prendre l'outil de placement de marqueurs (Slot 30)
+        inv.setItem(30, createItem(Material.BLAZE_ROD, "&6⚡ Prendre l'Outil de Marqueurs",
+                "&7Permet de cliquer au sol avec un bâton",
+                "&7pour ajouter/supprimer des spawns rapidement.",
+                "",
+                "&e➜ Clic pour obtenir l'outil"));
 
         // Retour (Slot 31)
         inv.setItem(31, createBackItem());
@@ -2356,6 +2388,68 @@ public class GuiManager {
         String name = type.name();
         return name.contains("ZOMBIE") || name.contains("SKELETON") || name.contains("PIGLIN") || name.equals("DROWNED")
             || name.equals("STRAY") || name.equals("HUSK") || name.equals("GIANT") || name.equals("ARMOR_STAND") || name.equals("WITHER_SKELETON");
+    }
+
+    public void openSpawnerListMenu(Player player, int page) {
+        WDMenuHolder holder = new WDMenuHolder("SPAWNER_LIST", String.valueOf(page));
+        Inventory inv = Bukkit.createInventory(holder, 36, Component.text(plugin.getLangManager().getRaw("gui.title_spawners_list")));
+        holder.setInventory(inv);
+
+        fillBorders(inv);
+
+        List<fr.wilddifficulty.spawner.CustomSpawner> spawnerList = new ArrayList<>(plugin.getSpawnerManager().getAllSpawners());
+        int itemsPerPage = 14;
+        int maxPages = (int) Math.ceil((double) spawnerList.size() / itemsPerPage);
+        if (maxPages == 0) maxPages = 1;
+        if (page >= maxPages) page = maxPages - 1;
+        if (page < 0) page = 0;
+
+        int startIndex = page * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, spawnerList.size());
+
+        int[] slots = {10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25};
+        for (int i = startIndex; i < endIndex; i++) {
+            fr.wilddifficulty.spawner.CustomSpawner spawner = spawnerList.get(i);
+            Location loc = spawner.getLocation();
+            String locStr = loc.getWorld().getName() + " [" + loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ() + "]";
+            int slot = slots[i - startIndex];
+
+            inv.setItem(slot, createItem(Material.SPAWNER, "&6⚡ Spawner #" + (i + 1),
+                    "&7Position : &e" + locStr,
+                    "&7Statut : " + (spawner.isActive() ? "§a✔ Actif" : "§c✖ Inactif"),
+                    "&7Intervalle : &b" + spawner.getInterval() + "s",
+                    "&7Rayon : &d" + spawner.getRadius() + " blocs",
+                    "&7Variantes : &f" + spawner.getVariantWeights().size(),
+                    "",
+                    "&a➜ Clic gauche : Éditer",
+                    "&e➜ Clic droit : Se téléporter",
+                    "&c➜ Shift + Clic droit : Supprimer"));
+        }
+
+        // Pagination
+        if (page > 0) {
+            inv.setItem(28, createItem(Material.ARROW, plugin.getLangManager().getRaw("gui.item.page_précédente") + page + ")"));
+        }
+        if (page < maxPages - 1) {
+            inv.setItem(32, createItem(Material.ARROW, plugin.getLangManager().getRaw("gui.item.page_suivante") + (page + 2) + ")"));
+        }
+
+        // Créer un spawner ici
+        inv.setItem(29, createItem(Material.EMERALD, "&a+ Créer un spawner ici",
+                "&7Crée un spawner personnalisé",
+                "&7sur le bloc sous vos pieds.",
+                "",
+                "&a➜ Clic pour créer"));
+
+        // Prendre l'outil de spawner
+        inv.setItem(30, createItem(Material.NETHERITE_SHOVEL, "&6⚡ Prendre l'Outil de Spawner",
+                "&7Donne la pelle de spawner.",
+                "&7Clic droit sur n'importe quel bloc pour l'éditer.",
+                "",
+                "&e➜ Clic pour obtenir"));
+
+        inv.setItem(31, createBackItem());
+        player.openInventory(inv);
     }
 
     public void openSpawnerEditor(Player player, Location loc) {
