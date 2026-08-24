@@ -239,11 +239,10 @@ public class MobSpawnListener implements Listener {
                 List<String> deniedVars = zone != null ? zone.getDeniedVariants() : biomeCfg.getDeniedVariants(biomeKey);
                 variant = varManager.getRandomVariantFor(entityType, allowedVars, deniedVars, world, biomeKey, loc);
                 
-                // Si aucune variante et qu'on bloque les vanilla (hostiles/passifs séparément), on annule
+                // Si aucune variante et que l'entité est bannie du spawn naturel, on annule
                 if (variant == null) {
-                    boolean isHostile = entity instanceof org.bukkit.entity.Enemy;
-                    boolean shouldBlock = (isHostile && mainCfg.isBlockVanillaHostiles()) || (!isHostile && mainCfg.isBlockVanillaPassives());
-                    if (shouldBlock && event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.COMMAND && event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.CUSTOM) {
+                    boolean isBanned = mainCfg.isNaturalEntityBanned(mobKey);
+                    if (isBanned && event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.COMMAND && event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.CUSTOM) {
                         event.setCancelled(true);
                         return;
                     }

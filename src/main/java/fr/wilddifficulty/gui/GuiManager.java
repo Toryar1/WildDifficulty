@@ -78,45 +78,43 @@ public class GuiManager {
         WDMenuHolder holder = new WDMenuHolder("MAIN", null);
         Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_main")));
         holder.setInventory(inv);
-        MainConfigManager cfg = plugin.getMainConfigManager();
 
         fillBorders(inv);
 
-        inv.setItem(10, createItem(Material.DIAMOND_SWORD, plugin.getLangManager().getRaw("gui.item.modificateurs_globaux"), plugin.getLangManager().getRaw("gui.item.ajustez_la_difficulté_générale")));
-        inv.setItem(12, createItem(Material.ZOMBIE_HEAD, plugin.getLangManager().getRaw("gui.item.variantes"), plugin.getLangManager().getRaw("gui.item.gérer_les_variantes_de_mobs")));
-        inv.setItem(14, createItem(Material.SKELETON_SKULL, plugin.getLangManager().getRaw("gui.item.escouades"), plugin.getLangManager().getRaw("gui.item.gérer_les_escouades")));
-        inv.setItem(16, createItem(Material.MAP, plugin.getLangManager().getRaw("gui.item.zones"), plugin.getLangManager().getRaw("gui.item.gérer_les_zones_de_difficulté")));
+        // Core Management (Row 2)
+        inv.setItem(20, createItem(Material.ZOMBIE_HEAD, plugin.getLangManager().getRaw("gui.item.variantes"), plugin.getLangManager().getRaw("gui.item.gérer_les_variantes_de_mobs")));
+        inv.setItem(22, createItem(Material.SKELETON_SKULL, plugin.getLangManager().getRaw("gui.item.escouades"), plugin.getLangManager().getRaw("gui.item.gérer_les_escouades")));
+        inv.setItem(24, createItem(Material.MAP, plugin.getLangManager().getRaw("gui.item.zones"), plugin.getLangManager().getRaw("gui.item.gérer_les_zones_de_difficulté")));
 
-        inv.setItem(20, createItem(Material.REDSTONE, plugin.getLangManager().getRaw("gui.item.configuration_lune_de_sang"), 
+        // Events & Configs (Row 3)
+        inv.setItem(29, createItem(Material.REDSTONE, plugin.getLangManager().getRaw("gui.item.configuration_lune_de_sang"), 
                 plugin.getLangManager().getRaw("gui.item.gérer_le_taux_dapparition_multiplicateurs"), 
                 plugin.getLangManager().getRaw("gui.item.et_bonus_lors_des_nuits"), 
                 "", 
                 plugin.getLangManager().getRaw("gui.item.clic_pour_configurer")));
         
-        inv.setItem(22, createItem(Material.COMPARATOR, plugin.getLangManager().getRaw("gui.item.configuration_générale"),
+        inv.setItem(31, createItem(Material.COMPARATOR, plugin.getLangManager().getRaw("gui.item.configuration_générale"),
                 plugin.getLangManager().getRaw("gui.item.configurer_le_cap_de_mobs"),
                 plugin.getLangManager().getRaw("gui.item.de_spawn_max_la_langue"),
                 plugin.getLangManager().getRaw("gui.item.les_nametags_et_paramètres_généraux"),
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_configurer")));
 
-        inv.setItem(24, createItem(Material.CHEST_MINECART, plugin.getLangManager().getRaw("gui.item.outils_dadministration"), 
+        inv.setItem(33, createItem(Material.CHEST_MINECART, plugin.getLangManager().getRaw("gui.item.outils_dadministration"), 
                 plugin.getLangManager().getRaw("gui.item.obtenir_individuellement_ou_tous_les"), 
                 plugin.getLangManager().getRaw("gui.item.de_configuration_et_danalyse"), 
                 "", 
                 plugin.getLangManager().getRaw("gui.item.clic_pour_ouvrir")));
 
-        inv.setItem(28, createToggleItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.bloquer_hostiles_vanilla"), cfg.isBlockVanillaHostiles()));
-        inv.setItem(30, createToggleItem(Material.PIG_SPAWN_EGG, plugin.getLangManager().getRaw("gui.item.bloquer_passifs_vanilla"), cfg.isBlockVanillaPassives()));
-
+        // Language & Reload (Row 4)
         String currentLangCode = plugin.getConfig().getString("plugin.language", "fr");
         String currentLangName = fr.wilddifficulty.config.LanguageSetup.getAvailableLanguages().getOrDefault(currentLangCode, "Français");
-        inv.setItem(32, createItem(Material.BOOK, plugin.getLangManager().getRaw("gui.item.langue_du_plugin"),
+        inv.setItem(38, createItem(Material.BOOK, plugin.getLangManager().getRaw("gui.item.langue_du_plugin"),
                 plugin.getLangManager().getRaw("gui.item.langue_actuelle") + currentLangName + " (" + currentLangCode + ")",
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_changer_la_langue")));
 
-        inv.setItem(34, createItem(Material.COMMAND_BLOCK, plugin.getLangManager().getRaw("gui.item.recharger_config"), plugin.getLangManager().getRaw("gui.item.recharge_les_fichiers_yaml"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_recharger")));
+        inv.setItem(42, createItem(Material.COMMAND_BLOCK, plugin.getLangManager().getRaw("gui.item.recharger_config"), plugin.getLangManager().getRaw("gui.item.recharge_les_fichiers_yaml"), "", plugin.getLangManager().getRaw("gui.item.clic_pour_recharger")));
 
         inv.setItem(49, createCloseItem());
 
@@ -131,11 +129,24 @@ public class GuiManager {
 
         fillBorders(inv);
 
-        // Debug mode
-        inv.setItem(10, createToggleItem(Material.REDSTONE_TORCH, plugin.getLangManager().getRaw("gui.item.mode_debug"), cfg.isDebug()));
+        // Modificateurs globaux (Slot 10)
+        inv.setItem(10, createItem(Material.DIAMOND_SWORD, plugin.getLangManager().getRaw("gui.item.modificateurs_globaux"), plugin.getLangManager().getRaw("gui.item.ajustez_la_difficulté_générale")));
 
-        // Max spawn distance
-        inv.setItem(11, createItem(Material.CLOCK, plugin.getLangManager().getRaw("gui.item.distance_de_spawn_max"),
+        // Bannissement d'entités naturelles (Slot 11)
+        int bannedCount = cfg.getBannedNaturalEntities().size();
+        String bannedCountBadge = bannedCount > 0 ? "§c" + bannedCount + " banni(s)" : "§aAucun (Vanilla actif)";
+        inv.setItem(11, createItem(Material.BARRIER, plugin.getLangManager().getRaw("gui.item.bannir_entites_naturelles"),
+                plugin.getLangManager().getRaw("gui.item.bannir_entites_naturelles_desc1"),
+                plugin.getLangManager().getRaw("gui.item.bannir_entites_naturelles_desc2"),
+                "&7Statut : " + bannedCountBadge,
+                "",
+                plugin.getLangManager().getRaw("gui.item.bannir_entites_naturelles_desc3")));
+
+        // Debug mode (Slot 12)
+        inv.setItem(12, createToggleItem(Material.REDSTONE_TORCH, plugin.getLangManager().getRaw("gui.item.mode_debug"), cfg.isDebug()));
+
+        // Max spawn distance (Slot 14)
+        inv.setItem(14, createItem(Material.CLOCK, plugin.getLangManager().getRaw("gui.item.distance_de_spawn_max"),
                 plugin.getLangManager().getRaw("gui.item.distance_actuelle") + (cfg.getMaxSpawnDistance() == -1 ? plugin.getLangManager().getRaw("gui.item.désactivé") : cfg.getMaxSpawnDistance() + plugin.getLangManager().getRaw("gui.item.blocs")),
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_gauche_10_blocs_clic"),
@@ -143,8 +154,8 @@ public class GuiManager {
                 plugin.getLangManager().getRaw("gui.item.shiftclic_droit_50_blocs"),
                 plugin.getLangManager().getRaw("gui.item.clic_milieu_tchat_définir_précis")));
 
-        // Cap of variants per player
-        inv.setItem(12, createItem(Material.COMPARATOR, plugin.getLangManager().getRaw("gui.item.cap_de_variantes_joueur"),
+        // Cap of variants per player (Slot 15)
+        inv.setItem(15, createItem(Material.COMPARATOR, plugin.getLangManager().getRaw("gui.item.cap_de_variantes_joueur"),
                 plugin.getLangManager().getRaw("gui.item.limite_actuelle") + cfg.getCapVariantesParJoueur() + plugin.getLangManager().getRaw("gui.item.variantes_1"),
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_gauche_5_clic_droit"),
@@ -152,38 +163,110 @@ public class GuiManager {
                 plugin.getLangManager().getRaw("gui.item.shiftclic_droit_20"),
                 plugin.getLangManager().getRaw("gui.item.clic_milieu_tchat_définir_précis")));
 
-        // Disable burning globally
-        inv.setItem(19, createToggleItem(Material.FLINT_AND_STEEL, plugin.getLangManager().getRaw("gui.item.pas_de_combustion_au_soleil"), cfg.isDisableBurningGlobally()));
+        // Disable burning globally (Slot 16)
+        inv.setItem(16, createToggleItem(Material.FLINT_AND_STEEL, plugin.getLangManager().getRaw("gui.item.pas_de_combustion_au_soleil"), cfg.isDisableBurningGlobally()));
 
-        // Allow day spawn globally
-        inv.setItem(20, createToggleItem(Material.SUNFLOWER, plugin.getLangManager().getRaw("gui.item.spawns_de_jour_globaux"), cfg.isAllowDaySpawnGlobally()));
+        // Allow day spawn globally (Slot 19)
+        inv.setItem(19, createToggleItem(Material.SUNFLOWER, plugin.getLangManager().getRaw("gui.item.spawns_de_jour_globaux"), cfg.isAllowDaySpawnGlobally()));
 
-        // Nametags status
-        inv.setItem(28, createToggleItem(Material.NAME_TAG, plugin.getLangManager().getRaw("gui.item.activer_nametags"), cfg.isNametagsEnabled()));
+        // Nametags status (Slot 21)
+        inv.setItem(21, createToggleItem(Material.NAME_TAG, plugin.getLangManager().getRaw("gui.item.activer_nametags"), cfg.isNametagsEnabled()));
 
-        // Nametag format
-        inv.setItem(29, createItem(Material.WRITABLE_BOOK, plugin.getLangManager().getRaw("gui.item.format_des_nametags"),
+        // Nametag format (Slot 22)
+        inv.setItem(22, createItem(Material.WRITABLE_BOOK, plugin.getLangManager().getRaw("gui.item.format_des_nametags"),
                 plugin.getLangManager().getRaw("gui.item.format_actuel") + cfg.getNametagFormat(),
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_définir_via_le")));
 
-        // Soif, Hardcore & Mort
-        inv.setItem(30, createItem(Material.POTION, plugin.getLangManager().getRaw("gui.item.soif_hardcore_mort"),
+        // Soif, Hardcore & Mort (Slot 23)
+        inv.setItem(23, createItem(Material.POTION, plugin.getLangManager().getRaw("gui.item.soif_hardcore_mort"),
                 plugin.getLangManager().getRaw("gui.item.soif_globale") + (cfg.isThirstEnabled() ? plugin.getLangManager().getRaw("empty") : plugin.getLangManager().getRaw("empty_1")),
                 plugin.getLangManager().getRaw("gui.item.hardcore_global") + (cfg.isHardcoreEnabled() ? plugin.getLangManager().getRaw("empty_2") : "§7✖"),
                 plugin.getLangManager().getRaw("gui.item.despawn_mort") + cfg.getDeathItemDespawnSeconds() + "s",
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_configurer_1")));
 
-        // Langue du plugin
+        // Langue du plugin (Slot 25)
         String currentLangCode = plugin.getConfig().getString("plugin.language", "fr");
         String currentLangName = fr.wilddifficulty.config.LanguageSetup.getAvailableLanguages().getOrDefault(currentLangCode, "Français");
-        inv.setItem(31, createItem(Material.BOOK, plugin.getLangManager().getRaw("gui.item.langue_du_plugin"),
+        inv.setItem(25, createItem(Material.BOOK, plugin.getLangManager().getRaw("gui.item.langue_du_plugin"),
                 plugin.getLangManager().getRaw("gui.item.langue_actuelle") + currentLangName + " (" + currentLangCode + ")",
                 "",
                 plugin.getLangManager().getRaw("gui.item.clic_pour_choisir_la_langue")));
 
         inv.setItem(49, createBackItem());
+        player.openInventory(inv);
+    }
+
+    public void openBannedNaturalEntitiesMenu(Player player, int page, String filter) {
+        if (filter == null || filter.isEmpty()) filter = "ALL";
+        WDMenuHolder holder = new WDMenuHolder("BANNED_NATURAL_ENTITIES", page + ":" + filter);
+        Inventory inv = Bukkit.createInventory(holder, 54, Component.text(plugin.getLangManager().getRaw("gui.title_banned_natural_entities") + " (" + filter + ")"));
+        holder.setInventory(inv);
+
+        List<EntityType> choicesList = new ArrayList<>();
+        for (EntityType type : EntityType.values()) {
+            if (type.isAlive() && type != EntityType.ARMOR_STAND && type != EntityType.PLAYER) {
+                boolean hostile = isHostileType(type);
+                if (filter.equals("HOSTILES") && !hostile) continue;
+                if (filter.equals("PASSIVES") && hostile) continue;
+                choicesList.add(type);
+            }
+        }
+        choicesList.sort(java.util.Comparator.comparing(Enum::name));
+
+        int itemsPerPage = 45;
+        int maxPages = (int) Math.ceil((double) choicesList.size() / itemsPerPage);
+        if (maxPages == 0) maxPages = 1;
+        if (page >= maxPages) page = maxPages - 1;
+        if (page < 0) page = 0;
+
+        int startIndex = page * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, choicesList.size());
+
+        int slot = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            EntityType type = choicesList.get(i);
+            Material mat = getVariantHeadMaterial(type);
+            boolean isBanned = plugin.getMainConfigManager().isNaturalEntityBanned(type.name());
+            String statusTitle = isBanned ? "&c✖ &l" + type.name() : "&a✔ &l" + type.name();
+            String statusLore = isBanned ? plugin.getLangManager().getRaw("gui.banned_entities.status_banned") : plugin.getLangManager().getRaw("gui.banned_entities.status_allowed");
+
+            inv.setItem(slot++, createItem(mat, statusTitle,
+                    statusLore,
+                    "",
+                    plugin.getLangManager().getRaw("gui.banned_entities.click_toggle")));
+        }
+
+        // Filtres (slots 45, 46, 47)
+        inv.setItem(45, createItem(Material.NETHERITE_SWORD, plugin.getLangManager().getRaw("gui.item.filtrer_hostiles"), plugin.getLangManager().getRaw("gui.item.afficher_uniquement_les_monstres")));
+        inv.setItem(46, createItem(Material.WHEAT, plugin.getLangManager().getRaw("gui.item.filtrer_passifs_neutres"), plugin.getLangManager().getRaw("gui.item.afficher_les_animaux_et_créatures")));
+        inv.setItem(47, createItem(Material.BOOK, plugin.getLangManager().getRaw("gui.item.filtrer_tous"), plugin.getLangManager().getRaw("gui.item.afficher_toutes_les_créatures_de")));
+
+        // Pagination
+        if (page > 0) {
+            inv.setItem(48, createItem(Material.ARROW, plugin.getLangManager().getRaw("gui.item.page_précédente") + page + ")"));
+        }
+        if (page < maxPages - 1) {
+            inv.setItem(50, createItem(Material.ARROW, plugin.getLangManager().getRaw("gui.item.page_suivante") + (page + 2) + ")"));
+        }
+
+        // Tête d'information '?' (slot 49)
+        ItemStack infoHead = new ItemStack(Material.PLAYER_HEAD);
+        org.bukkit.inventory.meta.SkullMeta skullMeta = (org.bukkit.inventory.meta.SkullMeta) infoHead.getItemMeta();
+        if (skullMeta != null) {
+            skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_Question"));
+            infoHead.setItemMeta(skullMeta);
+        }
+        inv.setItem(49, createItem(infoHead, plugin.getLangManager().getRaw("gui.banned_entities.info_title"),
+                plugin.getLangManager().getRaw("gui.banned_entities.info_line1"),
+                plugin.getLangManager().getRaw("gui.banned_entities.info_line2"),
+                "",
+                plugin.getLangManager().getRaw("gui.banned_entities.info_line3"),
+                plugin.getLangManager().getRaw("gui.banned_entities.info_line4")));
+
+        // Bouton Retour (slot 53)
+        inv.setItem(53, createBackItem());
         player.openInventory(inv);
     }
 

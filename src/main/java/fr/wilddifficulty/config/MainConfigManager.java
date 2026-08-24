@@ -15,6 +15,7 @@ public class MainConfigManager {
     private boolean debug;
     private boolean blockVanillaHostiles;
     private boolean blockVanillaPassives;
+    private final java.util.Set<String> bannedNaturalEntities = new java.util.HashSet<>();
     private boolean zoneBorderParticles;
     private int maxSpawnDistance;
 
@@ -102,6 +103,14 @@ public class MainConfigManager {
         boolean oldVal = cfg.getBoolean("plugin.bloquer-mobs-vanilla", false);
         blockVanillaHostiles = cfg.getBoolean("plugin.bloquer-hostiles-vanilla", oldVal);
         blockVanillaPassives = cfg.getBoolean("plugin.bloquer-passifs-vanilla", false);
+        bannedNaturalEntities.clear();
+        if (cfg.isList("plugin.banned-natural-entities")) {
+            for (String s : cfg.getStringList("plugin.banned-natural-entities")) {
+                if (s != null && !s.trim().isEmpty()) {
+                    bannedNaturalEntities.add(s.trim().toUpperCase());
+                }
+            }
+        }
         zoneBorderParticles = cfg.getBoolean("plugin.particules-bordure-zone", true);
         maxSpawnDistance    = cfg.getInt("plugin.distance-spawn-max-joueur", 96);
         capVariantesParJoueur = cfg.getInt("plugin.cap-variantes-par-joueur", 50);
@@ -209,6 +218,7 @@ public class MainConfigManager {
         cfg.set("plugin.debug", debug);
         cfg.set("plugin.bloquer-hostiles-vanilla", blockVanillaHostiles);
         cfg.set("plugin.bloquer-passifs-vanilla", blockVanillaPassives);
+        cfg.set("plugin.banned-natural-entities", new java.util.ArrayList<>(bannedNaturalEntities));
         cfg.set("plugin.particules-bordure-zone", zoneBorderParticles);
         cfg.set("plugin.distance-spawn-max-joueur", maxSpawnDistance);
         cfg.set("plugin.cap-variantes-par-joueur", capVariantesParJoueur);
@@ -288,6 +298,35 @@ public class MainConfigManager {
     public void setBlockVanillaHostiles(boolean v) { this.blockVanillaHostiles = v; }
     public boolean isBlockVanillaPassives() { return blockVanillaPassives; }
     public void setBlockVanillaPassives(boolean v) { this.blockVanillaPassives = v; }
+
+    public java.util.Set<String> getBannedNaturalEntities() {
+        return bannedNaturalEntities;
+    }
+
+    public boolean isNaturalEntityBanned(String entityType) {
+        if (entityType == null) return false;
+        return bannedNaturalEntities.contains(entityType.toUpperCase());
+    }
+
+    public void setNaturalEntityBanned(String entityType, boolean banned) {
+        if (entityType == null) return;
+        if (banned) {
+            bannedNaturalEntities.add(entityType.toUpperCase());
+        } else {
+            bannedNaturalEntities.remove(entityType.toUpperCase());
+        }
+    }
+
+    public void toggleNaturalEntityBanned(String entityType) {
+        if (entityType == null) return;
+        String key = entityType.toUpperCase();
+        if (bannedNaturalEntities.contains(key)) {
+            bannedNaturalEntities.remove(key);
+        } else {
+            bannedNaturalEntities.add(key);
+        }
+    }
+
     public boolean isZoneBorderParticles() { return zoneBorderParticles; }
     public void setZoneBorderParticles(boolean v) { this.zoneBorderParticles = v; }
 

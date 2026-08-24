@@ -27,6 +27,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GuiListener implements Listener {
 
@@ -133,27 +134,14 @@ public class GuiListener implements Listener {
 
             switch (menuType) {
                 case "MAIN" -> {
-                    if (slot == 10) gui.openGlobalModifiersMenu(player);
-                    else if (slot == 12) gui.openVariantList(player);
-                    else if (slot == 14) gui.openSquadList(player);
-                    else if (slot == 16) gui.openZoneList(player);
-                    else if (slot == 20) gui.openBloodMoonEditor(player);
-                    else if (slot == 22) gui.openGeneralConfig(player);
-                    else if (slot == 24) gui.openAdminToolsMenu(player);
-                    else if (slot == 28) {
-                        mainCfg.setBlockVanillaHostiles(!mainCfg.isBlockVanillaHostiles());
-                        mainCfg.save();
-                        gui.openMainMenu(player);
-                    }
-                    else if (slot == 30) {
-                        mainCfg.setBlockVanillaPassives(!mainCfg.isBlockVanillaPassives());
-                        mainCfg.save();
-                        gui.openMainMenu(player);
-                    }
-                    else if (slot == 32) {
-                        gui.openLanguageSelector(player);
-                    }
-                    else if (slot == 34) {
+                    if (slot == 20) gui.openVariantList(player);
+                    else if (slot == 22) gui.openSquadList(player);
+                    else if (slot == 24) gui.openZoneList(player);
+                    else if (slot == 29) gui.openBloodMoonEditor(player);
+                    else if (slot == 31) gui.openGeneralConfig(player);
+                    else if (slot == 33) gui.openAdminToolsMenu(player);
+                    else if (slot == 38) gui.openLanguageSelector(player);
+                    else if (slot == 42) {
                         plugin.reloadAll();
                         player.sendMessage(plugin.getLangManager().get("general.config_reloaded"));
                         player.closeInventory();
@@ -163,17 +151,25 @@ public class GuiListener implements Listener {
                     }
                 }
                 case "GENERAL_CONFIG" -> {
-                    if (slot == 49) {
+                    if (slot == 49 || slot == 53) {
                         gui.openMainMenu(player);
                         return;
                     }
                     if (slot == 10) {
+                        gui.openGlobalModifiersMenu(player);
+                        return;
+                    }
+                    if (slot == 11) {
+                        gui.openBannedNaturalEntitiesMenu(player, 0, "ALL");
+                        return;
+                    }
+                    if (slot == 12) {
                         mainCfg.setDebug(!mainCfg.isDebug());
                         mainCfg.save();
                         gui.openGeneralConfig(player);
                         return;
                     }
-                    if (slot == 11) {
+                    if (slot == 14) {
                         if (event.getClick() == ClickType.MIDDLE) {
                             ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.distance_de_spawn_max_par"), input -> {
                                 try {
@@ -196,7 +192,7 @@ public class GuiListener implements Listener {
                         gui.openGeneralConfig(player);
                         return;
                     }
-                    if (slot == 12) {
+                    if (slot == 15) {
                         if (event.getClick() == ClickType.MIDDLE) {
                             ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.cap_maximum_de_variantes_par"), input -> {
                                 try {
@@ -215,25 +211,25 @@ public class GuiListener implements Listener {
                         gui.openGeneralConfig(player);
                         return;
                     }
-                    if (slot == 19) {
+                    if (slot == 16) {
                         mainCfg.setDisableBurningGlobally(!mainCfg.isDisableBurningGlobally());
                         mainCfg.save();
                         gui.openGeneralConfig(player);
                         return;
                     }
-                    if (slot == 20) {
+                    if (slot == 19) {
                         mainCfg.setAllowDaySpawnGlobally(!mainCfg.isAllowDaySpawnGlobally());
                         mainCfg.save();
                         gui.openGeneralConfig(player);
                         return;
                     }
-                    if (slot == 28) {
+                    if (slot == 21) {
                         mainCfg.setNametagsEnabled(!mainCfg.isNametagsEnabled());
                         mainCfg.save();
                         gui.openGeneralConfig(player);
                         return;
                     }
-                    if (slot == 29) {
+                    if (slot == 22) {
                         ChatPromptUtil.prompt(plugin, player, plugin.getLangManager().getRaw("gui.msg.saisissez_le_format_des_nametags"), input -> {
                             mainCfg.setNametagFormat(input);
                             mainCfg.save();
@@ -242,16 +238,12 @@ public class GuiListener implements Listener {
                         });
                         return;
                     }
-                    if (slot == 30) {
+                    if (slot == 23) {
                         gui.openThirstHardcoreAdminGui(player);
                         return;
                     }
-                    if (slot == 31) {
+                    if (slot == 25) {
                         gui.openLanguageSelector(player);
-                        return;
-                    }
-                    if (slot == 49 || slot == 53) {
-                        gui.openMainMenu(player);
                         return;
                     }
                 }
@@ -500,10 +492,64 @@ public class GuiListener implements Listener {
                 }
                 case "GLOBALS" -> {
                     if (slot == 22 || slot == 26) {
-                        gui.openMainMenu(player);
+                        gui.openGeneralConfig(player);
                         return;
                     }
                     handleModifierClick(player, event, "global", null, gui, varManager, zoneManager, mainCfg);
+                }
+                case "BANNED_NATURAL_ENTITIES" -> {
+                    String[] parts = contextId.split(":");
+                    int page = 0;
+                    String filter = "ALL";
+                    try {
+                        page = Integer.parseInt(parts[0]);
+                        if (parts.length > 1) filter = parts[1];
+                    } catch (Exception ignored) {}
+
+                    if (slot == 53) {
+                        gui.openGeneralConfig(player);
+                        return;
+                    }
+                    if (slot == 45) {
+                        gui.openBannedNaturalEntitiesMenu(player, 0, "HOSTILES");
+                        return;
+                    }
+                    if (slot == 46) {
+                        gui.openBannedNaturalEntitiesMenu(player, 0, "PASSIVES");
+                        return;
+                    }
+                    if (slot == 47) {
+                        gui.openBannedNaturalEntitiesMenu(player, 0, "ALL");
+                        return;
+                    }
+                    if (slot == 48 && page > 0) {
+                        gui.openBannedNaturalEntitiesMenu(player, page - 1, filter);
+                        return;
+                    }
+                    if (slot == 50) {
+                        gui.openBannedNaturalEntitiesMenu(player, page + 1, filter);
+                        return;
+                    }
+                    if (slot == 49) {
+                        // Information head '?' -> no action
+                        return;
+                    }
+
+                    if (slot >= 0 && slot < 45 && event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() && event.getCurrentItem().getItemMeta().hasDisplayName()) {
+                        String rawName = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()).replace("✔", "").replace("✖", "").trim();
+                        try {
+                            EntityType type = EntityType.valueOf(rawName);
+                            mainCfg.toggleNaturalEntityBanned(type.name());
+                            mainCfg.save();
+                            boolean isBanned = mainCfg.isNaturalEntityBanned(type.name());
+                            if (isBanned) {
+                                player.sendMessage(plugin.getLangManager().get("gui.msg.entity_banned", Map.of("type", type.name())));
+                            } else {
+                                player.sendMessage(plugin.getLangManager().get("gui.msg.entity_unbanned", Map.of("type", type.name())));
+                            }
+                            gui.openBannedNaturalEntitiesMenu(player, page, filter);
+                        } catch (Exception ignored) {}
+                    }
                 }
                 case "BLOODMOON_EDIT" -> {
                     if (slot == 49) {
@@ -2867,8 +2913,10 @@ public class GuiListener implements Listener {
     }
 
     private void handleGenericReturn(Player player, String menuType, String contextId, GuiManager gui) {
-        if (menuType.equals("GLOBALS") || menuType.equals("VARIANT_LIST") || menuType.equals("SQUAD_LIST") || menuType.equals("ZONE_LIST") || menuType.equals("BLOODMOON_EDIT") || menuType.equals("BIOME_SPAWN_CONFIG") || menuType.equals("ADMIN_TOOLS") || menuType.equals("GENERAL_CONFIG")) {
+        if (menuType.equals("VARIANT_LIST") || menuType.equals("SQUAD_LIST") || menuType.equals("ZONE_LIST") || menuType.equals("BLOODMOON_EDIT") || menuType.equals("BIOME_SPAWN_CONFIG") || menuType.equals("ADMIN_TOOLS") || menuType.equals("GENERAL_CONFIG")) {
             gui.openMainMenu(player);
+        } else if (menuType.equals("GLOBALS") || menuType.equals("BANNED_NATURAL_ENTITIES")) {
+            gui.openGeneralConfig(player);
         } else if (menuType.equals("VARIANT_EDIT")) {
             gui.openVariantList(player);
         } else if (menuType.equals("CHOOSE_ENTITY_TYPE")) {
